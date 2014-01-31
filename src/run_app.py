@@ -3,8 +3,8 @@
 """
 Start the server and run the app
 """
-from dispatcher.trackerdash import TrackerDash
+from trackerdash import TrackerDash
 
 
 if __name__ == '__main__':
-    app = TrackerDash()
+    app = TrackerDash('localhost', 8090)
