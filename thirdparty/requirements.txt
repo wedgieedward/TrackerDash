@@ -1,5 +1,0 @@
-Additional Requirements:
-
-twisted
-werkzerg
-zope
