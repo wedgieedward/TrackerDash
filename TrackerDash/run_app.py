@@ -11,4 +11,4 @@ PORT = 8090
 
 if __name__ == '__main__':
     logging.info("Starting TrackerDash")
-    app = TrackerDash(URL, PORT)
+    app = WebDispatcher(URL, PORT)
