@@ -13,7 +13,7 @@ class WebDispatcher(object):
     """
     app = Klein()
 
-    def __init__(self, url='localhost', port=8089, auto_start=True):
+    def __init__(self, url, port, auto_start=True):
         logging.info("WebDispatcher instance is being created")
         self._url = url
         self._port = port
