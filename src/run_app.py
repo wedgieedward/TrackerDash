@@ -6,7 +6,9 @@ Start the server and run the app
 import logging
 from trackerdash import TrackerDash
 
+URL = 'localhost'
+PORT = 8090
 
 if __name__ == '__main__':
     logging.info("Starting TrackerDash")
-    app = TrackerDash('localhost', 8090)
+    app = TrackerDash(URL, PORT)
