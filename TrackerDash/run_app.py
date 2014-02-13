@@ -4,7 +4,7 @@
 Start the server and run the app
 """
 import logging
-from trackerdash import TrackerDash
+from webdispatcher import WebDispatcher
 
 URL = 'localhost'
 PORT = 8090
