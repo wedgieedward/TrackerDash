@@ -3,7 +3,10 @@ trackerdash main application class
 """
 import logging
 from klein import Klein
-from basewebpage import BaseWebPage
+from twisted.web.static import File
+from pprint import pprint
+
+from TrackerDash.templates.welcomepage import WelcomePage
 
 
 class WebDispatcher(object):
@@ -28,6 +31,17 @@ class WebDispatcher(object):
         self.app.run(self._url, self._port)
 
     @app.route('/', methods=['GET'])
+    def welcome_page(self, _request):
+        """
+        Bring up the welcome page
+        """
+        return self.get_page('TrackerDash/web/welcome_page.html')
+
+    @app.route('/web/', branch=True)
+    def static_web_routing(self, _request):
+        return File('TrackerDash/web')
+
+    @app.route('/status/', methods=['GET'])
     def status(self, _request):
         """
         report the status of the application
@@ -51,3 +65,13 @@ class WebDispatcher(object):
         """
         logging.info("Request at path '/test/base/")
         return BaseWebPage('pages/basepage.html')
+
+    def get_page(self, path):
+        """
+        very cheap way of getting the static file
+        TODO: find a more twisted/twisted-klein way of doing this.
+        """
+        a = open(path, 'r')
+        string = ''.join(a.readlines())
+        return string
+
