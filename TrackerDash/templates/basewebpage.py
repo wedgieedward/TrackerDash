@@ -12,6 +12,7 @@ class BasePage(Element):
     """
     def __init__(self, dashboard=''):
         super(BasePage, self).__init__()
+        self.dashboard = dashboard
         self.loader = XMLFile(FilePath("TrackerDash/pages/basewebpage.html"))
 
     def get_dashboards(self):
@@ -28,9 +29,24 @@ class BasePage(Element):
             yield tag.clone().fillSlots(dashName=dashboard, dashLink=link)
 
     @renderer
-    def page_content(self, request, tag):
+    def footer(self, request, tag):
         """
-        renderer for the main page content
+        dynamically render the footer
         """
+        footer_snippet = XMLFile(FilePath("TrackerDash/snippets/footer.xml"))
+        return footer_snippet.load()
+
+    @renderer
+    def alarms(self, request, tag):
+        """
+        dynamically render the alarms
+        """
+        if self.dashboard != '':
+            print "Dashboard: '%s'" % self.dashboard
+            return ''
+        else:
+            alarm_snippet = XMLFile(FilePath("TrackerDash/snippets/green_alarm.xml"))
+            return alarm_snippet.load()
+
 
 

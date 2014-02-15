@@ -1,0 +1,7 @@
+<div id="footer">
+    <div class="container">
+        <p class="text-muted credit">
+        	TrackerDash Version 0.1. <a href="http://www.github.com/wedgieedward/TrackerDash/">A Playtime Investigation.</a>
+        </p>
+    </div>
+</div>

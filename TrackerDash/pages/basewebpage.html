@@ -37,19 +37,22 @@
 		<div class="col-md-12 column">
 			<nav class="navbar navbar-default" role="navigation">
 				<div class="navbar-header">
-					 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="#">TrackerDash</a>
+					 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="http://localhost:8090/dash/">TrackerDash</a>
 				</div>
 				
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<li class="dropdown">
 							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dashboards<strong class="caret"></strong></a>
+
 							<ul class="dropdown-menu">
+								<!-- Render the dashboard names dynamically -->
 								<li t:render="dashboards_dropdown">
 									<a><t:attr name="href"><t:slot name="dashLink" /></t:attr>
 										<t:slot name="dashName" />
 									</a>
 								</li>
+
 								<li class="divider">
 								</li>
 								<li>
@@ -87,19 +90,14 @@
 				</div>
 				
 			</nav>
-			<div class="alert alert-success alert-dismissable">
-				 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-				<h4>
-					No Dash Selected.
-				</h4>Select a dashboard from the dropdown or <a href="#" class="alert-link">create a new one.</a>
-			</div>
 		</div>
 	</div>
 </div>
-<div id="footer">
-    <div class="container">
-        <p class="text-muted credit">TrackerDash Version 0.1. <a href="http://www.github.com/wedgieedward/TrackerDash/">A Playtime Investigation.</a></p>
-    </div>
-</div>
+<!-- dynamically render the alarms -->
+<div t:render="alarms"/>
+
+<!-- dynamically render the footer -->
+<div t:render="footer"/>
+
 </body>
 </html>
