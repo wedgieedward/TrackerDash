@@ -6,7 +6,7 @@ from klein import Klein
 from twisted.web.static import File
 from pprint import pprint
 
-from TrackerDash.templates.welcomepage import WelcomePage
+from TrackerDash.templates.basewebpage import BasePage
 
 
 class WebDispatcher(object):
@@ -31,11 +31,13 @@ class WebDispatcher(object):
         self.app.run(self._url, self._port)
 
     @app.route('/', methods=['GET'])
-    def welcome_page(self, _request):
+    def index(self, _request):
         """
-        Bring up the welcome page
+        Index Routing
         """
-        return self.get_page('TrackerDash/web/welcome_page.html')
+        start_page = '/web/welcome_page.html'
+        return '<meta http-equiv="refresh" content="0; url=%s" />' % start_page
+        # return self.get_page('TrackerDash/web/welcome_page.html')
 
     @app.route('/web/', branch=True)
     def static_web_routing(self, _request):
@@ -58,13 +60,12 @@ class WebDispatcher(object):
         arguments = request.args.get()
         return arguments
 
-    @app.route('/test/base/', methods=["GET"])
+    @app.route('/test/', methods=["GET"])
     def testpage(self, _request):
         """
         route to the test html page
         """
-        logging.info("Request at path '/test/base/")
-        return BaseWebPage('pages/basepage.html')
+        return BasePage()
 
     def get_page(self, path):
         """
