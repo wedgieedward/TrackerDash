@@ -60,12 +60,20 @@ class WebDispatcher(object):
         arguments = request.args.get()
         return arguments
 
-    @app.route('/test/', methods=["GET"])
+    @app.route('/dash/', methods=["GET"])
     def testpage(self, _request):
         """
         route to the test html page
         """
         return BasePage()
+
+    @app.route('/dash/<string:dashboard>', methods=["GET"])
+    def get_dash_page(self, _request, dashboard=''):
+        """
+        dynamically route to a specific dashboard page
+        """
+        return BasePage(dashboard)
+
 
     def get_page(self, path):
         """
