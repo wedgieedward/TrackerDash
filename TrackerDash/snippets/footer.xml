@@ -1,7 +1,17 @@
-<div id="footer">
-    <div class="container">
-        <p class="text-muted credit">
-        	TrackerDash Version 0.1. <a href="http://www.github.com/wedgieedward/TrackerDash/">A Playtime Investigation.</a>
-        </p>
+<div class="container">
+    <div class="row-fluid">
+        <span class="span12">
+            <div class="pull-left">
+                <p>TrackerDash Version 0.1</p>
+            </div>
+            <ul class="nav nav-pills pull-right">
+                <li>
+                    <a href="https://github.com/wedgieedward/TrackerDash/">About</a>
+                </li>
+                <li>
+                    <a href="https://github.com/wedgieedward/TrackerDash/issues">Report A Bug</a>
+                </li>
+            </ul>
+        </span>
     </div>
 </div>

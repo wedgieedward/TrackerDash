@@ -24,17 +24,17 @@ class BasePage(Element):
                 ("Some Other Dashboard", 'http://localhost:8090/dash/Some Other Dashboard')]
 
     @renderer
-    def dashboards_dropdown(self, request, tag):
-        for dashboard, link in self.get_dashboards():
-            yield tag.clone().fillSlots(dashName=dashboard, dashLink=link)
-
-    @renderer
     def footer(self, request, tag):
         """
         dynamically render the footer
         """
         footer_snippet = XMLFile(FilePath("TrackerDash/snippets/footer.xml"))
         return footer_snippet.load()
+
+    @renderer
+    def dashboards_dropdown(self, request, tag):
+        for dashboard, link in self.get_dashboards():
+            yield tag.clone().fillSlots(dashName=dashboard, dashLink=link)
 
     @renderer
     def alarms(self, request, tag):
