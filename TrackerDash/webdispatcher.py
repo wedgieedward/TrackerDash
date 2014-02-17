@@ -36,16 +36,23 @@ class WebDispatcher(object):
         """
         start_page = '/web/welcome_page.html'
         return '<meta http-equiv="refresh" content="0; url=%s" />' % start_page
-        # return self.get_page('TrackerDash/web/welcome_page.html')
 
     @app.route('/web/', branch=True)
     def static_web_routing(self, _request):
         return File('TrackerDash/web')
 
+    @app.route('/graph/', branch=True)
+    def third_party_graphs(self, _request):
+        """
+        test route link to view the contents of thirdparty
+        """
+        return File('TrackerDash/thirdparty')
+
     @app.route('/status/', methods=['GET'])
     def status(self, _request):
         """
         report the status of the application
+        note:: not currently implemented, placeholder for status
         """
         logging.info("Request at path '/'")
         return "Everything Is Running A-OK"
@@ -54,6 +61,8 @@ class WebDispatcher(object):
     def api(self, request):
         """
         post to the database over the api
+
+        note:: not currently implemented, placeholder for api
         """
         logging.info("Request at path '/api/")
         arguments = request.args.get()
@@ -72,12 +81,3 @@ class WebDispatcher(object):
         dynamically route to a specific dashboard page
         """
         return BasePage(dashboard)
-
-    def get_page(self, path):
-        """
-        very cheap way of getting the static file
-        TODO: find a more twisted/twisted-klein way of doing this.
-        """
-        a = open(path, 'r')
-        string = ''.join(a.readlines())
-        return string
