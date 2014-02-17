@@ -5,7 +5,7 @@ import logging
 from klein import Klein
 from twisted.web.static import File
 
-from TrackerDash.templates.basewebpage import BasePage
+from templates.basewebpage import BasePage
 
 
 class WebDispatcher(object):
