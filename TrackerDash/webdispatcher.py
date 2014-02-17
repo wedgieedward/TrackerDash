@@ -4,7 +4,6 @@ trackerdash main application class
 import logging
 from klein import Klein
 from twisted.web.static import File
-from pprint import pprint
 
 from TrackerDash.templates.basewebpage import BasePage
 
@@ -74,7 +73,6 @@ class WebDispatcher(object):
         """
         return BasePage(dashboard)
 
-
     def get_page(self, path):
         """
         very cheap way of getting the static file
@@ -83,4 +81,3 @@ class WebDispatcher(object):
         a = open(path, 'r')
         string = ''.join(a.readlines())
         return string
-

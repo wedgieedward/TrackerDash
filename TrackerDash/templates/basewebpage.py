@@ -1,8 +1,7 @@
 """
 base web page
 """
-import logging
-from twisted.web.template import Element, XMLFile, renderer, TagLoader, flattenString, XMLString
+from twisted.web.template import Element, XMLFile, renderer
 from twisted.python.filepath import FilePath
 
 
@@ -47,6 +46,3 @@ class BasePage(Element):
         else:
             alarm_snippet = XMLFile(FilePath("TrackerDash/snippets/green_alarm.xml"))
             return alarm_snippet.load()
-
-
-
