@@ -46,3 +46,12 @@ class BasePage(Element):
         else:
             alarm_snippet = XMLFile(FilePath("TrackerDash/snippets/green_alarm.xml"))
             return alarm_snippet.load()
+
+    @renderer
+    def content(self, request, tag):
+        """
+        This should be overriden on a per page-type basis.
+        We will just return text here
+        """
+        content_snippet = XMLFile(FilePath("TrackerDash/snippets/base_content.xml"))
+        return content_snippet.load()
