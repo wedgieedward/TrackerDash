@@ -14,6 +14,7 @@ class BasePage(Element):
     auto_refresh = True
     refresh_interval = 60
     display_alarms = True
+    display_popup = True
 
     def __init__(self, dashboard=''):
         super(BasePage, self).__init__()
@@ -64,7 +65,7 @@ class BasePage(Element):
         """
         return the dashboard
         """
-        return NavBar()
+        return NavBar(False)
 
     @renderer
     def footer(self, request, tag):
