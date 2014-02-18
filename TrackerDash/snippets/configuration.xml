@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row clearfix">
-        <div class="col-md-2 column">
+        <div class="col-md-3 column">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -8,17 +8,17 @@
                     </h3>
                 </div>
                 <div class="panel-body">
-                    <a href='#'>Database Settings</a>
+                    <a href='#'><span class="glyphicon glyphicon-cog"></span> Database Settings</a>
                 </div>
                 <div class="panel-body">
-                    <a href='#'>Dashboard Settings</a>
+                    <a href='#'><span class="glyphicon glyphicon-cog"></span> Dashboard Settings</a>
                 </div>
                 <div class="panel-body">
-                    <a href='#'>API Settings</a>
+                    <a href='#'><span class="glyphicon glyphicon-cog"></span> API Settings</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-6 column">
+        <div class="col-md-5 column">
             <h2>
                 Database Settings
             </h2>
@@ -46,21 +46,13 @@
                         <input type="password" class="form-control" id="inputPassword" />
                     </div>
                 </div>
-                <div class="btn-group">
-                 <button class="btn btn-default">Action</button> <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="#">Action</a>
-                    </li>
-                    <li class="disabled">
-                        <a href="#">Another action</a>
-                    </li>
-                    <li class="divider">
-                    </li>
-                    <li>
-                        <a href="#">Something else here</a>
-                    </li>
-                </ul>
+                <div class="form-group">
+                <div class="btn-group btn-group-sm col-sm-offset-2 col-sm-10">
+                     <button class="btn btn-default" type="button">SQLLite</button>
+                     <button class="btn btn-default" type="button">MongoDB</button>
+                     <button class="btn btn-default disabled" type="button">EdDb</button>
+                     <button class="btn btn-default disabled" type="button">AnotherDB</button>
+                </div>
             </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
@@ -68,88 +60,6 @@
                     </div>
                 </div>
             </form>
-
-            <div class="btn-group btn-group-sm">
-                 <button class="btn btn-default" type="button"><em class="glyphicon glyphicon-align-left"></em> Left</button> <button class="btn btn-default" type="button"><em class="glyphicon glyphicon-align-center"></em> Center</button> <button class="btn btn-default" type="button"><em class="glyphicon glyphicon-align-right"></em> Right</button> <button class="btn btn-default" type="button"><em class="glyphicon glyphicon-align-justify"></em> Justify</button>
-            </div>
-        </div>
-        <div class="col-md-4 column">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>
-                            Connection
-                        </th>
-                        <th>
-                            Type
-                        </th>
-                        <th>
-                            Status
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            Placeholder
-                        </td>
-                        <td>
-                            Database
-                        </td>
-                        <td>
-                            Unknown
-                        </td>
-                    </tr>
-                    <tr class="active">
-                        <td>
-                            ..
-                        </td>
-                        <td>
-                            Placeholder
-                        </td>
-                        <td>
-                            Approved
-                        </td>
-                    </tr>
-                    <tr class="success">
-                        <td>
-                            ..
-                        </td>
-                        <td>
-                            Placeholder
-                        </td>
-                        <td>
-                            Declined
-                        </td>
-                    </tr>
-                    <tr class="warning">
-                        <td>
-                            ..
-                        </td>
-                        <td>
-                            Placeholder
-                        </td>
-                        <td>
-                            Pending
-                        </td>
-                    </tr>
-                    <tr class="danger">
-                        <td>
-                            ..
-                        </td>
-                        <td>
-                            Placeholder
-                        </td>
-                        <td>
-                            Call in to confirm
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="progress">
-                <div class="progress-bar progress-success">
-                </div>
-            </div>
         </div>
     </div>
 </div>

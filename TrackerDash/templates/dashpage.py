@@ -1,0 +1,27 @@
+"""
+Dashboard Page
+"""
+from twisted.web.template import Element, XMLFile, XMLString, renderer
+from twisted.python.filepath import FilePath
+
+from basewebpage import BasePage
+
+
+class DashPage(BasePage):
+    auto_refresh = True
+    display_alarms = False
+
+    def __init__(self, dashboard_name):
+        self.dashboard_name = dashboard_name
+        super(DashPage, self).__init__()
+
+    @renderer
+    def auto_refresh(self, request, tag):
+        return super(DashPage, self).auto_refresh(request, tag)
+
+    @renderer
+    def content(self, request, tag):
+        """
+        return the content of this page
+        """
+        return "Dashboard for %s" % self.dashboard_name

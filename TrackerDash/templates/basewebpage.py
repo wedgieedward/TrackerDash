@@ -11,14 +11,12 @@ class BasePage(Element):
     """
     Object for base webpage
     """
-    auto_refresh = True
+    auto_refresh = False
     refresh_interval = 60
-    display_alarms = True
-    display_popup = True
+    display_alarms = False
 
-    def __init__(self, dashboard=''):
+    def __init__(self):
         super(BasePage, self).__init__()
-        self.dashboard = dashboard
         self.loader = XMLFile(FilePath("TrackerDash/pages/basewebpage.html"))
 
     @renderer
@@ -80,8 +78,7 @@ class BasePage(Element):
         """
         dynamically render the alarms
         """
-        if self.dashboard != '':
-            print "Dashboard: '%s'" % self.dashboard
+        if not self.display_alarms:
             return ''
         else:
             alarm_snippet = XMLFile(FilePath("TrackerDash/snippets/green_alarm.xml"))
@@ -91,7 +88,6 @@ class BasePage(Element):
     def content(self, request, tag):
         """
         This should be overriden on a per page-type basis.
-        We will just return text here
+        We will just return nothing here
         """
-        content_snippet = XMLFile(FilePath("TrackerDash/snippets/base_content.xml"))
-        return content_snippet.load()
+        return ""

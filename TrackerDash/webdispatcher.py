@@ -6,6 +6,7 @@ from klein import Klein
 from twisted.web.static import File
 
 from templates.basewebpage import BasePage
+from templates.dashpage import DashPage
 from templates.configpage import ConfigPage
 
 
@@ -74,7 +75,7 @@ class WebDispatcher(object):
         return arguments
 
     @app.route('/dash/', methods=["GET"])
-    def testpage(self, _request):
+    def basedash(self, _request):
         """
         route to the test html page
         """
@@ -85,4 +86,4 @@ class WebDispatcher(object):
         """
         dynamically route to a specific dashboard page
         """
-        return BasePage(dashboard)
+        return DashPage(dashboard)
