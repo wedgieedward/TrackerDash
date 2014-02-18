@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
   <meta name="description" content="TrackerDash analytics web server"></meta>
   <meta name="author" content=""></meta>
-  <!-- Auto Refresh The Page Every X Seconds TODO: make this configurable-->
-  <meta http-equiv="refresh" content="60"></meta>
+
+  <!-- Render code to decide if we should auto refresh -->
+  <t:transparent t:render="auto_refresh" />
 
 	<!--link rel="stylesheet/less" href="less/bootstrap.less" type="text/css" /-->
 	<!--link rel="stylesheet/less" href="less/responsive.less" type="text/css" /-->
@@ -71,7 +72,7 @@
 							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
 								<li>
-									<a href="#">Configure Trackerdash</a>
+									<a href="http://localhost:8090/configure/">Configure Trackerdash</a>
 								</li>
 								<li>
 									<a href="#">Database Settings</a>

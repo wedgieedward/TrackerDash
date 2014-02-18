@@ -6,6 +6,7 @@ from klein import Klein
 from twisted.web.static import File
 
 from templates.basewebpage import BasePage
+from templates.configpage import ConfigPage
 
 
 class WebDispatcher(object):
@@ -56,6 +57,10 @@ class WebDispatcher(object):
         """
         logging.info("Request at path '/'")
         return "Everything Is Running A-OK"
+
+    @app.route('/configure/', methods=['GET'])
+    def configuration_page(self, _request):
+        return ConfigPage()
 
     @app.route('/api/', methods=['POST'])
     def api(self, request):

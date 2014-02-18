@@ -1,7 +1,7 @@
 """
 base web page
 """
-from twisted.web.template import Element, XMLFile, renderer
+from twisted.web.template import Element, XMLFile, XMLString, renderer
 from twisted.python.filepath import FilePath
 
 
@@ -9,6 +9,9 @@ class BasePage(Element):
     """
     Object for base webpage
     """
+    auto_refresh = True
+    refresh_interval = 60
+
     def __init__(self, dashboard=''):
         super(BasePage, self).__init__()
         self.dashboard = dashboard
@@ -21,6 +24,17 @@ class BasePage(Element):
         return [("Dalby Dashboard", 'http://localhost:8090/dash/Dalby Dashboard'),
                 ("VCS Dashboard", 'http://localhost:8090/dash/VCS Dashboard'),
                 ("Some Other Dashboard", 'http://localhost:8090/dash/Some Other Dashboard')]
+
+    @renderer
+    def auto_refresh(self, request, tag):
+        """
+        render the auto refresh meta tag
+        """
+        if self.auto_refresh:
+            return XMLString(
+                '<meta http-equiv="refresh" content="%s"></meta>' % (self.refresh_interval)).load()
+        else:
+            return ''
 
     @renderer
     def footer(self, request, tag):
