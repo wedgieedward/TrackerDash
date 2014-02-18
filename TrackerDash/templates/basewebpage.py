@@ -37,6 +37,27 @@ class BasePage(Element):
             return ''
 
     @renderer
+    def required_stylesheets(self, request, tag):
+        """
+        return the xml required for the stylesheets for this page
+        """
+        return XMLFile(FilePath("TrackerDash/snippets/stylesheets.xml")).load()
+
+    @renderer
+    def favicons(self, request, tag):
+        """
+        return the xml required for the favicon and touch icons
+        """
+        return XMLFile(FilePath("TrackerDash/snippets/favicons.xml")).load()
+
+    @renderer
+    def header_scripts(self, request, tag):
+        """
+        return the header script tags required for this page
+        """
+        return XMLFile(FilePath("TrackerDash/snippets/headerscripts.xml")).load()
+
+    @renderer
     def footer(self, request, tag):
         """
         dynamically render the footer
