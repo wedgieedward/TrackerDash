@@ -25,6 +25,3 @@ class NavBar(Element):
     def dashboards_dropdown(self, request, tag):
         for dashboard, link in self.get_dashboards():
             yield tag.clone().fillSlots(dashName=dashboard, dashLink=link)
-
-    @renderer
-    def popupbutton(self, request, tag):
