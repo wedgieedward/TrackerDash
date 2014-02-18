@@ -1,0 +1,62 @@
+<html xmlns:t="http://twistedmatrix.com/ns/twisted.web.template/0.1">
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<nav class="navbar navbar-default" role="navigation">
+				<div class="navbar-header">
+					 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="http://localhost:8090/dash/">TrackerDash</a>
+				</div>
+
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li class="dropdown">
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dashboards<strong class="caret"></strong></a>
+
+							<ul class="dropdown-menu">
+								<!-- Render the dashboard names dynamically -->
+								<li t:render="dashboards_dropdown">
+									<a><t:attr name="href"><t:slot name="dashLink" /></t:attr>
+										<t:slot name="dashName" />
+									</a>
+								</li>
+
+								<li class="divider">
+								</li>
+								<li>
+									<a href="#">+ Create a new dashboard</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="#">Display Link</a>
+						</li>
+						<li class="dropdown">
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings<strong class="caret"></strong></a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="http://localhost:8090/configure/">Configure Trackerdash</a>
+								</li>
+								<li>
+									<a href="#">Database Settings</a>
+								</li>
+								<li class="divider">
+								</li>
+								<li>
+									<a href="#">TrackerDash Dashboard</a>
+								</li>
+								<li class="divider">
+								</li>
+								<li>
+									<a href="https://github.com/wedgieedward/TrackerDash/issues">Report a bug.</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+	</div>
+</div>
+</html>

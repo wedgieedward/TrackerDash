@@ -4,6 +4,8 @@ base web page
 from twisted.web.template import Element, XMLFile, XMLString, renderer
 from twisted.python.filepath import FilePath
 
+from navbar import NavBar
+
 
 class BasePage(Element):
     """
@@ -18,13 +20,12 @@ class BasePage(Element):
         self.dashboard = dashboard
         self.loader = XMLFile(FilePath("TrackerDash/pages/basewebpage.html"))
 
-    def get_dashboards(self):
+    @renderer
+    def metadata(self, request, tag):
         """
-        get all configured dashboards
+        render the metadata for the page
         """
-        return [("Dalby Dashboard", 'http://localhost:8090/dash/Dalby Dashboard'),
-                ("VCS Dashboard", 'http://localhost:8090/dash/VCS Dashboard'),
-                ("Some Other Dashboard", 'http://localhost:8090/dash/Some Other Dashboard')]
+        return XMLFile(FilePath('TrackerDash/snippets/metadata.xml')).load()
 
     @renderer
     def auto_refresh(self, request, tag):
@@ -59,17 +60,19 @@ class BasePage(Element):
         return XMLFile(FilePath("TrackerDash/snippets/headerscripts.xml")).load()
 
     @renderer
+    def navbar(self, request, tag):
+        """
+        return the dashboard
+        """
+        return NavBar()
+
+    @renderer
     def footer(self, request, tag):
         """
         dynamically render the footer
         """
         footer_snippet = XMLFile(FilePath("TrackerDash/snippets/footer.xml"))
         return footer_snippet.load()
-
-    @renderer
-    def dashboards_dropdown(self, request, tag):
-        for dashboard, link in self.get_dashboards():
-            yield tag.clone().fillSlots(dashName=dashboard, dashLink=link)
 
     @renderer
     def alarms(self, request, tag):
