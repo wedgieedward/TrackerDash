@@ -29,3 +29,9 @@ class ConfigPage(BasePage):
         render the auto refresh meta tag
         """
         return ""
+
+    @renderer
+    def alarms(self, request, tag):
+        """
+        """
+        return ""

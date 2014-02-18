@@ -20,41 +20,33 @@
         </div>
         <div class="col-md-6 column">
             <h2>
-                Heading
+                Database Settings
             </h2>
-            <p>
-                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-            </p>
-            <p>
-                <a class="btn" href="#">View details »</a>
-            </p>
+            <h4>
+                Configure TrackerDash to a running Database
+            </h4>
+            <br/>
             <form class="form-horizontal" role="form">
                 <div class="form-group">
-                     <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                    <label for="inputURL" class="col-sm-2 control-label">URL</label>
                     <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputEmail3" />
+                        <input class="form-control" id="inputURL" />
                     </div>
                 </div>
                 <div class="form-group">
-                     <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                    <label for="inputUsername" class="col-sm-2 control-label">Username</label>
                     <div class="col-sm-10">
-                        <input type="password" class="form-control" id="inputPassword3" />
+                        <input class="form-control" id="inputUsername" />
                     </div>
                 </div>
+
                 <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <div class="checkbox">
-                             <label><input type="checkbox" /> Remember me</label>
-                        </div>
+                     <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="inputPassword" />
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                         <button type="submit" class="btn btn-default">Save Settings</button>
-                    </div>
-                </div>
-            </form>
-            <div class="btn-group">
+                <div class="btn-group">
                  <button class="btn btn-default">Action</button> <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span class="caret"></span></button>
                 <ul class="dropdown-menu">
                     <li>
@@ -70,6 +62,13 @@
                     </li>
                 </ul>
             </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                         <button type="submit" class="btn btn-default">Save Settings</button>
+                    </div>
+                </div>
+            </form>
+
             <div class="btn-group btn-group-sm">
                  <button class="btn btn-default" type="button"><em class="glyphicon glyphicon-align-left"></em> Left</button> <button class="btn btn-default" type="button"><em class="glyphicon glyphicon-align-center"></em> Center</button> <button class="btn btn-default" type="button"><em class="glyphicon glyphicon-align-right"></em> Right</button> <button class="btn btn-default" type="button"><em class="glyphicon glyphicon-align-justify"></em> Justify</button>
             </div>

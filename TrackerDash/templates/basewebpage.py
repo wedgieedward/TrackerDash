@@ -11,6 +11,7 @@ class BasePage(Element):
     """
     auto_refresh = True
     refresh_interval = 60
+    display_alarms = True
 
     def __init__(self, dashboard=''):
         super(BasePage, self).__init__()
