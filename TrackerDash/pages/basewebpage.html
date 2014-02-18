@@ -4,22 +4,20 @@
     <title>TrackerDash</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
     <meta name="description" content="TrackerDash analytics web server"></meta>
-    <meta name="author" content=""></meta>
+    <meta name="author" content="github/WedgieEdward"></meta>
 
     <!-- Render code to decide if we should auto refresh -->
     <t:transparent t:render="auto_refresh"/>
-
     <!-- Ṛender the stylesheets needed for this page -->
     <t:transparent t:render="required_stylesheets"/>
-
     <!-- Render favicon and mobile icons -->
     <t:transparent t:render="favicons"/>
-
     <!-- render required header scripts -->
     <t:transparent t:render="header_scripts"/>
 </head>
 
 <body>
+<!-- Nav Container -->
 <div class="container">
 	<div class="row clearfix">
 		<div class="col-md-12 column">
@@ -76,11 +74,11 @@
 						</li>
 					</ul>
 				</div>
-
 			</nav>
 		</div>
 	</div>
 </div>
+
 <!-- dynamically render the alarms -->
 <div t:render="alarms"/>
 
