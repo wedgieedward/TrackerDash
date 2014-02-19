@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="jumbotron">
+                <h1>
+                    Lets get started!
+                </h1>
+                <p>
+                    TrackerDash is a customisable analytics dashboard server that is written in Python.
+                </p>
+                <p>
+                    To find out more about how to configure your TrackerDash server and get going click 'Learn more'.
+                </p>
+
+                <p>
+                    <a class="btn btn-primary btn-large" href="http://localhost:8090/dash/">Let's Go!</a>
+                    <a class="btn btn-default btn-large" href="https://github.com/wedgieedward/TrackerDash/">Learn more</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

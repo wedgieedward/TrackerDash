@@ -36,28 +36,22 @@ class WebDispatcher(object):
         """
         Index Routing
         """
-        start_page = '/web/welcome_page.html'
-        return '<meta http-equiv="refresh" content="0; url=%s" />' % start_page
+        return BasePage()
 
+    # Static files hosted on the server under web.
+    # Use for static web files such as css and script files.
     @app.route('/web/', branch=True)
     def static_web_routing(self, _request):
         return File('TrackerDash/web')
 
+    # Temp route to the graphing library. This should be removed
+    # once graphing has been implemented.
     @app.route('/graph/', branch=True)
     def third_party_graphs(self, _request):
         """
         test route link to view the contents of thirdparty
         """
         return File('TrackerDash/thirdparty')
-
-    @app.route('/status/', methods=['GET'])
-    def status(self, _request):
-        """
-        report the status of the application
-        note:: not currently implemented, placeholder for status
-        """
-        logging.info("Request at path '/'")
-        return "Everything Is Running A-OK"
 
     @app.route('/configure/', methods=['GET'])
     def configuration_page(self, _request):
@@ -67,7 +61,6 @@ class WebDispatcher(object):
     def api(self, request):
         """
         post to the database over the api
-
         note:: not currently implemented, placeholder for api
         """
         logging.info("Request at path '/api/")

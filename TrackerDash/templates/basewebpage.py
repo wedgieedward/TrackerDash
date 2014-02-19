@@ -90,4 +90,4 @@ class BasePage(Element):
         This should be overriden on a per page-type basis.
         We will just return nothing here
         """
-        return ""
+        return XMLFile(FilePath("TrackerDash/snippets/welcomecontainer.xml")).load()

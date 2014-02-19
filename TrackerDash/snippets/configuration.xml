@@ -47,13 +47,13 @@
                     </div>
                 </div>
                 <div class="form-group">
-                <div class="btn-group btn-group-sm col-sm-offset-2 col-sm-10">
-                     <button class="btn btn-default" type="button">SQLLite</button>
-                     <button class="btn btn-default" type="button">MongoDB</button>
-                     <button class="btn btn-default disabled" type="button">EdDb</button>
-                     <button class="btn btn-default disabled" type="button">AnotherDB</button>
+                    <div class="btn-group btn-group-sm col-sm-offset-2 col-sm-10">
+                         <button class="btn btn-default" type="button">SQLLite</button>
+                         <button class="btn btn-default" type="button">MongoDB</button>
+                         <button class="btn btn-default disabled" type="button">EdDb</button>
+                         <button class="btn btn-default disabled" type="button">AnotherDB</button>
+                    </div>
                 </div>
-            </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                          <button type="submit" class="btn btn-default">Save Settings</button>
