@@ -1,5 +1,5 @@
 <html xmlns:t="http://twistedmatrix.com/ns/twisted.web.template/0.1">
-<div class="container">
+<div class="container-full">
     <div class="row">
         <span class="span">
             <div class="jumbotron">
