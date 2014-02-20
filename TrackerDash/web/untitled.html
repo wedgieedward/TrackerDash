@@ -1,0 +1,182 @@
+
+<html>
+<head>
+    <!-- Render the metadata for the page -->
+    <metadata>
+    <meta charset="utf-8" />
+    <title>TrackerDash</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="TrackerDash analytics web server" name="description" />
+    <meta content="github/WedgieEdward" name="author" />
+</metadata>
+    <!-- Render code to decide if we should auto refresh -->
+    <meta content="60" http-equiv="refresh" />
+    <!-- Ṛender the stylesheets needed for this page -->
+    <sheets>
+<link href="../web/css/style.css" rel="stylesheet"> </link>
+<link href="../web/css/bootstrap.min.css" rel="stylesheet"> </link>
+</sheets>
+    <!-- Render favicon and mobile icons -->
+    <icons>
+<link href="../web/img/apple-touch-icon-144-precomposed.png" rel="apple-touch-icon-precomposed" sizes="144x144" />
+<link href="../web/img/apple-touch-icon-114-precomposed.png" rel="apple-touch-icon-precomposed" sizes="114x114" />
+<link href="../web/img/apple-touch-icon-72-precomposed.png" rel="apple-touch-icon-precomposed" sizes="72x72" />
+<link href="../web/img/apple-touch-icon-57-precomposed.png" rel="apple-touch-icon-precomposed" />
+<link href="../web/img/favicon.png" rel="shortcut icon" />
+</icons>
+    <!-- render required header scripts -->
+    <blah>
+<script src="../web/js/jquery.min.js" type="text/javascript"></script>
+<script src="../web/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../web/js/scripts.js" type="text/javascript"></script>
+<script src="../web/js/highcharts.js"></script>
+<!-- <script src="../web/js/modules/exporting.js"&gt;</script&gt; -->
+</blah>
+</head>
+<body>
+<!-- Nav Container -->
+<div class="container-full">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <nav role="navigation" class="navbar navbar-default navbar-static-top">
+                <div class="navbar-header">
+                     <button data-toggle="collapse" type="button" class="navbar-toggle" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a href="http://localhost:8090/dash/" class="navbar-brand">TrackerDash</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                             <a data-toggle="dropdown" href="#" class="dropdown-toggle">Dashboards<strong class="caret"></strong></a>
+
+                            <ul class="dropdown-menu">
+                                <!-- Render the dashboard names dynamically -->
+                                <li>
+                                    <a href="http://localhost:8090/dash/Dalby Dashboard"><span class="glyphicon glyphicon-stats"></span>
+                                        Dalby Dashboard
+                                    </a>
+                                </li><li>
+                                    <a href="http://localhost:8090/dash/VCS Dashboard"><span class="glyphicon glyphicon-stats"></span>
+                                        VCS Dashboard
+                                    </a>
+                                </li><li>
+                                    <a href="http://localhost:8090/dash/Some Other Dashboard"><span class="glyphicon glyphicon-stats"></span>
+                                        Some Other Dashboard
+                                    </a>
+                                </li>
+
+                                <li class="divider">
+                                </li>
+                                <li>
+                                    <a href="#"><span class="glyphicon glyphicon-plus"></span> Create a new dashboard</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#">Display Link</a>
+                        </li>
+                        <li class="dropdown">
+                             <a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-cog"></span>Settings<strong class="caret"></strong></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="http://localhost:8090/configure/">Configure Trackerdash</a>
+                                </li>
+                                <li>
+                                    <a href="#">Database Settings</a>
+                                </li>
+                                <li class="divider">
+                                </li>
+                                <li>
+                                    <a href="http://localhost:8090/dash/TrackerDash">TrackerDash Dashboard</a>
+                                </li>
+                                <li class="divider">
+                                </li>
+                                <li>
+                                    <a href="https://github.com/wedgieedward/TrackerDash/issues">Report a bug.</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+<!-- dynamically render the alarms -->
+
+<!-- dynamically render the page content -->
+<div class="container-full">
+    <div class="row">
+        <span class="span">
+    <script type="text/javascript">
+$(function () {
+            $('#test_graph_name').highcharts({chart: {type: 'bar'
+            },
+            title: {
+                text: 'Historic World Population by Region'
+            },
+            subtitle: {
+                text: 'Source: Wikipedia.org'
+            },
+            xAxis: {
+                categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
+                title: {
+                    text: null
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Population (millions)',
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            tooltip: {
+                valueSuffix: ' millions'
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -40,
+                y: 100,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor: '#FFFFFF',
+                shadow: true
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Year 1800',
+                data: [107, 31, 635, 203, 2]
+            }, {
+                name: 'Year 1900',
+                data: [133, 156, 947, 408, 6]
+            }, {
+                name: 'Year 2008',
+                data: [973, 914, 4054, 732, 34]
+            }]
+        });
+        });
+</script>
+            <div style="min-width: 310px; height: 400px; margin: 0 auto" id="{test_graph_name}"></div>
+
+        </span>
+    </div>
+</div>
+
+</body>
+</html>

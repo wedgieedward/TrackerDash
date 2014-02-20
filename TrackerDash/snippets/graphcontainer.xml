@@ -2,14 +2,7 @@
 <div class="container-full">
     <div class="row">
         <span class="span">
-            <div class="jumbotron">
-                <h1>
-                    <t:transparent t:render='dashname'/>
-                </h1>
-                <p>
-                    Imagine Graphs Here Instead Of This Text
-                </p>
-            </div>
+            <t:transparent t:render='graphs'/>
         </span>
     </div>
 </div>

@@ -4,6 +4,8 @@ graph container element
 from twisted.web.template import Element, XMLFile, renderer
 from twisted.python.filepath import FilePath
 
+from graph import Graph
+
 
 class GraphContent(Element):
     """
@@ -21,3 +23,9 @@ class GraphContent(Element):
         return the dashname
         """
         return self.dashboard
+
+    @renderer
+    def graphs(self, request, tag):
+        """
+        """
+        return Graph('test_graph_name')
