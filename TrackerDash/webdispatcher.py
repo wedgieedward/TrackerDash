@@ -36,7 +36,7 @@ class WebDispatcher(object):
         """
         Index Routing
         """
-        return BasePage()
+        return '<meta http-equiv="refresh" content="1;url=http://localhost:8090/dash/"/>'
 
     # Static files hosted on the server under web.
     # Use for static web files such as css and script files.
