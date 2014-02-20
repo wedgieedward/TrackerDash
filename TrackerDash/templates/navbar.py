@@ -2,8 +2,9 @@
 navbar element
 """
 
-from twisted.web.template import Element, XMLFile, XMLString, renderer
+from twisted.web.template import Element, XMLFile, renderer
 from twisted.python.filepath import FilePath
+
 
 class NavBar(Element):
     """
