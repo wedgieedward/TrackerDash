@@ -4,6 +4,7 @@ Dashboard Page
 from twisted.web.template import renderer
 
 from basewebpage import BasePage
+from graphcontainer import GraphContent
 
 
 class DashPage(BasePage):
@@ -23,4 +24,4 @@ class DashPage(BasePage):
         """
         return the content of this page
         """
-        return "Dashboard for %s" % self.dashboard_name
+        return GraphContent(self.dashboard_name)

@@ -44,7 +44,7 @@
 								<li class="divider">
 								</li>
 								<li>
-									<a href="#">TrackerDash Dashboard</a>
+									<a href="http://localhost:8090/dash/TrackerDash">TrackerDash Dashboard</a>
 								</li>
 								<li class="divider">
 								</li>
