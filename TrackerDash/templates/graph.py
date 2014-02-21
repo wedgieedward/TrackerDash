@@ -51,7 +51,7 @@ class Graph(Element):
             $('#%s').highcharts(jQuery.parseJSON(%r));
         });
     </script>
-<div id="%s" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<div id="%s" style="min-width: 310px; height: 200px; margin: 0"></div>
 </graphh>
 """)
 
@@ -64,8 +64,8 @@ class Graph(Element):
               its most likely not even json...
         """
         dictionary = {'chart': {'type': 'bar'},
-                      'title': {'text': 'Historic World Population by Region'},
-                      'subtitle': {'text': 'Source: Wikipedia.org'},
+                      'title': {'text': self.graph_title.title()},
+                      'subtitle': {'text': 'Description'},
                       'xAxis': {'categories': ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
                                 'title': {'text': None}},
                       'yAxis': {'min': 0,

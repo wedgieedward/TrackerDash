@@ -24,8 +24,20 @@ class GraphContent(Element):
         """
         return self.dashboard
 
+    def get_graphs(self):
+        """
+        return all the graph titles to display in this container
+        format:
+            ((<GraphName>, <bootstrapspaceing>), ..., ...)
+        """
+        return (("Big Graph", "col-md-8 column"), ("Small Graph", "col-md-8 column"))
+
     @renderer
     def graphs(self, request, tag):
         """
         """
         return Graph('test_graph_name')
+
+    @renderer
+    def anothergraph(self, request, tag):
+        return Graph('another_graph')

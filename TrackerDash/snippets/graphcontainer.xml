@@ -1,9 +1,12 @@
 <html xmlns:t="http://twistedmatrix.com/ns/twisted.web.template/0.1">
 <div class="container-full">
-    <div class="row">
-        <span class="span">
+    <div class="row clearfix">
+        <div class="col-md-8 column">
             <t:transparent t:render='graphs'/>
-        </span>
+        </div>
+        <div class="col-md-4 column">
+            <t:transparent t:render='anothergraph'/>
+        </div>
     </div>
 </div>
 </html>
