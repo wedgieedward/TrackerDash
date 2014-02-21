@@ -1,8 +1,8 @@
 <div class='container'>
     <div class="alert alert-success alert-dismissable">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-    		<h4>
-    					No Dash Selected.
-    		</h4>Select a dashboard from the dropdown or <a href="#" class="alert-link">create a new one.</a>
+            <h4>
+                        No Dash Selected.
+            </h4>Select a dashboard from the dropdown or <a href="#" class="alert-link">create a new one.</a>
     </div>
 </div>
