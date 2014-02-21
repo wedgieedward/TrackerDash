@@ -9,7 +9,7 @@ class Graph(Element):
 
     def __init__(self, graph_title):
         super(Graph, self).__init__()
-        self.loader = XMLFile(FilePath("Trackerdash/snippets/graph.html"))
+        self.loader = XMLFile(FilePath("TrackerDash/snippets/graph.html"))
         self.graph_title = graph_title
 
     @renderer
