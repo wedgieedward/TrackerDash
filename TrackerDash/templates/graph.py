@@ -1,6 +1,8 @@
 """
 Graph object
 """
+import json
+
 from twisted.web.template import Element, XMLFile, XMLString, renderer
 from twisted.python.filepath import FilePath
 
@@ -46,7 +48,7 @@ class Graph(Element):
 <graphh>
     <script type="text/javascript">
         $(function () {
-            $('#%s').highcharts(%s);
+            $('#%s').highcharts(jQuery.parseJSON(%r));
         });
     </script>
 <div id="%s" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
@@ -58,64 +60,36 @@ class Graph(Element):
         NOTE:: this is only a temporary method
         delete this and correctly return the json returned by our api for this
         graph based on its title
+        TODO: remeber that the keys in this 'json/dict' are not quoted
+              its most likely not even json...
         """
-        return (
-            """{chart: {type: 'bar'
-            },
-            title: {
-                text: 'Historic World Population by Region'
-            },
-            subtitle: {
-                text: 'Source: Wikipedia.org'
-            },
-            xAxis: {
-                categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
-                title: {
-                    text: null
-                }
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Population (millions)',
-                    align: 'high'
-                },
-                labels: {
-                    overflow: 'justify'
-                }
-            },
-            tooltip: {
-                valueSuffix: ' millions'
-            },
-            plotOptions: {
-                bar: {
-                    dataLabels: {
-                        enabled: true
-                    }
-                }
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top',
-                x: -40,
-                y: 100,
-                floating: true,
-                borderWidth: 1,
-                backgroundColor: '#FFFFFF',
-                shadow: true
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'Year 1800',
-                data: [107, 31, 635, 203, 2]
-            }, {
-                name: 'Year 1900',
-                data: [133, 156, 947, 408, 6]
-            }, {
-                name: 'Year 2008',
-                data: [973, 914, 4054, 732, 34]
-            }]
-        }""")
+        dictionary = {'chart': {'type': 'bar'},
+                      'title': {'text': 'Historic World Population by Region'},
+                      'subtitle': {'text': 'Source: Wikipedia.org'},
+                      'xAxis': {'categories': ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
+                                'title': {'text': None}},
+                      'yAxis': {'min': 0,
+                                'title': {'text': 'Population (millions)',
+                                          'align': 'high'},
+                                'labels': {'overflow': 'justify'}
+                                },
+                      'tooltip': {'valueSuffix': ' millions'},
+                      'plotOptions': {'bar': {'dataLabels': {'enabled': True}}},
+                      'legend': {'layout': 'vertical',
+                                 'align': 'right',
+                                 'verticalAlign': 'top',
+                                 'x': -40,
+                                 'y': 100,
+                                 'floating': True,
+                                 'borderWidth': 1,
+                                 'backgroundColor': '#FFFFFF',
+                                 'shadow': True
+                                 },
+                      'credits': {'enabled': False},
+                      'series': [{'name': 'Year 1800',
+                                  'data': [107, 31, 635, 203, 2]},
+                                 {'name': 'Year 1900',
+                                  'data': [133, 156, 947, 408, 6]},
+                                 {'name': 'Year 2008',
+                                  'data': [973, 914, 4054, 732, 34]}]}
+        return json.dumps(dictionary)
