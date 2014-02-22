@@ -9,10 +9,11 @@ from twisted.python.filepath import FilePath
 
 class Graph(Element):
 
-    def __init__(self, graph_title):
+    def __init__(self, graph_title, height):
         super(Graph, self).__init__()
         self.loader = XMLFile(FilePath("TrackerDash/snippets/graph.html"))
         self.graph_title = graph_title
+        self.height = height
 
     @renderer
     def drawgraph(self, request, tag):
@@ -37,7 +38,8 @@ class Graph(Element):
         """
         string = self.get_string() % (self.graph_title,
                                       self.get_chart_data(),
-                                      self.graph_title)
+                                      self.graph_title,
+                                      self.height)
         return string
 
     def get_string(self):
@@ -51,7 +53,7 @@ class Graph(Element):
             $('#%s').highcharts(jQuery.parseJSON(%r));
         });
     </script>
-<div id="%s" style="min-width: 310px; height: 200px; margin: 0"></div>
+<div id="%s" style="min-width: 310px; height: %spx; margin: 0"></div>
 </graphh>
 """)
 
@@ -59,9 +61,8 @@ class Graph(Element):
         """
         NOTE:: this is only a temporary method
         delete this and correctly return the json returned by our api for this
-        graph based on its title
-        TODO: remeber that the keys in this 'json/dict' are not quoted
-              its most likely not even json...
+        graph based on its title either in this class or at page load time in
+        the javascript
         """
         dictionary = {'chart': {'type': 'bar'},
                       'title': {'text': self.graph_title.title()},
