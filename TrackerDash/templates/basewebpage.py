@@ -63,7 +63,7 @@ class BasePage(Element):
         """
         return the dashboard
         """
-        return NavBar()
+        return NavBar(None)
 
     @renderer
     def footer(self, request, tag):

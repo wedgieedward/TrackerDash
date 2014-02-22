@@ -10,19 +10,30 @@ class NavBar(Element):
     """
     logic and rendering for the navbar
     """
-    def __init__(self):
+    def __init__(self, dashboard):
         super(NavBar, self).__init__()
         self.loader = XMLFile(FilePath("TrackerDash/snippets/navbar.xml"))
+        self.dashboard = dashboard
 
     def get_dashboards(self):
         """
         get all configured dashboards
         """
-        return [("Dalby Dashboard", 'http://localhost:8090/dash/Dalby Dashboard'),
-                ("VCS Dashboard", 'http://localhost:8090/dash/VCS Dashboard'),
-                ("Some Other Dashboard", 'http://localhost:8090/dash/Some Other Dashboard')]
+        return ("Dalby Dashboard", "VCS Dashboard", "Some Other Dashboard")
 
     @renderer
     def dashboards_dropdown(self, request, tag):
-        for dashboard, link in self.get_dashboards():
-            yield tag.clone().fillSlots(dashName=dashboard, dashLink=link)
+        for dashboard in self.get_dashboards():
+            dashlink = "http://localhost:8090/dash/%s" % dashboard
+            yield tag.clone().fillSlots(dashName=dashboard, dashLink=dashlink)
+
+    @renderer
+    def display_link(self, request, tag):
+        """
+        display link header button
+        """
+        if self.dashboard:
+            link = "http://localhost:8090/display/%s" % self.dashboard
+        else:
+            link = '#'
+        yield tag.clone().fillSlots(displayLink=link)

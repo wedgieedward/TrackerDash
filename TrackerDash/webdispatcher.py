@@ -7,6 +7,7 @@ from twisted.web.static import File
 
 from templates.basewebpage import BasePage
 from templates.dashpage import DashPage
+from templates.displaypage import DisplayPage
 from templates.configpage import ConfigPage
 
 
@@ -75,8 +76,15 @@ class WebDispatcher(object):
         return BasePage()
 
     @app.route('/dash/<string:dashboard>', methods=["GET"])
-    def get_dash_page(self, _request, dashboard=''):
+    def get_dash_page(self, _request, dashboard):
         """
         dynamically route to a specific dashboard page
         """
         return DashPage(dashboard)
+
+    @app.route('/display/<string:dashboard>', methods=["GET"])
+    def get_display_page(self, _request, dashboard):
+        """
+        return a displaypage
+        """
+        return DisplayPage(dashboard)
