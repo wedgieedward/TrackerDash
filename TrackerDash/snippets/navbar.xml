@@ -43,8 +43,7 @@
                                 <li>
                                     <a href="#">Database Settings</a>
                                 </li>
-                                <li class="divider">
-                                </li>
+                                <li class="divider"/>
                                 <li>
                                     <a href="http://localhost:8090/dash/TrackerDash">TrackerDash Dashboard</a>
                                 </li>
@@ -52,6 +51,10 @@
                                 </li>
                                 <li>
                                     <a href="https://github.com/wedgieedward/TrackerDash/issues">Report a bug.</a>
+                                </li>
+                                <li class="divider"/>
+                                <li>
+                                    <a href="http://localhost:8090/shutdown/"><span class='glyphicon glyphicon-off'/> Shutdown</a>
                                 </li>
                             </ul>
                         </li>

@@ -2,7 +2,11 @@
 trackerdash main application class
 """
 import logging
+import sys
+
 from klein import Klein
+
+from twisted.internet import reactor
 from twisted.web.static import File
 
 from templates.basewebpage import BasePage
@@ -88,3 +92,18 @@ class WebDispatcher(object):
         return a displaypage
         """
         return DisplayPage(dashboard)
+
+    @app.route('/shutdown/')
+    def shutdown(self, _request):
+        """
+        TODO: put some sort of warning
+        TODO: have an indicator that it has shut down
+        """
+        try:
+            print "Stopping Python Reactor"
+            reactor.stop()
+            print "Stopping Python Process"
+            sys.exit("Shutting Down App")
+        except SystemExit:
+            # this is meant to happen, return '' so we get a 200 OK
+            return ''
