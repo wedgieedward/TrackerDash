@@ -13,6 +13,7 @@ from templates.basewebpage import BasePage
 from templates.dashpage import DashPage
 from templates.displaypage import DisplayPage
 from templates.configpage import ConfigPage
+from templates.newdash import NewDash
 
 
 class WebDispatcher(object):
@@ -61,6 +62,13 @@ class WebDispatcher(object):
     @app.route('/configure/', methods=['GET'])
     def configuration_page(self, _request):
         return ConfigPage()
+
+    @app.route('/newdash/', methods=['GET'])
+    def add_new_dashboard(self, _request):
+        """
+        route to new dashboard page
+        """
+        return NewDash()
 
     @app.route('/api/', methods=['POST'])
     def api(self, request):

@@ -23,7 +23,7 @@
                                 <li class="divider">
                                 </li>
                                 <li>
-                                    <a href="#"><span class="glyphicon glyphicon-plus"></span> Create a new dashboard</a>
+                                    <a href="http://localhost:8090/newdash/"><span class="glyphicon glyphicon-plus"></span> Create a new dashboard</a>
                                 </li>
                             </ul>
                         </li>
