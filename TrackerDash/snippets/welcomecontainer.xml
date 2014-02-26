@@ -13,7 +13,6 @@
                 </p>
 
                 <p>
-                    <a class="btn btn-primary btn-large" href="http://localhost:8090/dash/">Let's Go!</a>
                     <a class="btn btn-default btn-large" href="https://github.com/wedgieedward/TrackerDash/">Learn more</a>
                 </p>
             </div>
