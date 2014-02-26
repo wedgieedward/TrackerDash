@@ -8,5 +8,5 @@ setup(name='TrackerDash',
       author_email='edward@thomason.me.uk',
       license='MIT',
       packages=['TrackerDash'],
-      install_requires=["Twisted>=12.1", "werkzeug", "klein"],
+      install_requires=["Twisted>=12.1", "werkzeug", "klein", "pymongo"],
       zip_safe=False)
