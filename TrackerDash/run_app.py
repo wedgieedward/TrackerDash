@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Start the server and run the app
+TODO: Add argument parsing
 """
 import logging
 from webdispatcher import WebDispatcher

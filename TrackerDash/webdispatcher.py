@@ -42,6 +42,7 @@ class WebDispatcher(object):
         """
         Index Routing
         """
+        # TODO: make this path a variable
         return '<meta http-equiv="refresh" content="1;url=http://localhost:8090/dash/"/>'
 
     # Static files hosted on the server under web.
