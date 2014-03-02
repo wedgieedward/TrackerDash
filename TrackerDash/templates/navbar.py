@@ -24,8 +24,7 @@ class NavBar(Element):
     @renderer
     def dashboards_dropdown(self, request, tag):
         for dashboard in self.get_dashboards():
-            # TODO: make this path a variable
-            dashlink = "http://localhost:8090/dash/%s" % dashboard
+            dashlink = "../dash/%s" % dashboard
             yield tag.clone().fillSlots(dashName=dashboard, dashLink=dashlink)
 
     @renderer
@@ -34,8 +33,7 @@ class NavBar(Element):
         display link header button
         """
         if self.dashboard:
-            # TODO: make this path a variable
-            link = "http://localhost:8090/display/%s" % self.dashboard
+            link = "../display/%s" % self.dashboard
         else:
             link = '#'
         yield tag.clone().fillSlots(displayLink=link)
