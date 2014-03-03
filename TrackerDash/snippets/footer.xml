@@ -1,9 +1,11 @@
-<div class="container-full">
+<div class="navbar navbar-fixed-bottom">
     <div class="row-fluid">
         <span class="span12">
-            <div class="pull-left">
-                <p>Version 0.0  -  Powered by <a href="http://www.highcharts.com">Highcharts.com</a></p>
-            </div>
+            <ul class="nav nav-pills pull-left">
+                <li>
+                    <a href="http://www.highcharts.com">Powered by Highcharts.com</a>
+                </li>
+            </ul>
             <ul class="nav nav-pills pull-right">
                 <li>
                     <a href="https://github.com/wedgieedward/TrackerDash/">About</a>
