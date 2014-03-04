@@ -37,9 +37,9 @@ class Graph(Element):
         to be applied to it to be valid
         """
         string = self.get_string() % (self.graph_title,
-                                      self.get_chart_data(),
                                       self.graph_title,
-                                      self.height)
+                                      self.get_chart_data(),
+                                      self.graph_title)
         return string
 
     def get_string(self):
@@ -50,10 +50,11 @@ class Graph(Element):
 <graphh>
     <script type="text/javascript">
         $(function () {
+            document.getElementById(%s).style.height = 400;
             $('#%s').highcharts(jQuery.parseJSON(%r));
         });
     </script>
-<div id="%s" style="min-width: 310px; height: %spx; margin: 0"></div>
+<div id="%s" style="min-width: 310px; margin: 0"></div>
 </graphh>
 """)
 

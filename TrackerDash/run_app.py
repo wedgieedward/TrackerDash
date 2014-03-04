@@ -6,7 +6,13 @@ Start the server and run the app
 import argparse
 import logging
 import socket
+from constants import APP_LOG_FILE
 from webdispatcher import WebDispatcher
+
+# logging setup
+
+logging.basicConfig(filename=APP_LOG_FILE, filemode='w', level=logging.INFO)
+logging.info("Initialised Log File")
 
 # defaults
 localhost = 'localhost'
@@ -45,6 +51,8 @@ if __name__ == '__main__':
         port = args.port
     else:
         port = defaultport
-
-    print "Running on %s:%s" % (host, port)
+    logging.debug("Running on %s:%s" % (host, port))
+    # Leaving this in to indicate that it is running
+    # having a clickable url in the terminal aids ease of use
+    print "Started on: http://%s:%s" % (host, port)
     app = WebDispatcher(host, port)
