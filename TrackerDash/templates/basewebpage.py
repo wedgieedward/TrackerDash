@@ -1,7 +1,7 @@
 """
 base web page
 """
-from twisted.web.template import Element, XMLFile, XMLString, renderer
+from twisted.web.template import Element, XMLFile, renderer
 from twisted.python.filepath import FilePath
 
 from navbar import NavBar
@@ -11,8 +11,6 @@ class BasePage(Element):
     """
     Object for base webpage
     """
-    auto_refresh = False
-    refresh_interval = 60
     display_alarms = False
 
     def __init__(self):
@@ -31,11 +29,7 @@ class BasePage(Element):
         """
         render the auto refresh meta tag
         """
-        if self.auto_refresh:
-            return XMLString(
-                '<meta http-equiv="refresh" content="%s"></meta>' % (self.refresh_interval)).load()
-        else:
-            return ''
+        return ''
 
     @renderer
     def required_stylesheets(self, request, tag):
