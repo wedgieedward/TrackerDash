@@ -20,8 +20,8 @@ class ConfigPage(BasePage):
         """
         get the content for the configuration page
         """
-        footer_snippet = XMLFile(FilePath("TrackerDash/snippets/configuration.xml"))
-        return footer_snippet.load()
+        config_content = XMLFile(FilePath("TrackerDash/snippets/configuration.xml"))
+        return config_content.load()
 
     @renderer
     def auto_refresh(self, request, tag):

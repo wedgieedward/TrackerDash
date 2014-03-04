@@ -1,0 +1,39 @@
+<html xmlns:t="http://twistedmatrix.com/ns/twisted.web.template/0.1">
+<div class="container">
+    <div class="row clearfix">
+        <!-- Filer by type code -->
+<!--         <div class="col-md-1 column">
+            <ul class='nav'>
+                <li>
+                    <button type="button" class="btn btn-default">Default</button>
+                </li>
+                <li>
+                    <button type="button" class="btn btn-default">Default</button>
+                </li>
+                <li>
+                    <button type="button" class="btn btn-default">Default</button>
+                </li>
+                <li>
+                    <button type="button" class="btn btn-default">Default</button>
+                </li>
+            </ul>
+        </div> -->
+        <div class="col-md-12 column">
+            <h3 class="text-left">
+                <t:transparent t:render="get_title"/>
+            </h3>
+            <div class="media">
+                <media_obj t:render="get_log_lines">
+                    <a class="pull-left">
+                        <span class="label label-default">Default</span>
+                    </a>
+
+                    <div class="media-body">
+                        <t:slot name="log_line" />
+                    </div>
+                </media_obj>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

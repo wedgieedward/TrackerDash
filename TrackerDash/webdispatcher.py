@@ -14,6 +14,10 @@ from templates.dashpage import DashPage
 from templates.displaypage import DisplayPage
 from templates.configpage import ConfigPage
 from templates.newdash import NewDash
+from templates.logpage import LogPage
+
+TWISTED_LOG_FILE = "twisted_log.log"
+TWISTED_LOG = open(TWISTED_LOG_FILE, "w")
 
 
 class WebDispatcher(object):
@@ -35,7 +39,7 @@ class WebDispatcher(object):
         Start the klein server
         """
         logging.info("Running start app")
-        self.app.run(self._url, self._port)
+        self.app.run(self._url, self._port, TWISTED_LOG)
 
     @app.route('/', methods=['GET'])
     def index(self, _request):
@@ -101,6 +105,16 @@ class WebDispatcher(object):
         """
         return DisplayPage(dashboard)
 
+    @app.route('/log/<string:log_type>', methods=["GET"])
+    def get_log_page(self, _request, log_type):
+        """
+        return the relevant log page
+        """
+        if log_type == "network_log":
+            return LogPage(TWISTED_LOG_FILE, "Network Log")
+        else:
+            return ""
+
     @app.route('/shutdown/')
     def shutdown(self, _request):
         """
@@ -108,6 +122,8 @@ class WebDispatcher(object):
         TODO: have an indicator that it has shut down
         """
         try:
+            print "Closing Twisted Log File"
+            TWISTED_LOG.close()
             print "Stopping Python Reactor"
             reactor.stop()
             print "Stopping Python Process"

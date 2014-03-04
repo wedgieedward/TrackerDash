@@ -35,22 +35,31 @@
                             </a>
                         </li>
                         <li class="dropdown">
-                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span>Settings<strong class="caret"></strong></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-cog"/> Settings<strong class="caret"/>
+                            </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="../configure/">Configure Trackerdash</a>
+                                    <a href="../configure/"><span class="glyphicon glyphicon-cog"/> Configure Trackerdash</a>
                                 </li>
                                 <li>
-                                    <a href="#">Database Settings</a>
+                                    <a href="#"><span class="glyphicon glyphicon-cog"/> Database Settings</a>
                                 </li>
                                 <li class="divider"/>
                                 <li>
-                                    <a href="../dash/TrackerDash">TrackerDash Dashboard</a>
+                                    <a href="../log/network_log"><span class='glyphicon glyphicon-list-alt'/> Network Log</a>
+                                </li>
+                                <li>
+                                    <a href="../log/application_log"><span class='glyphicon glyphicon-list-alt'/> Application Log</a>
+                                </li>
+                                <li class="divider"/>
+                                <li>
+                                    <a href="../dash/TrackerDash"><span class="glyphicon glyphicon-stats"/> TrackerDash Dashboard</a>
                                 </li>
                                 <li class="divider">
                                 </li>
                                 <li>
-                                    <a href="https://github.com/wedgieedward/TrackerDash/issues">Report a bug.</a>
+                                    <a href="https://github.com/wedgieedward/TrackerDash/issues"><span class="glyphicon glyphicon-warning-sign"/> Report a bug.</a>
                                 </li>
                                 <li class="divider"/>
                                 <li>
