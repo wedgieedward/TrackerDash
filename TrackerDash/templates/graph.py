@@ -9,11 +9,12 @@ from twisted.python.filepath import FilePath
 
 class Graph(Element):
 
-    def __init__(self, graph_title, height):
+    def __init__(self, graph_title, row_span, numberofrows):
         super(Graph, self).__init__()
         self.loader = XMLFile(FilePath("TrackerDash/snippets/graph.html"))
         self.graph_title = graph_title
-        self.height = height
+        self.row_span = row_span
+        self.numberofrows = numberofrows
 
     @renderer
     def drawgraph(self, request, tag):
@@ -36,7 +37,9 @@ class Graph(Element):
         get_string returns a string that needs .format()
         to be applied to it to be valid
         """
-        string = self.get_string() % (self.graph_title,
+        string = self.get_string() % (self.numberofrows,
+                                      self.row_span,
+                                      self.graph_title,
                                       self.graph_title,
                                       self.get_chart_data(),
                                       self.graph_title)
@@ -47,15 +50,25 @@ class Graph(Element):
         must return valid xml
         """
         return ("""
-<graphh>
+<div>
     <script type="text/javascript">
-        $(function () {
-            document.getElementById(%s).style.height = 400;
+        $(document).ready(function () {
+            win_height = $(window).height();
+            top_nav_bar_height = $("#top_nav_bar").height();
+            bottom_nav_bar_height = $("#bottom_nav_bar").height();
+            offset = 0;
+            num_rows = %d;
+            span_rows = %d;
+            if (top_nav_bar_height != null){
+                offset = top_nav_bar_height + bottom_nav_bar_height;
+            }
+            height = ((win_height - offset) / num_rows) * span_rows;
+            $("#%s").css({"height": height.toString()+"px"});
             $('#%s').highcharts(jQuery.parseJSON(%r));
         });
     </script>
 <div id="%s" style="min-width: 310px; margin: 0"></div>
-</graphh>
+</div>
 """)
 
     def _test_get_json(self):

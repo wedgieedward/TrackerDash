@@ -36,20 +36,20 @@ class GraphContent(Element):
     def graphs(self, request, tag):
         """
         """
-        return Graph('test_graph_name', 2)
+        return Graph('test_graph_name', 2, 3)
 
     @renderer
     def graphs2(self, request, tag):
         """
         """
-        return Graph('test_graph_name2', 1)
+        return Graph('test_graph_name2', 1, 3)
 
     @renderer
     def anothergraph(self, request, tag):
-        return Graph('another_graph', 1)
+        return Graph('another_graph', 1, 3)
 
     @renderer
     def spillgraph(self, request, tag):
         """
         """
-        return Graph('yes_another_graph', 1)
+        return Graph('yes_another_graph', 1, 3)

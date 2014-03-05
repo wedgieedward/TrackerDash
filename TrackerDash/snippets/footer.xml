@@ -1,4 +1,4 @@
-<div class="navbar navbar-fixed-bottom">
+<div class="navbar navbar-fixed-bottom" id="bottom_nav_bar">
     <div class="row-fluid">
         <span class="span12">
             <ul class="nav nav-pills pull-left">
