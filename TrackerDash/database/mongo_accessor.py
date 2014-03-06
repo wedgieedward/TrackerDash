@@ -3,10 +3,20 @@ Client for accessing the mongodatabase
 """
 import logging
 import unittest
+
 import pymongo
 
 LIVE_DATABASE = "TrackerDashApp"
 TEST_DATABASE = "TrackerDashTEST"
+
+ESSENTIAL_COLLECTIONS = (
+    "showreel",
+    "dashboard",
+    "graph",
+    "config")
+
+DEMO_DATA = (
+    ())
 
 
 class MongoAccessor(object):
@@ -18,6 +28,32 @@ class MongoAccessor(object):
     def __init__(self):
         self.client = pymongo.MongoClient()
         self.database = self.client[self.database_name]
+
+    def reset_all(self):
+        """
+        warning: deletes all collections and re-adds the vital ones
+        """
+        for collection in self.get_local_collections():
+            self.delete_collection(collection)
+        self.add_essential_collections()
+
+    def add_essential_collections(self):
+        """
+        these are the essential collections needed for trackerdash to operate
+        """
+        for collection in ESSENTIAL_COLLECTIONS:
+            self.create_collection(collection)
+
+    def verify_essential_collections_present(self):
+        """
+        """
+        present = True
+        all_collections = self.get_local_collections()
+        for collection in ESSENTIAL_COLLECTIONS:
+            if collection not in all_collections:
+                present = False
+
+        return present
 
     def get_raw_database(self):
         """
@@ -99,6 +135,14 @@ class MongoAccessor(object):
         collection = self.get_collection(collection_name)
         document = collection.find_one(query)
         return document
+
+    def add_demo_data(self):
+        """
+        should not be called by the app
+        add demo dashboard data to the database
+        """
+        for collection, document in DEMO_DATA:
+            self.add_document_to_collection(collection, document)
 
 
 class TestAccessor(MongoAccessor):

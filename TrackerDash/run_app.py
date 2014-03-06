@@ -8,7 +8,8 @@ import logging
 import socket
 import sys
 from constants import APP_LOG_FILE
-from database import helpers as database_helpers
+from database import common as database_common
+from database.mongo_accessor import MongoAccessor
 from webdispatcher import WebDispatcher
 
 # logging setup
@@ -24,6 +25,16 @@ parser.add_argument(
     "-l",
     "--local",
     help="run app on localhost, default = local ip address",
+    action="store_true")
+parser.add_argument(
+    "-c",
+    "--clean",
+    help="WARNING: clears the entire database back to base settings",
+    action="store_true")
+parser.add_argument(
+    "-d",
+    "--demo_data",
+    help="Add mock demo data to the database",
     action="store_true")
 parser.add_argument("-p", "--port", help="run on specified port, default = 8090", type=int)
 
@@ -42,14 +53,34 @@ def get_ip_address():
 if __name__ == '__main__':
     logging.info("Starting TrackerDash")
     logging.info("Trying to connect to a running mongodb instance")
-    if not database_helpers.is_mongo_running():
+    if not database_common.is_mongo_running():
         print ("Could not connect to a running mongodb instance"
                "please run 'sudo service mongodb start'")
         sys.exit()
     print "Found mongodb instance running"
+
+    accessor = MongoAccessor()
+    if not database_common.is_mongo_configured():
+        print "Database not configured to run TrackerDash, initialising now."
+        logging.debug("database is not configured, adding essential collections")
+        accessor.add_essential_collections()
+
     args = parser.parse_args()
     host = None
     port = None
+    if args.clean:
+        for x in range(5):
+            # Only want to prompt up to 5 times
+            user_input = raw_input(
+                "WARNING: Are You Sure You Want To Clear The Database? [y|n] default: no: ")
+            if user_input in ('y', 'Y'):
+                print "Clearing the database."
+                accessor.reset_all()
+                break
+            elif user_input in ('', 'n', 'N'):
+                print "Not clearing the database"
+                break
+
     if args.local:
         host = localhost
     else:

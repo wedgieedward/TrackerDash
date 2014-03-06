@@ -2,8 +2,11 @@
 helper functions for basic database methods
 """
 import logging
+
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
+
+from mongo_accessor import MongoAccessor
 
 
 def is_mongo_running():
@@ -21,5 +24,15 @@ def is_mongo_running():
         return False
 
 
+def is_mongo_configured():
+    """
+    works out if mongodb is configured to run with trackerdash
+    i.e. first time running
+    """
+    accessor = MongoAccessor()
+    return accessor.verify_essential_collections_present()
+
+
 if __name__ == '__main__':
-    print is_mongo_running()
+    print "Mongo Running: %s" % is_mongo_running()
+    print "Mongo Configured For TrackerDash: %s" % is_mongo_configured()
