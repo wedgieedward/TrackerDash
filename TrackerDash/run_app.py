@@ -6,7 +6,9 @@ Start the server and run the app
 import argparse
 import logging
 import socket
+import sys
 from constants import APP_LOG_FILE
+from database import helpers as database_helpers
 from webdispatcher import WebDispatcher
 
 # logging setup
@@ -39,6 +41,12 @@ def get_ip_address():
 
 if __name__ == '__main__':
     logging.info("Starting TrackerDash")
+    logging.info("Trying to connect to a running mongodb instance")
+    if not database_helpers.is_mongo_running():
+        print ("Could not connect to a running mongodb instance"
+               "please run 'sudo service mongodb start'")
+        sys.exit()
+    print "Found mongodb instance running"
     args = parser.parse_args()
     host = None
     port = None
