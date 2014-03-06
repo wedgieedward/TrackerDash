@@ -12,7 +12,6 @@ from database import helpers as database_helpers
 from webdispatcher import WebDispatcher
 
 # logging setup
-
 logging.basicConfig(filename=APP_LOG_FILE, filemode='w', level=logging.INFO)
 logging.info("Initialised Log File")
 
@@ -38,6 +37,7 @@ def get_ip_address():
     ip_addr = sock.getsockname()[0]
     sock.close()
     return ip_addr
+
 
 if __name__ == '__main__':
     logging.info("Starting TrackerDash")

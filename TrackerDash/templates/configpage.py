@@ -10,7 +10,6 @@ class ConfigPage(BasePage):
     """
     configuration page
     """
-    auto_refresh = False
 
     def __init__(self):
         super(ConfigPage, self).__init__()

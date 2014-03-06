@@ -11,7 +11,6 @@ class NewDash(BasePage):
     """
     configuration page
     """
-    auto_refresh = False
 
     def __init__(self):
         super(NewDash, self).__init__()
