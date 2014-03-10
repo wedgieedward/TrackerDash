@@ -6,7 +6,7 @@ from twisted.web.template import renderer, XMLFile
 
 from basewebpage import BasePage
 from navbar import NavBar
-from graphcontainer import GraphContent
+from graphcontent import GraphContent
 
 
 class DashPage(BasePage):

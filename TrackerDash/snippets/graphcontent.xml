@@ -6,10 +6,10 @@
         </div>
         <div class="col-md-4 column">
             <t:transparent t:render='anothergraph'/>
-        </div>
-        <div class="col-md-4 column">
             <t:transparent t:render='spillgraph'/>
         </div>
+        <!-- <div class="col-md-4 column">
+        </div> -->
     </div>
     <div class="row clearfix">
         <div class="col-md-12 column">

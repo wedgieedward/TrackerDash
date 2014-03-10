@@ -6,7 +6,7 @@ from twisted.python.filepath import FilePath
 from twisted.web.template import renderer, XMLString, XMLFile
 
 from dashpage import DashPage
-from graphcontainer import GraphContent
+from graphcontent import GraphContent
 
 
 class DisplayPage(DashPage):

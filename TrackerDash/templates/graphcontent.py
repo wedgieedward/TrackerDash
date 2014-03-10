@@ -14,7 +14,7 @@ class GraphContent(Element):
 
     def __init__(self, dashboard):
         super(GraphContent, self).__init__()
-        self.loader = XMLFile(FilePath("TrackerDash/snippets/graphcontainer.xml"))
+        self.loader = XMLFile(FilePath("TrackerDash/snippets/graphcontent.xml"))
         self.dashboard = dashboard
 
     @renderer
