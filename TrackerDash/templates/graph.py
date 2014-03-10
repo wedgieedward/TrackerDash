@@ -3,28 +3,22 @@ Graph object
 """
 import json
 
-from twisted.web.template import Element, XMLFile, XMLString, renderer
-from twisted.python.filepath import FilePath
 
+class Graph(object):
 
-class Graph(Element):
-
-    def __init__(self, graph_title, row_span, numberofrows):
+    def __init__(self, graph_name, row_span, number_of_rows):
         super(Graph, self).__init__()
-        self.loader = XMLFile(FilePath("TrackerDash/snippets/graph.html"))
-        self.graph_title = graph_title
+        self.graph_name = graph_name
         self.row_span = row_span
-        self.numberofrows = numberofrows
+        self.number_of_rows = number_of_rows
 
-    @renderer
-    def drawgraph(self, request, tag):
+    def load(self):
         """
         renderer for drawing the graph
         This is a pain in the ass for not being able to dynamically]
         render js variables...
         """
-        xmlstring = XMLString(self.get_formatted_string())
-        return xmlstring.load()
+        return self.get_formatted_string()
 
     def get_chart_data(self):
         """
@@ -37,12 +31,12 @@ class Graph(Element):
         get_string returns a string that needs .format()
         to be applied to it to be valid
         """
-        string = self.get_string() % (self.numberofrows,
+        string = self.get_string() % (self.number_of_rows,
                                       self.row_span,
-                                      self.graph_title,
-                                      self.graph_title,
+                                      self.graph_name,
+                                      self.graph_name,
                                       self.get_chart_data(),
-                                      self.graph_title)
+                                      self.graph_name)
         return string
 
     def get_string(self):
@@ -79,7 +73,7 @@ class Graph(Element):
         the javascript
         """
         dictionary = {'chart': {'type': 'bar'},
-                      'title': {'text': self.graph_title.title()},
+                      'title': {'text': self.graph_name.title()},
                       'subtitle': {'text': 'Description'},
                       'xAxis': {'categories': ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
                                 'title': {'text': None}},

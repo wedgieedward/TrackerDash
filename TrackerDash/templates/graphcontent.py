@@ -1,7 +1,7 @@
 """
 graph container element
 """
-from twisted.web.template import Element, XMLFile, renderer
+from twisted.web.template import Element, XMLFile, renderer, XMLString
 from twisted.python.filepath import FilePath
 
 from graph import Graph
@@ -12,44 +12,56 @@ class GraphContent(Element):
     Element to handle the content of a dashboard page
     """
 
-    def __init__(self, dashboard):
+    def __init__(self, dashboard_name):
         super(GraphContent, self).__init__()
         self.loader = XMLFile(FilePath("TrackerDash/snippets/graphcontent.xml"))
-        self.dashboard = dashboard
+        self.dashboard_name = dashboard_name
 
     @renderer
-    def dashname(self, request, tag):
+    def render_content(self, request, tag):
         """
-        return the dashname
+        render the content for the graph container
         """
-        return self.dashboard
+        graph_row_xml = XMLString(self.get_row_xml())
+        return graph_row_xml.load()
 
-    def get_graphs(self):
+    def get_row_xml(self):
+        """
+        """
+        xml = "<div>"
+        rows = self.get_rows()
+        render_rows = self.get_number_of_render_rows(rows)
+        for row in rows:
+            xml += '<div class="row clearfix">'
+            for graph in row:
+                xml += '<div class="col-md-%s column">' % (graph["width"], )
+                this_graph = Graph(graph["name"], graph["height"], render_rows)
+                xml += this_graph.load()
+                xml += '</div>'
+            xml += '</div>'
+        xml += "</div>"
+
+        return xml
+
+    def get_number_of_render_rows(self, rows_data):
+        """
+        """
+        num_rows = 0
+        for row in rows_data:
+            row_max = 0
+            for graph in row:
+                if graph["height"] > row_max:
+                    row_max = graph["height"]
+            num_rows += row_max
+        return num_rows
+
+    def get_rows(self):
         """
         return all the graph titles to display in this container
         format:
-            ((<GraphName>, <bootstrapspaceing>), ..., ...)
         """
-        return (("Big Graph", "col-md-8 column"), ("Small Graph", "col-md-8 column"))
-
-    @renderer
-    def graphs(self, request, tag):
-        """
-        """
-        return Graph('test_graph_name', 2, 3)
-
-    @renderer
-    def graphs2(self, request, tag):
-        """
-        """
-        return Graph('test_graph_name2', 1, 3)
-
-    @renderer
-    def anothergraph(self, request, tag):
-        return Graph('another_graph', 1, 3)
-
-    @renderer
-    def spillgraph(self, request, tag):
-        """
-        """
-        return Graph('yes_another_graph', 1, 3)
+        return [
+            [{"name": "Big Graph", "width": 8, "height": 2},
+             {"name": "Top Of Two", "width": 4, "height": 1},
+             {"name": "Bottom Of Two", "height": 1, "width": 4}],
+            [{"name": "Wide Graph", "width": 12, "height": 1}]]
