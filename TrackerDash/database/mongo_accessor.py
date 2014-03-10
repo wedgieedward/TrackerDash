@@ -186,6 +186,22 @@ class AccessorSanity(unittest.TestCase):
         for collection in test_accessor.get_local_collections():
             test_accessor.delete_collection(collection)
 
+    def test_post_to_unknown_collection(self):
+        """
+        The api will have the ability to post to any named graph,
+        even if it doesn't exist.
+        """
+        accessor = TestAccessor()
+        collection = "unknown"
+        collections = accessor.get_local_collections()
+        self.assertNotIn(collection, collections)
+        num_collections = len(collections)
+        accessor.add_document_to_collection(collection, {"key": "value"})
+        collections = accessor.get_local_collections()
+        self.assertNotEquals(len(collections), num_collections)
+        num_docs = accessor.get_number_of_documents_in_collection("unknown")
+        self.assertEquals(num_docs, 1)
+
 
 if __name__ == '__main__':
     unittest.main()
