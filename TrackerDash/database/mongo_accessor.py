@@ -6,6 +6,8 @@ import unittest
 
 import pymongo
 
+from TrackerDash.database.demo_data import DEMO_DATA
+
 LIVE_DATABASE = "TrackerDashApp"
 TEST_DATABASE = "TrackerDashTEST"
 
@@ -14,9 +16,6 @@ ESSENTIAL_COLLECTIONS = (
     "dashboard",
     "graph",
     "config")
-
-DEMO_DATA = (
-    ())
 
 
 class MongoAccessor(object):

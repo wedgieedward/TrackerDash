@@ -5,6 +5,8 @@ navbar element
 from twisted.web.template import Element, XMLFile, renderer
 from twisted.python.filepath import FilePath
 
+from TrackerDash.database.mongo_accessor import MongoAccessor
+
 
 class NavBar(Element):
     """
@@ -14,12 +16,15 @@ class NavBar(Element):
         super(NavBar, self).__init__()
         self.loader = XMLFile(FilePath("TrackerDash/snippets/navbar.xml"))
         self.dashboard = dashboard
+        self.accessor = MongoAccessor()
 
     def get_dashboards(self):
         """
         get all configured dashboards
         """
-        return ("Dalby Dashboard", "VCS Dashboard", "Some Other Dashboard")
+        dash_documents = self.accessor.get_all_documents_from_collection("dashboard")
+        dash_names = [dash["name"] for dash in dash_documents]
+        return dash_names
 
     @renderer
     def dashboards_dropdown(self, request, tag):

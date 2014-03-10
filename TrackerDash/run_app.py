@@ -80,6 +80,8 @@ if __name__ == '__main__':
             elif user_input in ('', 'n', 'N'):
                 print "Not clearing the database"
                 break
+    if args.demo_data:
+        accessor.add_demo_data()
 
     if args.local:
         host = localhost
