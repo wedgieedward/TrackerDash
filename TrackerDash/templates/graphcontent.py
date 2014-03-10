@@ -1,6 +1,8 @@
 """
 graph container element
 """
+import uuid
+
 from twisted.web.template import Element, XMLFile, renderer, XMLString
 from twisted.python.filepath import FilePath
 
@@ -35,7 +37,11 @@ class GraphContent(Element):
             xml += '<div class="row clearfix">'
             for graph in row:
                 xml += '<div class="col-md-%s column">' % (graph["width"], )
-                this_graph = Graph(graph["name"], graph["height"], render_rows)
+                this_graph = Graph(
+                    graph["name"],
+                    graph["data_source"],
+                    graph["height"],
+                    render_rows)
                 xml += this_graph.load()
                 xml += '</div>'
             xml += '</div>'
@@ -61,7 +67,7 @@ class GraphContent(Element):
         format:
         """
         return [
-            [{"name": "Big Graph", "width": 8, "height": 2},
-             {"name": "Top Of Two", "width": 4, "height": 1},
-             {"name": "Bottom Of Two", "height": 1, "width": 4}],
-            [{"name": "Wide Graph", "width": 12, "height": 1}]]
+            [{"name": "Big Graph", "width": 8, "height": 2, "data_source": uuid.uuid4()},
+             {"name": "Top Of Two", "width": 4, "height": 1, "data_source": uuid.uuid4()},
+             {"name": "Bottom Of Two", "height": 1, "width": 4, "data_source": uuid.uuid4()}],
+            [{"name": "Wide Graph", "width": 12, "height": 1, "data_source": uuid.uuid4()}]]

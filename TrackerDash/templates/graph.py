@@ -6,9 +6,10 @@ import json
 
 class Graph(object):
 
-    def __init__(self, graph_name, row_span, number_of_rows):
+    def __init__(self, graph_title, data_source, row_span, number_of_rows):
         super(Graph, self).__init__()
-        self.graph_name = graph_name
+        self.graph_title = graph_title
+        self.data_source = data_source
         self.row_span = row_span
         self.number_of_rows = number_of_rows
 
@@ -33,10 +34,10 @@ class Graph(object):
         """
         string = self.get_string() % (self.number_of_rows,
                                       self.row_span,
-                                      self.graph_name,
-                                      self.graph_name,
+                                      self.data_source,
+                                      self.data_source,
                                       self.get_chart_data(),
-                                      self.graph_name)
+                                      self.data_source)
         return string
 
     def get_string(self):
@@ -73,7 +74,7 @@ class Graph(object):
         the javascript
         """
         dictionary = {'chart': {'type': 'bar'},
-                      'title': {'text': self.graph_name.title()},
+                      'title': {'text': self.graph_title.title()},
                       'subtitle': {'text': 'Description'},
                       'xAxis': {'categories': ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
                                 'title': {'text': None}},
