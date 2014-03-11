@@ -90,7 +90,10 @@ class Graph(object):
                                 'labels': {'overflow': 'justify'}
                                 },
                       'tooltip': {'valueSuffix': ' millions'},
-                      'plotOptions': {'bar': {'dataLabels': {'enabled': True}}},
+                      'plotOptions': {'bar': {'dataLabels': {'enabled': True}},
+                                      'area': {'fillOpacity': 0.5},
+                                      'series': {'stacking': random.choice(['normal', ''])}
+                                      },
                       'legend': {'layout': 'vertical',
                                  'align': 'right',
                                  'verticalAlign': 'top',
@@ -103,9 +106,9 @@ class Graph(object):
                                  },
                       'credits': {'enabled': False},
                       'series': [{'name': 'Year 1800',
-                                  'data': [random.randint(0, 1000) for r in range(5)]},
+                                  'data': [random.randint(0, 10) for r in range(5)]},
                                  {'name': 'Year 1900',
-                                  'data': [random.randint(0, 1000) for r in range(5)]},
+                                  'data': [random.randint(0, 10) for r in range(5)]},
                                  {'name': 'Year 2008',
-                                  'data': [random.randint(0, 1000) for r in range(5)]}]}
+                                  'data': [random.randint(0, 10) for r in range(5)]}]}
         return json.dumps(dictionary)
