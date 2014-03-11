@@ -6,6 +6,7 @@ import logging
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 
+from demo_data import DEMO_DATA
 from mongo_accessor import MongoAccessor
 
 
@@ -32,6 +33,15 @@ def is_mongo_configured():
     accessor = MongoAccessor()
     return accessor.verify_essential_collections_present()
 
+
+def add_demo_data():
+    """
+    should not be called by the app
+    add demo dashboard data to the database
+    """
+    accessor = MongoAccessor()
+    for collection, document in DEMO_DATA:
+        accessor.add_document_to_collection(collection, document)
 
 if __name__ == '__main__':
     print "Mongo Running: %s" % is_mongo_running()

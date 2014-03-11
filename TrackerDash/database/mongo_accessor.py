@@ -6,8 +6,6 @@ import unittest
 
 import pymongo
 
-from TrackerDash.database.demo_data import DEMO_DATA
-
 LIVE_DATABASE = "TrackerDashApp"
 TEST_DATABASE = "TrackerDashTEST"
 
@@ -28,6 +26,13 @@ class MongoAccessor(object):
         self.client = pymongo.MongoClient()
         self.database = self.client[self.database_name]
 
+    # Database Methods
+    def get_raw_database(self):
+        """
+        returns the pymongo database instance this class wraps
+        """
+        return self.database
+
     def reset_all(self):
         """
         warning: deletes all collections and re-adds the vital ones
@@ -38,13 +43,14 @@ class MongoAccessor(object):
 
     def add_essential_collections(self):
         """
-        these are the essential collections needed for trackerdash to operate
+        add the minimum collections required for TrackerDash to operate
         """
         for collection in ESSENTIAL_COLLECTIONS:
             self.create_collection(collection)
 
     def verify_essential_collections_present(self):
         """
+        returns true if all the collections required to operate are present in the database
         """
         present = True
         all_collections = self.get_local_collections()
@@ -54,15 +60,9 @@ class MongoAccessor(object):
 
         return present
 
-    def get_raw_database(self):
-        """
-        returns the pymongo database instance this class wraps
-        """
-        return self.database
-
     def get_all_collections(self):
         """
-        return a list of all the collections in the database
+        return a list of all the collections in the database including system collections
         """
         return self.database.collection_names(include_system_collections=True)
 
@@ -134,14 +134,6 @@ class MongoAccessor(object):
         collection = self.get_collection(collection_name)
         document = collection.find_one(query)
         return document
-
-    def add_demo_data(self):
-        """
-        should not be called by the app
-        add demo dashboard data to the database
-        """
-        for collection, document in DEMO_DATA:
-            self.add_document_to_collection(collection, document)
 
 
 class TestAccessor(MongoAccessor):

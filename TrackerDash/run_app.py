@@ -78,10 +78,11 @@ if __name__ == '__main__':
                 accessor.reset_all()
                 break
             elif user_input in ('', 'n', 'N'):
-                print "Not clearing the database"
+                print "Not clearing the database."
                 break
     if args.demo_data:
-        accessor.add_demo_data()
+        print "Adding demo data to the database."
+        database_common.add_demo_data()
 
     if args.local:
         host = localhost
