@@ -77,7 +77,6 @@ class WebDispatcher(object):
         note:: not currently implemented, placeholder for api
         """
         logging.info("Request at \'/api/\'")
-        logging.info("API POST RECIEVED, request: %r" % request.content)
         return ""
 
     @app.route('/dash/', methods=["GET"])

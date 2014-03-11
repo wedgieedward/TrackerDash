@@ -34,7 +34,7 @@
                     type: "POST",
                     dataType: "json",
                     context: Form,
-                    data: JSON.stringify(data),
+                    data: {create_dashboard: JSON.stringify(data)},
                     success: function(data){
                         alert("Operation Successful")
                     }
