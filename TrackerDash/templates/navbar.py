@@ -1,12 +1,11 @@
 """
 navbar element
 """
-import unittest
-
 from twisted.web.template import Element, XMLFile, renderer
 from twisted.python.filepath import FilePath
 
-from TrackerDash.database.mongo_accessor import MongoAccessor, TestAccessor
+from TrackerDash.database.mongo_accessor import MongoAccessor
+from TrackerDash.constants import VERSION, TAG
 
 
 class NavBar(Element):
@@ -26,6 +25,13 @@ class NavBar(Element):
         dash_documents = self.accessor.get_all_documents_from_collection("dashboard")
         dash_names = [dash["name"] for dash in dash_documents]
         return dash_names
+
+    @renderer
+    def software_version(self, request, tag):
+        """
+        get the software_version
+        """
+        return TAG + ' ' + VERSION
 
     @renderer
     def dashboards_dropdown(self, request, tag):

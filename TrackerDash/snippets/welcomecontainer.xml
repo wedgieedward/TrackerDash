@@ -5,18 +5,16 @@
                 <h1>
                     Lets get started!
                 </h1>
-                <p>
+                <br/>
+                <h2>
                     TrackerDash is a customisable analytics dashboard server that is written in Python.
-                </p>
-                <p>
-                    To find out more about how to configure your TrackerDash server and get going click 'Learn more'.
-                </p>
+                </h2>
+                <h2>
+                    To find out more about how to configure your TrackerDash server and get going <a href="https://github.com/wedgieedward/TrackerDash/">click here.</a>
+                </h2>
+                <br/>
                 <p>
                     TrackerDash makes extensive use of <a href="http://www.highcharts.com/products/highcharts">Highcharts JS</a> which is licenced under creative commons. While under creative commons you are free to use TrackerDash and HighCharts software for non-commercial purposes, running this software might conflict with their Licencing terms, which can be found <a href="http://shop.highsoft.com/faq">here.</a>
-                </p>
-
-                <p>
-                    <a class="btn btn-default btn-large" href="https://github.com/wedgieedward/TrackerDash/">Learn more</a>
                 </p>
             </div>
         </div>
