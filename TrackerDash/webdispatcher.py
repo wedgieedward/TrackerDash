@@ -19,6 +19,8 @@ from templates.configpage import ConfigPage
 from templates.newdash import NewDash
 from templates.logpage import LogPage
 
+from TrackerDash.database.api_request_handler import process_request
+
 
 TWISTED_LOG = open(TWISTED_LOG_FILE, "w")
 
@@ -78,7 +80,7 @@ class WebDispatcher(object):
         note:: not currently implemented, placeholder for api
         """
         logging.info("Request at \'/api/\'")
-        return succeed(None)
+        return process_request(request)
 
     @app.route('/dash/', methods=["GET"])
     def basedash(self, _request):

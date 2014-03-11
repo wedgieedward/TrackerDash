@@ -101,6 +101,15 @@ class AccessorSanity(unittest.TestCase):
         self.assertIn(collection, collections)
         self.assertRaises(NameError, accessor.create_collection, collection)
 
+    def test_get_document_that_doesnt_exist(self):
+        """
+        """
+        accessor = TestAccessor()
+        collection = "testcollection"
+        accessor.create_collection(collection)
+        result = accessor.get_documents_by_query(collection, {"foo": "bar"})
+        self.assertEquals(result, [])
+
     def add_data_over_x_days(self, collection_name, days):
         """
         creates mock data
