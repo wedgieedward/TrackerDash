@@ -16,13 +16,25 @@
     </div>
     <script>
             $('#submit_form').submit(function(e){
-                console.log("hello andy");
-                console.log( $("#submit_form input#name").val() );
                 e.preventDefault();
+                var data = {};
+                var Form = this;
+
+                //Gathering the Data
+                //and removing undefined keys(buttons)
+                $.each(this.elements, function(i, v){
+                    var input = $(v);
+                    data[input.attr("name")] = input.val();
+                    delete data["undefined"];
+                });
+
                 $.ajax({
+                    cache: false,
                     url: "../api/",
                     type: "POST",
-                    data: {'name': $("#submit_form input#name").val()},
+                    dataType: "json",
+                    context: Form,
+                    data: JSON.stringify(data),
                     success: function(data){
                         alert("Operation Successful")
                     }

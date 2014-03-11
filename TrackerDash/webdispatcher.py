@@ -77,9 +77,8 @@ class WebDispatcher(object):
         note:: not currently implemented, placeholder for api
         """
         logging.info("Request at \'/api/\'")
-        arguments = request.args.get()
-        print "API POST RECIEVED, args: %s" % arguments
-        return arguments
+        logging.info("API POST RECIEVED, request: %r" % request.content)
+        return ""
 
     @app.route('/dash/', methods=["GET"])
     def basedash(self, _request):
