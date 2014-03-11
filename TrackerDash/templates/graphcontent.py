@@ -39,6 +39,7 @@ class GraphContent(Element):
                 xml += '<div class="col-md-%s column">' % (graph["width"], )
                 this_graph = Graph(
                     graph["name"],
+                    graph["description"],
                     graph["data_source"],
                     graph["height"],
                     render_rows)
@@ -66,8 +67,25 @@ class GraphContent(Element):
         return all the graph titles to display in this container
         format:
         """
+        desc = "Randomly generated data for test purposes"
         return [
-            [{"name": "Big Graph", "width": 8, "height": 2, "data_source": uuid.uuid4()},
-             {"name": "Top Of Two", "width": 4, "height": 1, "data_source": uuid.uuid4()},
-             {"name": "Bottom Of Two", "height": 1, "width": 4, "data_source": uuid.uuid4()}],
-            [{"name": "Wide Graph", "width": 12, "height": 1, "data_source": uuid.uuid4()}]]
+            [{"name": "Big Graph",
+              "description": desc,
+              "width": 8,
+              "height": 2,
+              "data_source": uuid.uuid4()},
+             {"name": "Top Of Two",
+              "description": desc,
+              "width": 4,
+              "height": 1,
+              "data_source": uuid.uuid4()},
+             {"name": "Bottom Of Two",
+              "description": desc,
+              "height": 1,
+              "width": 4,
+              "data_source": uuid.uuid4()}],
+            [{"name": "Wide Graph",
+              "description": desc,
+              "width": 12,
+              "height": 1,
+              "data_source": uuid.uuid4()}]]

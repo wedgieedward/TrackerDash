@@ -2,13 +2,15 @@
 Graph object
 """
 import json
+import random
 
 
 class Graph(object):
 
-    def __init__(self, graph_title, data_source, row_span, number_of_rows):
+    def __init__(self, graph_title, graph_description, data_source, row_span, number_of_rows):
         super(Graph, self).__init__()
         self.graph_title = graph_title
+        self.graph_description = graph_description
         self.data_source = data_source
         self.row_span = row_span
         self.number_of_rows = number_of_rows
@@ -73,9 +75,13 @@ class Graph(object):
         graph based on its title either in this class or at page load time in
         the javascript
         """
-        dictionary = {'chart': {'type': 'bar'},
+        dictionary = {'chart': {'type': random.choice(['line',
+                                                       'bar',
+                                                       'area',
+                                                       'column',
+                                                       'scatter'])},
                       'title': {'text': self.graph_title.title()},
-                      'subtitle': {'text': 'Description'},
+                      'subtitle': {'text': self.graph_description},
                       'xAxis': {'categories': ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
                                 'title': {'text': None}},
                       'yAxis': {'min': 0,
@@ -97,9 +103,9 @@ class Graph(object):
                                  },
                       'credits': {'enabled': False},
                       'series': [{'name': 'Year 1800',
-                                  'data': [107, 31, 635, 203, 2]},
+                                  'data': [random.randint(0, 1000) for r in range(5)]},
                                  {'name': 'Year 1900',
-                                  'data': [133, 156, 947, 408, 6]},
+                                  'data': [random.randint(0, 1000) for r in range(5)]},
                                  {'name': 'Year 2008',
-                                  'data': [973, 914, 4054, 732, 34]}]}
+                                  'data': [random.randint(0, 1000) for r in range(5)]}]}
         return json.dumps(dictionary)
