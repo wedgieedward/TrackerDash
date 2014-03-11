@@ -57,16 +57,6 @@ class WebDispatcher(object):
         logging.info("Request at \'/web/\'")
         return File('TrackerDash/web')
 
-    # Temp route to the graphing library. This should be removed
-    # once graphing has been implemented.
-    @app.route('/graph/', branch=True)
-    def third_party_graphs(self, _request):
-        """
-        test route link to view the contents of thirdparty
-        """
-        logging.info("Request at \'/graph/\'")
-        return File('TrackerDash/thirdparty')
-
     @app.route('/configure/', methods=['GET'])
     def configuration_page(self, _request):
         logging.info("Request at \'/configure/\'")
