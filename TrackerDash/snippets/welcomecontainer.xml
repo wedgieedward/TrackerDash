@@ -11,6 +11,9 @@
                 <p>
                     To find out more about how to configure your TrackerDash server and get going click 'Learn more'.
                 </p>
+                <p>
+                    TrackerDash makes extensive use of <a href="http://www.highcharts.com/products/highcharts">Highcharts JS</a> which is licenced under creative commons. While under creative commons you are free to use TrackerDash and HighCharts software for non-commercial purposes, running this software might conflict with their Licencing terms, which can be found <a href="http://shop.highsoft.com/faq">here.</a>
+                </p>
 
                 <p>
                     <a class="btn btn-default btn-large" href="https://github.com/wedgieedward/TrackerDash/">Learn more</a>

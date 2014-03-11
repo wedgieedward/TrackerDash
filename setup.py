@@ -1,4 +1,8 @@
+import sys
 from setuptools import setup
+
+if sys.version_info < (2, 7):
+    sys.exit("TrackerDash requires python 2.7 installed.")
 
 setup(name='TrackerDash',
       version='0.1',
