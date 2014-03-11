@@ -7,6 +7,7 @@ import sys
 from klein import Klein
 
 from twisted.internet import reactor
+from twisted.internet.defer import succeed
 from twisted.web.static import File
 
 from constants import APP_LOG_FILE
@@ -77,7 +78,7 @@ class WebDispatcher(object):
         note:: not currently implemented, placeholder for api
         """
         logging.info("Request at \'/api/\'")
-        return ""
+        return succeed(None)
 
     @app.route('/dash/', methods=["GET"])
     def basedash(self, _request):
