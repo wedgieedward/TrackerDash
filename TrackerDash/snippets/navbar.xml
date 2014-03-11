@@ -1,4 +1,4 @@
-<html xmlns:t="http://twistedmatrix.com/ns/twisted.web.template/0.1">
+<div xmlns:t="http://twistedmatrix.com/ns/twisted.web.template/0.1">
 <div class="container-full" id="top_nav_bar">
     <div class="row clearfix">
         <div class="col-md-12 column">
@@ -73,4 +73,4 @@
         </div>
     </div>
 </div>
-</html>
+</div>
