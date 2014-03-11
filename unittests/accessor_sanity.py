@@ -1,15 +1,7 @@
 import unittest
 
 from TrackerDash.database.mongo_accessor import MongoAccessor
-
-TEST_DATABASE = "TrackerDashTEST"
-
-
-class TestAccessor(MongoAccessor):
-    database_name = TEST_DATABASE
-
-    def __init__(self):
-        super(TestAccessor, self).__init__()
+from TrackerDash.database.mongo_accessor import TestAccessor
 
 
 class AccessorSanity(unittest.TestCase):

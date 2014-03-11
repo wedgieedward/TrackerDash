@@ -6,6 +6,7 @@ import logging
 import pymongo
 
 LIVE_DATABASE = "TrackerDashApp"
+TEST_DATABASE = "TrackerDashTEST"
 
 ESSENTIAL_COLLECTIONS = (
     "showreel",
@@ -132,3 +133,10 @@ class MongoAccessor(object):
         collection = self.get_collection(collection_name)
         document = collection.find_one(query)
         return document
+
+
+class TestAccessor(MongoAccessor):
+    database_name = TEST_DATABASE
+
+    def __init__(self):
+        super(TestAccessor, self).__init__()
