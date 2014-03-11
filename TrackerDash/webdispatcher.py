@@ -78,6 +78,7 @@ class WebDispatcher(object):
         """
         logging.info("Request at \'/api/\'")
         arguments = request.args.get()
+        print "API POST RECIEVED, args: %s" % arguments
         return arguments
 
     @app.route('/dash/', methods=["GET"])
