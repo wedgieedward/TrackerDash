@@ -82,7 +82,8 @@ class MongoAccessor(object):
         try:
             self.database.create_collection(collection_name)
         except pymongo.errors.CollectionInvalid:
-            logging.error("collection %s already exists" % collection_name)
+            # logging.debug("collection %s already exists" % collection_name)
+            raise NameError("name already exists")
 
     def delete_collection(self, collection_name):
         """

@@ -88,6 +88,19 @@ class AccessorSanity(unittest.TestCase):
             collection, days=8)
         self.assertEquals(len(docs_in_the_last_eight_days), 8)
 
+    def test_create_duplicate_collection(self):
+        """
+        tests the behaviour of trying to create the same collection twice
+        """
+        accessor = TestAccessor()
+        collection = "unknown"
+        collections = accessor.get_local_collections()
+        self.assertNotIn(collection, collections)
+        accessor.create_collection(collection)
+        collections = accessor.get_local_collections()
+        self.assertIn(collection, collections)
+        self.assertRaises(NameError, accessor.create_collection, collection)
+
     def add_data_over_x_days(self, collection_name, days):
         """
         creates mock data
