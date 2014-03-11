@@ -1,8 +1,10 @@
 """
 Client for accessing the mongodatabase
 """
+from datetime import datetime
+from datetime import timedelta
 import logging
-
+from bson import objectid
 import pymongo
 
 LIVE_DATABASE = "TrackerDashApp"
@@ -59,6 +61,7 @@ class MongoAccessor(object):
 
         return present
 
+    # Collection Operations
     def get_all_collections(self):
         """
         return a list of all the collections in the database including system collections
@@ -93,15 +96,10 @@ class MongoAccessor(object):
         """
         returns a collection object
         """
-        return self.database[collection_name]
-
-    def add_document_to_collection(self, collection_name, document):
-        """
-        add a json document to a specified collection
-        """
-        logging.debug("Inseting %r into collection %s" % (document, collection_name))
-        collection = self.get_collection(collection_name)
-        collection.insert(document)
+        if collection_name in self.get_all_collections():
+            return self.database[collection_name]
+        else:
+            raise LookupError("%s not found in database" % collection_name)
 
     def get_number_of_documents_in_collection(self, collection_name):
         """
@@ -118,6 +116,19 @@ class MongoAccessor(object):
         documents = [doc for doc in collection.find()]
         return documents
 
+    # Document Methods
+    def add_document_to_collection(self, collection_name, document):
+        """
+        add a json document to a specified collection
+        """
+        logging.debug("Inseting %r into collection %s" % (document, collection_name))
+        try:
+            collection = self.get_collection(collection_name)
+            collection.insert(document)
+        except LookupError:
+            self.create_collection(collection_name)
+            self.add_document_to_collection(collection_name, document)
+
     def get_documents_by_query(self, collection_name, query):
         """
         queries a collection
@@ -133,6 +144,23 @@ class MongoAccessor(object):
         collection = self.get_collection(collection_name)
         document = collection.find_one(query)
         return document
+
+    def get_all_documents_created_in_last(self,
+                                          collection_name,
+                                          weeks=0,
+                                          days=0,
+                                          hours=0,
+                                          minutes=0):
+        """
+        Given a collection and a time interval, get all the documents in that collection
+        created after that defined time interval
+        """
+        timestamp_query = datetime.now() - timedelta(weeks=weeks,
+                                                     days=days,
+                                                     hours=hours,
+                                                     minutes=minutes)
+        query = {"_id": {"$gt": objectid.ObjectId.from_datetime(timestamp_query)}}
+        return self.get_documents_by_query(collection_name, query)
 
 
 class TestAccessor(MongoAccessor):
