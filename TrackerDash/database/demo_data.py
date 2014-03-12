@@ -20,7 +20,8 @@ DEMO_DATA = (
                                        "days": 0,
                                        "weeks": 1,
                                        "months": 0},
-
+                        "type": "area",
+                        "stacked": True
                         },
 
                        {"title": "Tall Thin Graph",
@@ -33,6 +34,8 @@ DEMO_DATA = (
                                        "days": 0,
                                        "weeks": 1,
                                        "months": 0},
+                        "type": "pie",
+                        "stacked": True
 
                         }],
 
@@ -46,5 +49,6 @@ DEMO_DATA = (
                                        "days": 0,
                                        "weeks": 1,
                                        "months": 0},
-
+                        "type": "line",
+                        "stacked": False
                         }]]}),)

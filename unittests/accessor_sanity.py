@@ -110,6 +110,19 @@ class AccessorSanity(unittest.TestCase):
         result = accessor.get_documents_by_query(collection, {"foo": "bar"})
         self.assertEquals(result, [])
 
+    def test_get_last_document_inserted(self):
+        accessor = TestAccessor()
+        collection = "testcollection"
+        number_of_docs_to_add = 5
+        for x in range(number_of_docs_to_add):
+            document = {"value": x}
+            accessor.add_document_to_collection(collection, document)
+        number_of_docs_in_collection = accessor.get_number_of_documents_in_collection(collection)
+        self.assertEquals(number_of_docs_in_collection, number_of_docs_to_add)
+        last_doc = accessor.get_last_document_inserted(collection)
+        self.assertIsNotNone(last_doc)
+        self.assertEquals(last_doc["value"], number_of_docs_to_add - 1)
+
     def add_data_over_x_days(self, collection_name, days):
         """
         creates mock data

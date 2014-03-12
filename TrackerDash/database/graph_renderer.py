@@ -4,6 +4,9 @@ class for rendering individual graphs
 import json
 from TrackerDash.database.mongo_accessor import MongoAccessor
 
+TIME_LINEAR_GRAPH_TYPES = ('line', 'bar', 'area', 'column', 'scatter', 'bar', 'column')
+SINGLE_DOCUMENT_GRAPH_TYPES = ("pie", "funnel")
+
 
 class HighChartsDataRenderer(object):
 
@@ -21,13 +24,29 @@ class HighChartsDataRenderer(object):
 
     def get_relevant_data_for_graph_type(self):
         """
+        returns an array of document(s)
         """
+        chart_type = self.graph_document["type"]
+        if chart_type in TIME_LINEAR_GRAPH_TYPES:
+            data_range = self.graph_document["data_range"]
+            records = self.accessor.get_all_documents_created_in_last(
+                self.data_source,
+                weeks=data_range["weeks"],
+                days=data_range["days"],
+                hours=data_range["hours"],
+                minutes=data_range["minutes"])
+            return records
 
+        elif chart_type in SINGLE_DOCUMENT_GRAPH_TYPES:
+            record = self.accessor.get_last_document_inserted(
+                self.data_source)
+            return [record]
 
     def process(self):
         """
         process the graph document and relevent data to be able to
         """
+        self.dictionary["chart"] = {"type": self.graph_document["type"]}
 
 
 a = """

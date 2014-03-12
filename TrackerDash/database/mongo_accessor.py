@@ -127,6 +127,8 @@ class MongoAccessor(object):
             collection = self.get_collection(collection_name)
             collection.insert(document)
         except LookupError:
+            logging.debug(
+                "Collection %s not found, creating now and trying again" % collection_name)
             self.create_collection(collection_name)
             self.add_document_to_collection(collection_name, document)
 
@@ -145,6 +147,11 @@ class MongoAccessor(object):
         collection = self.get_collection(collection_name)
         document = collection.find_one(query)
         return document
+
+    def get_last_document_inserted(self, collection_name):
+        collection = self.get_collection(collection_name)
+        document = collection.find().sort("_id", -1).limit(1)
+        return document[0]
 
     def get_all_documents_created_in_last(self,
                                           collection_name,
