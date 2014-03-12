@@ -1,18 +1,19 @@
 """
 Graph object
 """
-import json
-import random
+import uuid
+
+from TrackerDash.database.graph_renderer import HighChartsDataRenderer
 
 
-class Graph(object):
+class HighchartsGraph(object):
 
-    def __init__(self, graph_title, graph_description, data_source, row_span, number_of_rows):
-        super(Graph, self).__init__()
-        self.graph_title = graph_title
-        self.graph_description = graph_description
-        self.data_source = data_source
-        self.row_span = row_span
+    def __init__(self, graph_document, number_of_rows):
+        self.graph_document = graph_document
+        self.graph_title = graph_document["title"]
+        self.graph_description = graph_document["description"]
+        self.unique_ref = uuid.uuid4()
+        self.row_span = graph_document["height"]
         self.number_of_rows = number_of_rows
 
     def load(self):
@@ -25,9 +26,10 @@ class Graph(object):
 
     def get_chart_data(self):
         """
-        returns a dict that highcharts.js can render correctly
+        creates a HighChartsDataRenderer and renders it as json
         """
-        return self._test_get_json()
+        renderer = HighChartsDataRenderer(self.graph_document)
+        return renderer.render_as_json()
 
     def get_formatted_string(self):
         """
@@ -37,81 +39,35 @@ class Graph(object):
         string = self.get_render_script() % (
             self.number_of_rows,
             self.row_span,
-            self.data_source,
-            self.data_source,
+            self.unique_ref,
+            self.unique_ref,
             self.get_chart_data(),
-            self.data_source)
+            self.unique_ref)
 
         return string
 
     def get_render_script(self):
         """
-        must return valid xml
+        returns the javascript needed to render this particular chart
         """
         return ("""
-<div>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            win_height = $(window).height();
-            top_nav_bar_height = $("#top_nav_bar").height();
-            bottom_nav_bar_height = $("#bottom_nav_bar").height();
-            offset = 0;
-            num_rows = %d;
-            span_rows = %d;
-            if (top_nav_bar_height != null){
-                offset = top_nav_bar_height + bottom_nav_bar_height;
-            }
-            height = ((win_height - offset) / num_rows) * span_rows;
-            $("#%s").css({"height": height.toString()+"px"});
-            $('#%s').highcharts(jQuery.parseJSON(%r));
-        });
-    </script>
-<div id="%s" style="min-width: 310px; margin: 0"></div>
-</div>
-""")
-
-    def _test_get_json(self):
-        """
-        NOTE:: this is only a temporary method
-        delete this and correctly return the json returned by our api for this
-        graph based on its title either in this class or at page load time in
-        the javascript
-        """
-        dictionary = {'chart': {'type': random.choice(['line',
-                                                       'bar',
-                                                       'area',
-                                                       'column',
-                                                       'scatter'])},
-                      'title': {'text': self.graph_title.title()},
-                      'subtitle': {'text': self.graph_description},
-                      'xAxis': {'categories': ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
-                                'title': {'text': None}},
-                      'yAxis': {'min': 0,
-                                'title': {'text': 'Population (millions)',
-                                          'align': 'high'},
-                                'labels': {'overflow': 'justify'}
-                                },
-                      'tooltip': {'valueSuffix': ' millions'},
-                      'plotOptions': {'bar': {'dataLabels': {'enabled': True}},
-                                      'area': {'fillOpacity': 0.5},
-                                      'series': {'stacking': random.choice(['normal', ''])}
-                                      },
-                      'legend': {'layout': 'vertical',
-                                 'align': 'right',
-                                 'verticalAlign': 'top',
-                                 'x': -40,
-                                 'y': 100,
-                                 'floating': True,
-                                 'borderWidth': 1,
-                                 'backgroundColor': '#FFFFFF',
-                                 'shadow': True
-                                 },
-                      'credits': {'enabled': False},
-                      # 'series': [{'name': 'Year 1800',
-                      #             'data': [random.randint(0, 10) for r in range(5)]},
-                      #            {'name': 'Year 1900',
-                      #             'data': [random.randint(0, 10) for r in range(5)]},
-                      #            {'name': 'Year 2008',
-                      #             'data': [random.randint(0, 10) for r in range(5)]}]
-                                  }
-        return json.dumps(dictionary)
+                <div>
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            win_height = $(window).height();
+                            top_nav_bar_height = $("#top_nav_bar").height();
+                            bottom_nav_bar_height = $("#bottom_nav_bar").height();
+                            offset = 0;
+                            num_rows = %d;
+                            span_rows = %d;
+                            if (top_nav_bar_height != null){
+                                offset = top_nav_bar_height + bottom_nav_bar_height;
+                            }
+                            height = ((win_height - offset) / num_rows) * span_rows;
+                            $("#%s").css({"height": height.toString()+"px"});
+                            $('#%s').highcharts(jQuery.parseJSON(%r));
+                        });
+                    </script>
+                <div id="%s" style="min-width: 310px; margin: 0"></div>
+                </div>
+                """)

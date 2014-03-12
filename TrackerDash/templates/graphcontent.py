@@ -6,7 +6,7 @@ from twisted.web.template import Element, XMLFile, renderer, XMLString
 from twisted.python.filepath import FilePath
 
 from TrackerDash.database.mongo_accessor import MongoAccessor
-from TrackerDash.templates.graph import Graph
+from TrackerDash.templates.graph import HighchartsGraph
 
 
 class GraphContent(Element):
@@ -44,14 +44,9 @@ class GraphContent(Element):
         render_rows = self.get_number_of_render_rows(rows)
         for row in rows:
             xml += '<div class="row clearfix">'
-            for graph in row:
-                xml += '<div class="col-md-%s column">' % (graph["width"], )
-                this_graph = Graph(
-                    graph["name"],
-                    graph["description"],
-                    graph["data_source"],
-                    graph["height"],
-                    render_rows)
+            for graph_document in row:
+                xml += '<div class="col-md-%s column">' % (graph_document["width"], )
+                this_graph = HighchartsGraph(graph_document, render_rows)
                 xml += this_graph.load()
                 xml += '</div>'
             xml += '</div>'
@@ -65,9 +60,9 @@ class GraphContent(Element):
         num_rows = 0
         for row in rows_data:
             row_max = 0
-            for graph in row:
-                if graph["height"] > row_max:
-                    row_max = graph["height"]
+            for graph_document in row:
+                if graph_document["height"] > row_max:
+                    row_max = graph_document["height"]
             num_rows += row_max
         return num_rows
 
