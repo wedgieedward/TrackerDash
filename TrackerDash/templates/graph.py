@@ -107,10 +107,11 @@ class Graph(object):
                                  'shadow': True
                                  },
                       'credits': {'enabled': False},
-                      'series': [{'name': 'Year 1800',
-                                  'data': [random.randint(0, 10) for r in range(5)]},
-                                 {'name': 'Year 1900',
-                                  'data': [random.randint(0, 10) for r in range(5)]},
-                                 {'name': 'Year 2008',
-                                  'data': [random.randint(0, 10) for r in range(5)]}]}
+                      # 'series': [{'name': 'Year 1800',
+                      #             'data': [random.randint(0, 10) for r in range(5)]},
+                      #            {'name': 'Year 1900',
+                      #             'data': [random.randint(0, 10) for r in range(5)]},
+                      #            {'name': 'Year 2008',
+                      #             'data': [random.randint(0, 10) for r in range(5)]}]
+                                  }
         return json.dumps(dictionary)
