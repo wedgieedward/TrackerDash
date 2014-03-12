@@ -21,7 +21,10 @@ class HighChartsDataRenderer(object):
         self.process()
 
     def render_as_json(self):
-        logging.info("finaldict = %r" % self.dictionary)
+        logging.debug(
+            "renderering graph: %s as json, output dict: %r" % (
+                self.graph_document["title"],
+                self.dictionary))
         return json.dumps(self.dictionary)
 
     def get_relevant_data_for_graph_type(self):
@@ -58,7 +61,6 @@ class HighChartsDataRenderer(object):
                                           }
                                },
                    }
-        logging.info("Edd - stacked:%r" % self.graph_document["stacked"])
         if self.graph_document["stacked"]:
             options["series"] = {"stacking": "normal"}
 
@@ -93,41 +95,30 @@ class HighChartsDataRenderer(object):
     def set_series_data(self):
         chart_type = self.graph_document["type"]
         series = []
-        logging.info("Edd - ")
-        logging.info("Edd - chart_type:%r" % chart_type)
         if chart_type in TIME_LINEAR_GRAPH_TYPES:
             data = {}
             first_doc = self.relevant_data[0]
             keys = first_doc.keys()
             keys.remove("_id")
-            logging.info("Edd - keys:%r" % keys)
             for key in keys:
                 data[key] = []
-            logging.info("Edd - data:%r" % data)
 
             for document in self.relevant_data:
-                logging.info("Edd - document:%r" % document)
                 for key in keys:
                     data[key].append(document[key])
 
-                logging.info("Edd - data:%r" % data)
             for key in keys:
                 series.append({"name": key, "data": data[key]})
-            logging.info("Edd - series:%r" % series)
 
         elif chart_type in SINGLE_DOCUMENT_GRAPH_TYPES:
-            logging.info("Edd - ")
             document = self.relevant_data[0]
-            logging.info("Edd - document:%r" % document)
             keys = document.keys()
             keys.remove("_id")
-            logging.info("Edd - keys:%r" % keys)
             data = []
             for key in keys:
                 data.append([key, document[key]])
             series = [{"type": chart_type,
                        "data": data}]
-            logging.info("Edd - series:%r" % series)
 
         self.dictionary["series"] = series
 
@@ -147,42 +138,3 @@ class HighChartsDataRenderer(object):
         self.set_plotOptions()
         self.set_series_data()
         self.set_type()
-
-
-target = """
-{'chart': {'type': random.choice(['line',
-                                                       'bar',
-                                                       'area',
-                                                       'column',
-                                                       'scatter'])},
-                      'title': {'text': self.graph_title.title()},
-                      'subtitle': {'text': self.graph_description},
-                      'xAxis': {'categories': ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
-                                'title': {'text': None}},
-                      'yAxis': {'min': 0,
-                                'title': {'text': 'Population (millions)',
-                                          'align': 'high'},
-                                'labels': {'overflow': 'justify'}
-                                },
-                      'tooltip': {'valueSuffix': ' millions'},
-                      'plotOptions': {'bar': {'dataLabels': {'enabled': True}},
-                                      'area': {'fillOpacity': 0.5},
-                                      'series': {'stacking': random.choice(['normal', ''])}
-                                      },
-                      'legend': {'layout': 'vertical',
-                                 'align': 'right',
-                                 'verticalAlign': 'top',
-                                 'x': -40,
-                                 'y': 100,
-                                 'floating': True,
-                                 'borderWidth': 1,
-                                 'backgroundColor': '#FFFFFF',
-                                 'shadow': True
-                                 },
-                      'credits': {'enabled': False},
-                      'series': [{'name': 'Year 1800',
-                                  'data': [random.randint(0, 10) for r in range(5)]},
-                                 {'name': 'Year 1900',
-                                  'data': [random.randint(0, 10) for r in range(5)]},
-                                 {'name': 'Year 2008',
-                                  'data': [random.randint(0, 10) for r in range(5)]}]}"""
