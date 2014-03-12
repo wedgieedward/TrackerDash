@@ -78,7 +78,7 @@ class HighChartsDataRenderer(object):
                                      'borderWidth': 1,
                                      'backgroundColor': '#FFFFFF',
                                      'shadow': True
-                                     },
+                                     }
 
     def set_title(self):
         """

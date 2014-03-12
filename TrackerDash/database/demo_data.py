@@ -22,7 +22,7 @@ DEMO_DATA = (
                                        "weeks": 1,
                                        "months": 0},
                         "type": "area",
-                        "stacked": True
+                        "stacked": False
                         },
 
                        {"title": "Tall Thin Graph",
@@ -50,31 +50,31 @@ DEMO_DATA = (
                                        "days": 0,
                                        "weeks": 1,
                                        "months": 0},
-                        "type": "line",
-                        "stacked": False
+                        "type": "bar",
+                        "stacked": True
                         }]]}),
-    (data_source_1, {"foo": random.randrange(10), "bar": random.randrange(10)}),
-    (data_source_2, {"foo": random.randrange(10), "bar": random.randrange(10)}),
-    (data_source_3, {"foo": random.randrange(10), "bar": random.randrange(10)}),
-    (data_source_4, {"foo": random.randrange(10), "bar": random.randrange(10)}),
+    (data_source_1, {"foo": random.randrange(10), "bar": random.randrange(10), "edd": random.randrange(10)}),
+    (data_source_2, {"foo": random.randrange(10), "bar": random.randrange(10), "edd": random.randrange(10)}),
+    (data_source_3, {"foo": random.randrange(10), "bar": random.randrange(10), "edd": random.randrange(10)}),
+    (data_source_4, {"foo": random.randrange(10), "bar": random.randrange(10), "edd": random.randrange(10)}),
 
-    (data_source_1, {"foo": random.randrange(10), "bar": random.randrange(10)}),
-    (data_source_2, {"foo": random.randrange(10), "bar": random.randrange(10)}),
-    (data_source_3, {"foo": random.randrange(10), "bar": random.randrange(10)}),
-    (data_source_4, {"foo": random.randrange(10), "bar": random.randrange(10)}),
+    (data_source_1, {"foo": random.randrange(10), "bar": random.randrange(10), "edd": random.randrange(10)}),
+    (data_source_2, {"foo": random.randrange(10), "bar": random.randrange(10), "edd": random.randrange(10)}),
+    (data_source_3, {"foo": random.randrange(10), "bar": random.randrange(10), "edd": random.randrange(10)}),
+    (data_source_4, {"foo": random.randrange(10), "bar": random.randrange(10), "edd": random.randrange(10)}),
 
-    (data_source_1, {"foo": random.randrange(10), "bar": random.randrange(10)}),
-    (data_source_2, {"foo": random.randrange(10), "bar": random.randrange(10)}),
-    (data_source_3, {"foo": random.randrange(10), "bar": random.randrange(10)}),
-    (data_source_4, {"foo": random.randrange(10), "bar": random.randrange(10)}),
+    (data_source_1, {"foo": random.randrange(10), "bar": random.randrange(10), "edd": random.randrange(10)}),
+    (data_source_2, {"foo": random.randrange(10), "bar": random.randrange(10), "edd": random.randrange(10)}),
+    (data_source_3, {"foo": random.randrange(10), "bar": random.randrange(10), "edd": random.randrange(10)}),
+    (data_source_4, {"foo": random.randrange(10), "bar": random.randrange(10), "edd": random.randrange(10)}),
 
-    (data_source_1, {"foo": random.randrange(10), "bar": random.randrange(10)}),
-    (data_source_2, {"foo": random.randrange(10), "bar": random.randrange(10)}),
-    (data_source_3, {"foo": random.randrange(10), "bar": random.randrange(10)}),
-    (data_source_4, {"foo": random.randrange(10), "bar": random.randrange(10)}),
+    (data_source_1, {"foo": random.randrange(10), "bar": random.randrange(10), "edd": random.randrange(10)}),
+    (data_source_2, {"foo": random.randrange(10), "bar": random.randrange(10), "edd": random.randrange(10)}),
+    (data_source_3, {"foo": random.randrange(10), "bar": random.randrange(10), "edd": random.randrange(10)}),
+    (data_source_4, {"foo": random.randrange(10), "bar": random.randrange(10), "edd": random.randrange(10)}),
 
-    (data_source_1, {"foo": random.randrange(10), "bar": random.randrange(10)}),
-    (data_source_2, {"foo": random.randrange(10), "bar": random.randrange(10)}),
-    (data_source_3, {"foo": random.randrange(10), "bar": random.randrange(10)}),
-    (data_source_4, {"foo": random.randrange(10), "bar": random.randrange(10)}),
+    (data_source_1, {"foo": random.randrange(10), "bar": random.randrange(10), "edd": random.randrange(10)}),
+    (data_source_2, {"foo": random.randrange(10), "bar": random.randrange(10), "edd": random.randrange(10)}),
+    (data_source_3, {"foo": random.randrange(10), "bar": random.randrange(10), "edd": random.randrange(10)}),
+    (data_source_4, {"foo": random.randrange(10), "bar": random.randrange(10), "edd": random.randrange(10)}),
 )
