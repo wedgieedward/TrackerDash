@@ -1,9 +1,10 @@
 import uuid
+import random
 
-data_source_1 = uuid.uuid4()
-data_source_2 = uuid.uuid4()
-data_source_3 = uuid.uuid4()
-data_source_4 = uuid.uuid4()
+data_source_1 = str(uuid.uuid4())
+data_source_2 = str(uuid.uuid4())
+data_source_3 = str(uuid.uuid4())
+data_source_4 = str(uuid.uuid4())
 
 desc = "Created By TrackerDash for DemoPurposes"
 
@@ -20,7 +21,7 @@ DEMO_DATA = (
                                        "days": 0,
                                        "weeks": 1,
                                        "months": 0},
-                        "type": "area",
+                        "type": "bar",
                         "stacked": True
                         },
 
@@ -51,4 +52,29 @@ DEMO_DATA = (
                                        "months": 0},
                         "type": "line",
                         "stacked": False
-                        }]]}),)
+                        }]]}),
+    (data_source_1, {"foo": random.randrange(10), "bar": random.randrange(10)}),
+    (data_source_2, {"foo": random.randrange(10), "bar": random.randrange(10)}),
+    (data_source_3, {"foo": random.randrange(10), "bar": random.randrange(10)}),
+    (data_source_4, {"foo": random.randrange(10), "bar": random.randrange(10)}),
+
+    (data_source_1, {"foo": random.randrange(10), "bar": random.randrange(10)}),
+    (data_source_2, {"foo": random.randrange(10), "bar": random.randrange(10)}),
+    (data_source_3, {"foo": random.randrange(10), "bar": random.randrange(10)}),
+    (data_source_4, {"foo": random.randrange(10), "bar": random.randrange(10)}),
+
+    (data_source_1, {"foo": random.randrange(10), "bar": random.randrange(10)}),
+    (data_source_2, {"foo": random.randrange(10), "bar": random.randrange(10)}),
+    (data_source_3, {"foo": random.randrange(10), "bar": random.randrange(10)}),
+    (data_source_4, {"foo": random.randrange(10), "bar": random.randrange(10)}),
+
+    (data_source_1, {"foo": random.randrange(10), "bar": random.randrange(10)}),
+    (data_source_2, {"foo": random.randrange(10), "bar": random.randrange(10)}),
+    (data_source_3, {"foo": random.randrange(10), "bar": random.randrange(10)}),
+    (data_source_4, {"foo": random.randrange(10), "bar": random.randrange(10)}),
+
+    (data_source_1, {"foo": random.randrange(10), "bar": random.randrange(10)}),
+    (data_source_2, {"foo": random.randrange(10), "bar": random.randrange(10)}),
+    (data_source_3, {"foo": random.randrange(10), "bar": random.randrange(10)}),
+    (data_source_4, {"foo": random.randrange(10), "bar": random.randrange(10)}),
+)

@@ -2,10 +2,11 @@
 class for rendering individual graphs
 """
 import json
+import logging
 from TrackerDash.database.mongo_accessor import MongoAccessor
 
 TIME_LINEAR_GRAPH_TYPES = ('line', 'bar', 'area', 'column', 'scatter', 'bar', 'column')
-SINGLE_DOCUMENT_GRAPH_TYPES = ("pie", "funnel")
+SINGLE_DOCUMENT_GRAPH_TYPES = ("pie", "funnel", "pyramid")
 
 
 class HighChartsDataRenderer(object):
@@ -45,105 +46,95 @@ class HighChartsDataRenderer(object):
     def get_plot_options(self):
         """
         """
-        options = {}
+        options = {'bar': {'dataLabels': {'enabled': True}},
+                   'area': {'fillOpacity': 0.5},
+                   "pie": {"allowPointSelect": True,
+                           "cursor": 'pointer'},
+                   "scatter": {"marker": {"radius": 5,
+                                          "states": {"hover": {"enabled": True,
+                                                               "lineColor": 'rgb(100,100,100)'}
+                                                     }
+                                          }
+                               },
+                   }
+        logging.info("Edd - stacked:%r" % self.graph_document["stacked"])
         if self.graph_document["stacked"]:
             options["series"] = {"stacking": "normal"}
 
+        return options
 
     def set_plotOptions(self):
         """
         """
         self.dictionary["plotOptions"] = self.get_plot_options()
+        self.dictionary["credits"] = {"enabled": False}
+        self.dictionary['legend'] = {'layout': 'vertical',
+                                     'align': 'right',
+                                     'verticalAlign': 'top',
+                                     'x': -40,
+                                     'y': 100,
+                                     'floating': True,
+                                     'borderWidth': 1,
+                                     'backgroundColor': '#FFFFFF',
+                                     'shadow': True
+                                     },
 
+    def set_title(self):
+        """
+        """
+        self.dictionary["title"] = {'text': self.graph_document['title']}
+
+    def set_description(self):
+        """
+        """
+        self.dictionary["subtitle"] = {'text': self.graph_document["description"]}
+
+    def set_series_data(self):
+        chart_type = self.graph_document["type"]
+        series = []
+        logging.info("Edd - ")
+        logging.info("Edd - chart_type:%r" % chart_type)
+        if chart_type in TIME_LINEAR_GRAPH_TYPES:
+            data = {}
+            first_doc = self.relevant_data[0]
+            keys = first_doc.keys()
+            keys.remove("_id")
+            logging.info("Edd - keys:%r" % keys)
+            for key in keys:
+                data[key] = []
+            logging.info("Edd - data:%r" % data)
+
+            for document in self.relevant_data:
+                logging.info("Edd - document:%r" % document)
+                for key in keys:
+                    data[key].append(document[key])
+
+                logging.info("Edd - data:%r" % data)
+            for key in keys:
+                series.append({"name": key, "data": data[key]})
+            logging.info("Edd - series:%r" % series)
+
+        elif chart_type in SINGLE_DOCUMENT_GRAPH_TYPES:
+            logging.info("Edd - ")
+            document = self.relevant_data[0]
+            logging.info("Edd - document:%r" % document)
+            keys = document.keys()
+            keys.remove("_id")
+            logging.info("Edd - keys:%r" % keys)
+            data = []
+            for key in keys:
+                data.append([key, document[key]])
+            series = [{"type": chart_type,
+                       "data": data}]
+            logging.info("Edd - series:%r" % series)
+
+        self.dictionary["series"] = series
 
     def process(self):
         """
         process the graph document and relevent data to be able to
         """
+        self.set_title()
+        self.set_description()
         self.set_plotOptions()
-        if self.graph_document["type"] in
-
-
-a = """
-# pie
-{chart: {plotBackgroundColor: null,
-         plotBorderWidth: null,
-         plotShadow: false},
- title: {text: 'Browser market shares at a specific website, 2010'},
- tooltip: {pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'},
- plotOptions: {pie: {allowPointSelect: true,
-               cursor: 'pointer'}},
- series: [{type: 'pie',
-           name: 'Browser share',
-           data: [['Firefox',   45.0],
-                  ['IE',       26.8],
-                  ['Safari',    8.5],
-                  ['Opera',     6.2],
-                  ['Others',   0.7]]}
-                   ]
-}
-
-# bar
-{
-chart: {
-    type: 'bar'
-},
-title: {
-    text: 'Historic World Population by Region'
-},
-subtitle: {
-    text: 'Source: Wikipedia.org'
-},
-xAxis: {
-     categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
-     title: {
-         text: null
-     }
- },
-yAxis: {
-    min: 0,
-    title: {
-        text: 'Population (millions)',
-        align: 'high'
-    },
-    labels: {
-        overflow: 'justify'
-    }
-},
-tooltip: {
-    valueSuffix: ' millions'
-},
-plotOptions: {
-    bar: {
-        dataLabels: {
-            enabled: true
-        }
-    }
-},
-legend: {
-    layout: 'vertical',
-    align: 'right',
-    verticalAlign: 'top',
-    x: -40,
-    y: 100,
-    floating: true,
-    borderWidth: 1,
-    backgroundColor: '#FFFFFF',
-    shadow: true
-},
-credits: {
-    enabled: false
-},
-series: [{
-    name: 'Year 1800',
-    data: [107, 31, 635, 203, 2]
-}, {
-    name: 'Year 1900',
-    data: [133, 156, 947, 408, 6]
-}, {
-    name: 'Year 2008',
-    data: [973, 914, 4054, 732, 34]
-}]
-});
-}
-"""
+        self.set_series_data()
