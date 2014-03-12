@@ -6,7 +6,7 @@ import logging
 from TrackerDash.database.mongo_accessor import MongoAccessor
 
 TIME_LINEAR_GRAPH_TYPES = ('line', 'bar', 'area', 'column', 'scatter', 'bar', 'column')
-SINGLE_DOCUMENT_GRAPH_TYPES = ("pie", "funnel", "pyramid")
+SINGLE_DOCUMENT_GRAPH_TYPES = ("pie")
 
 
 class HighChartsDataRenderer(object):
