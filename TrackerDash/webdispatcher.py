@@ -50,19 +50,16 @@ class WebDispatcher(object):
         """
         Index Routing
         """
-        logging.info("Request at \'/\'")
         return '<meta http-equiv="refresh" content="1;url=/dash/"/>'
 
     # Static files hosted on the server under web.
     # Use for static web files such as css and script files.
     @app.route('/web/', branch=True)
     def static_web_routing(self, _request):
-        logging.info("Request at \'/web/\'")
         return File('TrackerDash/web')
 
     @app.route('/configure/', methods=['GET'])
     def configuration_page(self, _request):
-        logging.info("Request at \'/configure/\'")
         return ConfigPage()
 
     @app.route('/newdash/', methods=['GET'])
@@ -70,7 +67,6 @@ class WebDispatcher(object):
         """
         route to new dashboard page
         """
-        logging.info("Request at \'/newdash/\'")
         return NewDash()
 
     @app.route('/api/', methods=['POST'])
@@ -79,15 +75,20 @@ class WebDispatcher(object):
         post to the database over the api
         note:: not currently implemented, placeholder for api
         """
-        logging.info("Request at \'/api/\'")
         return process_request(request)
+
+    @app.route('/status/api', methods=['GET'])
+    def api_status(self, _request):
+        """
+        route for the api to communicate with
+        """
+        return succeed
 
     @app.route('/dash/', methods=["GET"])
     def basedash(self, _request):
         """
         route to the test html page
         """
-        logging.info("Request at \'/dash/\'")
         return BasePage()
 
     @app.route('/dash/<string:dashboard>', methods=["GET"])
@@ -95,7 +96,6 @@ class WebDispatcher(object):
         """
         dynamically route to a specific dashboard page
         """
-        logging.info("Request at \'/dash/%s\'" % dashboard)
         return DashPage(dashboard)
 
     @app.route('/display/<string:dashboard>', methods=["GET"])
@@ -103,7 +103,6 @@ class WebDispatcher(object):
         """
         return a displaypage
         """
-        logging.info("Request at \'/display/%s\'" % dashboard)
         return DisplayPage(dashboard)
 
     @app.route('/log/<string:log_type>', methods=["GET"])
@@ -111,7 +110,6 @@ class WebDispatcher(object):
         """
         return the relevant log page
         """
-        logging.info("Request at \'/log/%s\'" % log_type)
         if log_type == "network_log":
             return LogPage(TWISTED_LOG_FILE, "Network Log")
         elif log_type == "application_log":

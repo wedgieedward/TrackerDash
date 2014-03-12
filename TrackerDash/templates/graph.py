@@ -31,18 +31,20 @@ class Graph(object):
 
     def get_formatted_string(self):
         """
-        get_string returns a string that needs .format()
+        get_render_script returns a string that needs .format()
         to be applied to it to be valid
         """
-        string = self.get_string() % (self.number_of_rows,
-                                      self.row_span,
-                                      self.data_source,
-                                      self.data_source,
-                                      self.get_chart_data(),
-                                      self.data_source)
+        string = self.get_render_script() % (
+            self.number_of_rows,
+            self.row_span,
+            self.data_source,
+            self.data_source,
+            self.get_chart_data(),
+            self.data_source)
+
         return string
 
-    def get_string(self):
+    def get_render_script(self):
         """
         must return valid xml
         """

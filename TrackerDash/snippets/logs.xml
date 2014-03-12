@@ -1,7 +1,7 @@
 <div xmlns:t="http://twistedmatrix.com/ns/twisted.web.template/0.1">
 <div class="container">
     <div class="row clearfix">
-        <!-- Filer by type code -->
+        <!-- Filter by type code -->
 <!--         <div class="col-md-1 column">
             <ul class='nav'>
                 <li>
@@ -22,7 +22,9 @@
             <div class="media">
                 <media_obj t:render="get_log_lines">
                     <a class="pull-left">
-                        <span class="label label-default">INFO</span>
+                        <div class="media-object">
+                            <t:slot name="log_label" />
+                        </div>
                     </a>
 
                     <div class="media-body">

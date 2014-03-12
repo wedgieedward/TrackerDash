@@ -13,7 +13,7 @@ from database.mongo_accessor import MongoAccessor
 from webdispatcher import WebDispatcher
 
 # logging setup
-logging.basicConfig(filename=APP_LOG_FILE, filemode='w', level=logging.INFO)
+logging.basicConfig(filename=APP_LOG_FILE, filemode='w', level=logging.DEBUG)
 logging.info("Initialised Log File")
 
 # defaults

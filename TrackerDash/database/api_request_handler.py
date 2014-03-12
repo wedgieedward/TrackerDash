@@ -15,8 +15,11 @@ def process_request(request):
     if len(arguments.keys()) != 1:
         raise SyntaxError("Too many arguments")
 
-    if arguments.keys()[0] == "create_dashboard":
+    method = arguments.keys()[0]
+    if method == "create_dashboard":
         return create_dashboard_request_handler(arguments["create_dashboard"])
+    else:
+        raise NotImplementedError("No API method for request type '%s'" % method)
 
 
 def create_dashboard_request_handler(data):

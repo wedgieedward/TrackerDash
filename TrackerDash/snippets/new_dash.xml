@@ -1,5 +1,6 @@
 <div xmlns:t="http://twistedmatrix.com/ns/twisted.web.template/0.1">
     <div class="container">
+        <div id="alerts"></div>
         <form class="form-horizontal" role="form" id="submit_form">
             <div class="form-group">
                 <label for="name" class="col-sm-2 control-label required">Dashboard Name *</label>
@@ -27,6 +28,9 @@
                     data[input.attr("name")] = input.val();
                     delete data["undefined"];
                 });
+                function onSuccess(){
+                    $('#alerts').append('<div class="alert">Success</div>');
+                }
 
                 $.ajax({
                     cache: false,
@@ -35,9 +39,6 @@
                     dataType: "json",
                     context: Form,
                     data: {create_dashboard: JSON.stringify(data)},
-                    success: function(data){
-                        alert("Operation Successful")
-                    }
                 });
             });
     </script>

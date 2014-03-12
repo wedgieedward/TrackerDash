@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="jumbotron">
+                <h1>
+                    There's nothing to display :(
+                </h1>
+                <br/>
+                <p>
+                    Functionality to add graph data through the web interface is currently not implemented.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

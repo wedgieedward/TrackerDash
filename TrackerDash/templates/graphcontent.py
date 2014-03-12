@@ -1,12 +1,12 @@
 """
 graph container element
 """
-import uuid
-
+import logging
 from twisted.web.template import Element, XMLFile, renderer, XMLString
 from twisted.python.filepath import FilePath
 
-from graph import Graph
+from TrackerDash.database.mongo_accessor import MongoAccessor
+from TrackerDash.templates.graph import Graph
 
 
 class GraphContent(Element):
@@ -18,14 +18,23 @@ class GraphContent(Element):
         super(GraphContent, self).__init__()
         self.loader = XMLFile(FilePath("TrackerDash/snippets/graphcontent.xml"))
         self.dashboard_name = dashboard_name
+        self.accessor = MongoAccessor()
+        self.dashboard_document = self.accessor.get_one_document_by_query(
+            "dashboard", {"name": self.dashboard_name})
+        logging.info("Dashboard Document: %r" % self.dashboard_document)
+        self._configured = True if "row_data" in self.dashboard_document else False
 
     @renderer
     def render_content(self, request, tag):
         """
         render the content for the graph container
         """
-        graph_row_xml = XMLString(self.get_row_xml())
-        return graph_row_xml.load()
+        if self._configured:
+            graph_row_xml = XMLString(self.get_row_xml())
+            return graph_row_xml.load()
+        else:
+            oops_container = XMLFile(FilePath("TrackerDash/snippets/no_dash_data_container.xml"))
+            return oops_container.load()
 
     def get_row_xml(self):
         """
@@ -67,25 +76,4 @@ class GraphContent(Element):
         return all the graph titles to display in this container
         format:
         """
-        desc = "Randomly generated data for test purposes"
-        return [
-            [{"name": "Big Graph",
-              "description": desc,
-              "width": 8,
-              "height": 2,
-              "data_source": uuid.uuid4()},
-             {"name": "Top Of Two",
-              "description": desc,
-              "width": 4,
-              "height": 1,
-              "data_source": uuid.uuid4()},
-             {"name": "Bottom Of Two",
-              "description": desc,
-              "height": 1,
-              "width": 4,
-              "data_source": uuid.uuid4()}],
-            [{"name": "Wide Graph",
-              "description": desc,
-              "width": 12,
-              "height": 1,
-              "data_source": uuid.uuid4()}]]
+        return self.dashboard_document["row_data"]
