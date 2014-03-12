@@ -21,6 +21,7 @@ class HighChartsDataRenderer(object):
         self.process()
 
     def render_as_json(self):
+        logging.info("finaldict = %r" % self.dictionary)
         return json.dumps(self.dictionary)
 
     def get_relevant_data_for_graph_type(self):
@@ -130,6 +131,13 @@ class HighChartsDataRenderer(object):
 
         self.dictionary["series"] = series
 
+    def set_type(self):
+        """
+        """
+        chart_type = self.graph_document["type"]
+        if chart_type in TIME_LINEAR_GRAPH_TYPES:
+            self.dictionary["chart"] = {"type": chart_type}
+
     def process(self):
         """
         process the graph document and relevent data to be able to
@@ -138,3 +146,43 @@ class HighChartsDataRenderer(object):
         self.set_description()
         self.set_plotOptions()
         self.set_series_data()
+        self.set_type()
+
+
+target = """
+{'chart': {'type': random.choice(['line',
+                                                       'bar',
+                                                       'area',
+                                                       'column',
+                                                       'scatter'])},
+                      'title': {'text': self.graph_title.title()},
+                      'subtitle': {'text': self.graph_description},
+                      'xAxis': {'categories': ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
+                                'title': {'text': None}},
+                      'yAxis': {'min': 0,
+                                'title': {'text': 'Population (millions)',
+                                          'align': 'high'},
+                                'labels': {'overflow': 'justify'}
+                                },
+                      'tooltip': {'valueSuffix': ' millions'},
+                      'plotOptions': {'bar': {'dataLabels': {'enabled': True}},
+                                      'area': {'fillOpacity': 0.5},
+                                      'series': {'stacking': random.choice(['normal', ''])}
+                                      },
+                      'legend': {'layout': 'vertical',
+                                 'align': 'right',
+                                 'verticalAlign': 'top',
+                                 'x': -40,
+                                 'y': 100,
+                                 'floating': True,
+                                 'borderWidth': 1,
+                                 'backgroundColor': '#FFFFFF',
+                                 'shadow': True
+                                 },
+                      'credits': {'enabled': False},
+                      'series': [{'name': 'Year 1800',
+                                  'data': [random.randint(0, 10) for r in range(5)]},
+                                 {'name': 'Year 1900',
+                                  'data': [random.randint(0, 10) for r in range(5)]},
+                                 {'name': 'Year 2008',
+                                  'data': [random.randint(0, 10) for r in range(5)]}]}"""

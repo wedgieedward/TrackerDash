@@ -21,7 +21,7 @@ DEMO_DATA = (
                                        "days": 0,
                                        "weeks": 1,
                                        "months": 0},
-                        "type": "bar",
+                        "type": "area",
                         "stacked": True
                         },
 
