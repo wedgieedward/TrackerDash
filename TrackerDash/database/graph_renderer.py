@@ -42,11 +42,26 @@ class HighChartsDataRenderer(object):
                 self.data_source)
             return [record]
 
+    def get_plot_options(self):
+        """
+        """
+        options = {}
+        if self.graph_document["stacked"]:
+            options["series"] = {"stacking": "normal"}
+
+
+    def set_plotOptions(self):
+        """
+        """
+        self.dictionary["plotOptions"] = self.get_plot_options()
+
+
     def process(self):
         """
         process the graph document and relevent data to be able to
         """
-        self.dictionary["chart"] = {"type": self.graph_document["type"]}
+        self.set_plotOptions()
+        if self.graph_document["type"] in
 
 
 a = """
