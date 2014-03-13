@@ -6,11 +6,11 @@ data_source_2 = str(uuid.uuid4())
 data_source_3 = str(uuid.uuid4())
 data_source_4 = str(uuid.uuid4())
 
-desc = "Created By TrackerDash for DemoPurposes"
+desc = "Created By TrackerDash for Demo Purposes"
 
 DEMO_DATA = (
     ("dashboard",
-        {"name": "A Dashboard [DEMO]",
+        {"name": "[DEMO] Simple Dashboard",
          "row_data": [[{"title": "Tall Wide Graph",
                         "description": desc,
                         "width": 8,
@@ -22,7 +22,7 @@ DEMO_DATA = (
                                        "weeks": 1,
                                        "months": 0},
                         "type": "area",
-                        "stacked": False
+                        "stacked": True
                         },
 
                        {"title": "Tall Thin Graph",

@@ -10,16 +10,15 @@ from twisted.internet import reactor
 from twisted.internet.defer import succeed
 from twisted.web.static import File
 
-from constants import APP_LOG_FILE
-from constants import TWISTED_LOG_FILE
-from templates.basewebpage import BasePage
-from templates.dashpage import DashPage
-from templates.displaypage import DisplayPage
-from templates.configpage import ConfigPage
-from templates.newdash import NewDash
-from templates.logpage import LogPage
-
-from TrackerDash.database.api_request_handler import process_request
+from TrackerDash.constants import APP_LOG_FILE
+from TrackerDash.constants import TWISTED_LOG_FILE
+from TrackerDash.templates.basewebpage import BasePage
+from TrackerDash.templates.dashpage import DashPage
+from TrackerDash.templates.displaypage import DisplayPage
+from TrackerDash.templates.configpage import ConfigPage
+from TrackerDash.templates.newdash import NewDash
+from TrackerDash.templates.logpage import LogPage
+from TrackerDash.database import api_request_handler as APIRequest
 
 
 TWISTED_LOG = open(TWISTED_LOG_FILE, "w")
@@ -68,21 +67,6 @@ class WebDispatcher(object):
         route to new dashboard page
         """
         return NewDash()
-
-    @app.route('/api/', methods=['POST'])
-    def api(self, request):
-        """
-        post to the database over the api
-        note:: not currently implemented, placeholder for api
-        """
-        return process_request(request)
-
-    @app.route('/status/api', methods=['GET'])
-    def api_status(self, _request):
-        """
-        route for the api to communicate with
-        """
-        return succeed
 
     @app.route('/dash/', methods=["GET"])
     def basedash(self, _request):
@@ -133,3 +117,26 @@ class WebDispatcher(object):
         except SystemExit:
             # this is meant to happen, return '' so we get a 200 OK
             return ''
+
+    # API ROUTES
+    @app.route('/api/status', methods=['GET'])
+    def api_status(self, _request):
+        """
+        route for the api to communicate with
+        """
+        return succeed
+
+    @app.route('/api/<string:api_request>', methods=['GET'])
+    def api_get_request(self, request, api_request):
+        """
+        get information over the api
+        """
+        request_obj = APIRequest.APIGETRequest(api_request)
+        return request_obj.render()
+
+    @app.route('/api/<string:api_request>', methods=['POST'])
+    def api_post_request(self, request, api_request):
+        """
+        post information over the api
+        """
+        return succeed

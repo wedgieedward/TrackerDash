@@ -34,3 +34,48 @@ def create_dashboard_request_handler(data):
     else:
         raise NameError("Document Already Exists")
     return succeed
+
+
+class APIGETRequest(object):
+
+    def __init__(self, request_type):
+        """
+        """
+        self.request_type = request_type
+        self.accessor = MongoAccessor()
+        self.response = self.process()
+
+    def render(self):
+        """
+        """
+        return json.dumps(self.response)
+
+    def process(self):
+        """
+        process the request
+        """
+        logging.info("Processing API Request: %s" % self.request_type)
+        rt = self.request_type
+        if rt == "get_dashboard_names":
+            return self.get_dashboard_names()
+        elif rt == "get_dashboard_information":
+            return self.get_dashboard_information()
+        else:
+            raise NotImplementedError("request: %s is not implemented" % self.request_type)
+
+    def get_dashboard_names(self):
+        """
+        return a list of dashboard names configured
+        """
+        dash_docs = self.accessor.get_all_documents_from_collection('dashboard')
+        dashboards = [dash["name"] for dash in dash_docs]
+        return {"dashboards": dashboards}
+
+    def get_dashboard_information(self):
+        """
+        return the dashboard documents
+        """
+        dash_docs = self.accessor.get_all_documents_from_collection('dashboard')
+        for doc in dash_docs:
+            del doc["_id"]
+        return {"dashboards": dash_docs}
