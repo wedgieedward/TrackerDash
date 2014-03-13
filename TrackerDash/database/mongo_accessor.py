@@ -132,6 +132,25 @@ class MongoAccessor(object):
             self.create_collection(collection_name)
             self.add_document_to_collection(collection_name, document)
 
+    def add_document_to_collection_redundant(self, collection_name, document, redundency_seconds):
+        """
+        will only add a new document if needed
+        """
+        try:
+            documents_in_period = self.get_all_documents_created_in_last(
+                collection_name, seconds=redundency_seconds)
+            if len(documents_in_period) == 0:
+                # no documents added in
+                self.add_document_to_collection(collection_name, document)
+            elif len(documents_in_period) >= 1:
+                last_document_inserted = documents_in_period[-1]
+                del last_document_inserted["_id"]
+                if last_document_inserted != document:
+                    self.add_document_to_collection(collection_name, document)
+        except LookupError:
+            # the collection hasn't even been created yet, just add the document to it
+            self.add_document_to_collection(collection_name, document)
+
     def get_documents_by_query(self, collection_name, query):
         """
         queries a collection
@@ -158,7 +177,8 @@ class MongoAccessor(object):
                                           weeks=0,
                                           days=0,
                                           hours=0,
-                                          minutes=0):
+                                          minutes=0,
+                                          seconds=0):
         """
         Given a collection and a time interval, get all the documents in that collection
         created after that defined time interval
@@ -166,7 +186,8 @@ class MongoAccessor(object):
         timestamp_query = datetime.now() - timedelta(weeks=weeks,
                                                      days=days,
                                                      hours=hours,
-                                                     minutes=minutes)
+                                                     minutes=minutes,
+                                                     seconds=seconds)
         query = {"_id": {"$gt": objectid.ObjectId.from_datetime(timestamp_query)}}
         return self.get_documents_by_query(collection_name, query)
 

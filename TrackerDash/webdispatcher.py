@@ -132,11 +132,12 @@ class WebDispatcher(object):
         get information over the api
         """
         request_obj = APIRequest.APIGETRequest(api_request)
-        return request_obj.render()
+        json = request_obj.render()
+        return json
 
     @app.route('/api/<string:api_request>', methods=['POST'])
     def api_post_request(self, request, api_request):
         """
         post information over the api
         """
-        return succeed
+        return APIRequest.APIPOSTRequest(request, api_request)

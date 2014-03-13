@@ -21,7 +21,7 @@ class GraphContent(Element):
         self.accessor = MongoAccessor()
         self.dashboard_document = self.accessor.get_one_document_by_query(
             "dashboard", {"name": self.dashboard_name})
-        logging.info("Dashboard Document: %r" % self.dashboard_document)
+        logging.debug("Dashboard Document: %r" % self.dashboard_document)
         self._configured = True if "row_data" in self.dashboard_document else False
 
     @renderer

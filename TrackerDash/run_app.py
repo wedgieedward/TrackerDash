@@ -5,6 +5,7 @@ Start the server and run the app
 """
 import argparse
 import logging
+import logging.handlers
 import socket
 import sys
 from constants import APP_LOG_FILE
@@ -13,7 +14,8 @@ from database.mongo_accessor import MongoAccessor
 from webdispatcher import WebDispatcher
 
 # logging setup
-logging.basicConfig(filename=APP_LOG_FILE, filemode='w', level=logging.DEBUG)
+logging.basicConfig(filename=APP_LOG_FILE, filemode='w', level=logging.INFO)
+logging.handlers.RotatingFileHandler(APP_LOG_FILE, maxBytes=200000000, backupCount=5)
 logging.info("Initialised Log File")
 
 # defaults

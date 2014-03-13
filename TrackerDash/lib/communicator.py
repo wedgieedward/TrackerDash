@@ -72,4 +72,5 @@ class Communicator(object):
         given a data_source, add data to it
         """
         json_data = json.dumps({"data_source": data_source, "data": data})
-        return requests.post(self._url + 'api/post_data', data=json_data, headers=self.post_header)
+        return requests.post(
+            self._url + '/api/post_data', data=json_data, headers=self.post_header)

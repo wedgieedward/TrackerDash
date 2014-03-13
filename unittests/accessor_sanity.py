@@ -123,6 +123,30 @@ class AccessorSanity(unittest.TestCase):
         self.assertIsNotNone(last_doc)
         self.assertEquals(last_doc["value"], number_of_docs_to_add - 1)
 
+    def test_redundant_post(self):
+        accessor = TestAccessor()
+        collection = "redundencytest"
+        accessor.add_document_to_collection_redundant(collection, {"test": 1, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(collection, {"test": 1, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(collection, {"test": 1, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(collection, {"test": 1, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(collection, {"test": 1, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(collection, {"test": 1, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(collection, {"test": 1, "foo": "bar"}, 60)
+        self.assertEquals(accessor.get_number_of_documents_in_collection(collection), 1)
+        accessor.add_document_to_collection_redundant(collection, {"test": 2, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(collection, {"test": 2, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(collection, {"test": 2, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(collection, {"test": 2, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(collection, {"test": 2, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(collection, {"test": 2, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(collection, {"test": 2, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(collection, {"test": 2, "foo": "bar"}, 60)
+        self.assertEquals(accessor.get_number_of_documents_in_collection(collection), 2)
+        accessor.add_document_to_collection_redundant(collection, {"test": 1, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(collection, {"test": 2, "foo": "bar"}, 60)
+        self.assertEquals(accessor.get_number_of_documents_in_collection(collection), 4)
+
     def add_data_over_x_days(self, collection_name, days):
         """
         creates mock data
