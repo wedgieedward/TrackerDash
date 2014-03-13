@@ -1,22 +1,68 @@
+<div id="welcomecontainer">
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-12 column">
             <div class="jumbotron">
                 <h1>
-                    Lets get started!
+                    Welcome To Trackerdash
                 </h1>
-                <br/>
+                <h1><small> Lets get started. </small></h1>
                 <h2>
-                    TrackerDash is a customisable analytics dashboard server that is written in Python.
+                    To find out more about how to configure your TrackerDash server and get going <a href="https://github.com/wedgieedward/TrackerDash/wiki">click here.</a>
                 </h2>
-                <h2>
-                    To find out more about how to configure your TrackerDash server and get going <a href="https://github.com/wedgieedward/TrackerDash/">click here.</a>
-                </h2>
-                <br/>
-                <p>
-                    TrackerDash makes extensive use of <a href="http://www.highcharts.com/products/highcharts">Highcharts JS</a> which is licenced under creative commons. While under creative commons you are free to use TrackerDash and HighCharts software for non-commercial purposes, running this software might conflict with their Licencing terms, which can be found <a href="http://shop.highsoft.com/faq">here.</a>
-                </p>
             </div>
         </div>
     </div>
+</div>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="panel-group" id="panel-254778">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                         <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-254778" href="#panel-element-576134">Licensing Information</a>
+                    </div>
+                    <div id="panel-element-576134" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <p>
+                                TrackerDash makes extensive use of <a href="http://www.highcharts.com/products/highcharts">Highcharts JS</a> which is licensed under creative commons. While under creative commons you are free to use TrackerDash and HighCharts software for non-commercial purposes, running this software might conflict with their Licensing terms, which can be found <a href="http://shop.highsoft.com/faq">here.</a>
+                            </p>
+                            <p>
+                                TrackerDash and all it's code is Licensed under <a href="http://en.wikipedia.org/wiki/Beerware">Beerware</a>, so feel free to do what ever you want with this code for non commercial purposes.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                         <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-254778" href="#panel-element-623231">About TrackerDash</a>
+                    </div>
+                    <div id="panel-element-623231" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <p>
+                                TrackerDash was created by Edward Thomason as part of his University's Final Year Project inspired by problems faced by his day-to-day work environment while working in industry.
+                            </p>
+                            <p>
+                                There were many data analytics dashboards out there that had their own niches and selling points but there were common drawbacks to each of them, such as:
+                                <ul>
+                                    <li>No option to host locally.</li>
+                                    <li>API limits.</li>
+                                    <li>Targetted towards non API users.</li>
+                                    <li>Not being able to retrieve historic graph data.</li>
+                                    <li>Not being able to save graphs.</li>
+                                </ul>
+                            </p>
+                            <p>
+                                With TrackerDash, the aim was to create an API driven data analytics server that can be hosted both locally, <i>so you can store and display sensitive information</i>, that is lightweight and horizonally scalable.
+                            </p>
+                            <p>
+                                Feedback will be greatly received and feel free to fork this project and expand on it's functionality.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
