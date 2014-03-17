@@ -51,7 +51,8 @@ class HighChartsDataRenderer(object):
         """
         """
         options = {'bar': {'dataLabels': {'enabled': True}},
-                   'area': {'fillOpacity': 0.5},
+                   'area': {'fillOpacity': 0.5,
+                            'marker': {"enabled": False}},
                    "pie": {"allowPointSelect": True,
                            "cursor": 'pointer'},
                    "scatter": {"marker": {"radius": 5,
@@ -60,6 +61,7 @@ class HighChartsDataRenderer(object):
                                                      }
                                           }
                                },
+                   "line": {"marker": {"enabled": False}},
                    }
         if self.graph_document["stacked"]:
             options["series"] = {"stacking": "normal"}
@@ -71,16 +73,16 @@ class HighChartsDataRenderer(object):
         """
         self.dictionary["plotOptions"] = self.get_plot_options()
         self.dictionary["credits"] = {"enabled": False}
-        self.dictionary['legend'] = {'layout': 'vertical',
-                                     'align': 'right',
-                                     'verticalAlign': 'top',
-                                     'x': -40,
-                                     'y': 100,
-                                     'floating': True,
-                                     'borderWidth': 1,
-                                     'backgroundColor': '#FFFFFF',
-                                     'shadow': True
-                                     }
+        # self.dictionary['legend'] = {'layout': 'vertical',
+        #                              'align': 'right',
+        #                              'verticalAlign': 'top',
+        #                              'x': -40,
+        #                              'y': 100,
+        #                              'floating': True,
+        #                              'borderWidth': 1,
+        #                              'backgroundColor': '#FFFFFF',
+        #                              'shadow': True
+        #                              }
 
     def set_title(self):
         """
