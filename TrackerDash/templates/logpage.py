@@ -55,8 +55,10 @@ class LogPage(BasePage):
         """
         log_file = open(self.log_file, 'r')
         lines = log_file.readlines()
+        # TODO remove this when log rotation is properly implemented
+        lines = lines[-100:]  # Get the last 100 lines
         log_file.close()
-        lines.reverse()
+        lines.reverse()  # Put them in a displayable order
         return lines
 
     def get_log_label(self, log_line):

@@ -4,6 +4,7 @@ Api request handler
 import json
 import logging
 from twisted.internet.defer import succeed
+from TrackerDash.database import common as db_common
 from TrackerDash.database.mongo_accessor import MongoAccessor
 
 
@@ -36,13 +37,29 @@ def create_dashboard_request_handler(data):
     return succeed
 
 
-class APIGETRequest(object):
+class APIRequest(object):
+    """
+    Base class for an API request
+    """
 
-    def __init__(self, request_type):
-        """
-        """
-        self.request_type = request_type
+    def __init__(self, request, request_type):
         self.accessor = MongoAccessor()
+        self.request = request
+        self.request_type = request_type
+
+    def process(self):
+        """
+        Needs to be overridden
+        """
+        raise NotImplementedError
+
+
+class APIGETRequest(APIRequest):
+
+    def __init__(self, request, request_type):
+        """
+        """
+        super(APIGETRequest, self).__init__(request, request_type)
         self.response = self.process()
 
     def render(self):
@@ -67,9 +84,7 @@ class APIGETRequest(object):
         """
         return a list of dashboard names configured
         """
-        dash_docs = self.accessor.get_all_documents_from_collection('dashboard')
-        dashboards = [dash["name"] for dash in dash_docs]
-        return {"dashboards": dashboards}
+        return {"dashboards": db_common.get_dashboard_names(self.accessor)}
 
     def get_dashboard_information(self):
         """
@@ -81,7 +96,7 @@ class APIGETRequest(object):
         return {"dashboards": dash_docs}
 
 
-class APIPOSTRequest(object):
+class APIPOSTRequest(APIRequest):
 
     def __init__(self, request, request_type):
         self.request_type = request_type

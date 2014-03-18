@@ -4,6 +4,7 @@ navbar element
 from twisted.web.template import Element, XMLFile, renderer
 from twisted.python.filepath import FilePath
 
+from TrackerDash.database import common
 from TrackerDash.database.mongo_accessor import MongoAccessor
 from TrackerDash.constants import VERSION, TAG
 
@@ -18,14 +19,6 @@ class NavBar(Element):
         self.dashboard = dashboard
         self.accessor = MongoAccessor()
 
-    def get_dashboards(self):
-        """
-        get all configured dashboards
-        """
-        dash_documents = self.accessor.get_all_documents_from_collection("dashboard")
-        dash_names = [dash["name"] for dash in dash_documents]
-        return dash_names
-
     @renderer
     def software_version(self, request, tag):
         """
@@ -35,7 +28,8 @@ class NavBar(Element):
 
     @renderer
     def dashboards_dropdown(self, request, tag):
-        for dashboard in self.get_dashboards():
+        dashboards = common.get_dashboard_names(self.accessor)
+        for dashboard in dashboards:
             dashlink = "../dash/%s" % dashboard
             yield tag.clone().fillSlots(dashName=dashboard, dashLink=dashlink)
 

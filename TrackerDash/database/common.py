@@ -43,6 +43,16 @@ def add_demo_data():
     for collection, document in DEMO_DATA:
         accessor.add_document_to_collection(collection, document)
 
+
+def get_dashboard_names(accessor):
+    """
+    given an instance of an accessor, get the configured dashboard names
+    """
+    dash_documents = accessor.get_all_documents_from_collection("dashboard")
+    dash_names = [dash["name"] for dash in dash_documents]
+    return dash_names
+
+
 if __name__ == '__main__':
     print "Mongo Running: %s" % is_mongo_running()
     print "Mongo Configured For TrackerDash: %s" % is_mongo_configured()
