@@ -40,32 +40,55 @@ class Communicator(object):
         """
         return a list of configured dashboards
         """
-        try:
-            data = json.load(urllib2.urlopen(self._url + '/api/get_dashboard_names'))
-            return data["dashboards"]
-
-        except Exception as exc:
-            return exc
+        data = json.load(urllib2.urlopen(self._url + '/api/get_dashboard_names'))
+        return data["dashboards"]
 
     def get_dashboard_information(self, dashboard_name=False):
         """
         given a dashboard name, get it's information
         """
-        try:
-            data = json.load(urllib2.urlopen(self._url + '/api/get_dashboard_information'))
-            if dashboard_name:
-                dashboard_info = []
-                for dash in data["dashboards"]:
-                    if dash["name"] == dashboard_name:
-                        dashboard_info = dash
-                        break
-            else:
-                return data["dashboards"]
+        data = json.load(urllib2.urlopen(self._url + '/api/get_dashboard_information'))
+        if dashboard_name:
+            dashboard_info = []
+            for dash in data["dashboards"]:
+                if dash["name"] == dashboard_name:
+                    dashboard_info = dash
+                    break
+        else:
+            return data["dashboards"]
 
-            return dashboard_info
+        return dashboard_info
 
-        except Exception as exc:
-            return exc
+    def get_graph_names(self):
+        """
+        get a list of names for configured graphs
+        """
+        data = json.load(urllib2.urlopen(self._url + '/api/get_dashboard_names'))
+        return data["dashboards"]
+
+    def get_graph_information(self, graph_name=None):
+        """
+        get all the configured graphs unless a specific graph name is specified
+        if graph_name is specified return just that graph's information
+        """
+        data = json.load(urllib2.urlopen(self._url + '/api/get_graph_information'))
+        if graph_name:
+            graph_info = []
+            for graph in data["graphs"]:
+                if graph["title"] == graph_name:
+                    graph_info = graph
+                    break
+        else:
+            return data["graphs"]
+
+        return graph_info
+
+    def get_data_sources(self):
+        """
+        get all the configured data_sources
+        """
+        data = json.load(urllib2.urlopen(self._url + '/api/get_data_sources'))
+        return data["data_sources"]
 
     def post_data_to_data_source(self, data_source, data):
         """
