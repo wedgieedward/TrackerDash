@@ -20,7 +20,8 @@ class GraphContent(Element):
         self.dashboard_name = dashboard_name
         self.accessor = MongoAccessor()
         self.dashboard_document = self.accessor.get_one_document_by_query(
-            "dashboard", {"name": self.dashboard_name})
+            "dashboard",
+            {"name": self.dashboard_name})
         logging.debug("Dashboard Document: %r" % self.dashboard_document)
         self._configured = True if "row_data" in self.dashboard_document else False
 
@@ -40,9 +41,10 @@ class GraphContent(Element):
         """
         """
         xml = "<div>"
-        rows = self.get_rows()
-        render_rows = self.get_number_of_render_rows(rows)
-        for row in rows:
+        dashboard_row_data = self.get_dashboard_row_data()
+        graph_row_data = self.get_graph_rows(dashboard_row_data)
+        render_rows = self.get_number_of_render_rows(graph_row_data)
+        for row in graph_row_data:
             xml += '<div class="row clearfix">'
             for graph_document in row:
                 xml += '<div class="col-md-%s column">' % (graph_document["width"], )
@@ -53,6 +55,20 @@ class GraphContent(Element):
         xml += "</div>"
 
         return xml
+
+    def get_graph_rows(self, dashboard_row_data):
+        """
+        given the row array, get the graph document from the database
+        """
+        graph_rows = []
+        for row in dashboard_row_data:
+            graph_row = []
+            for graph_name in row:
+                graph_row += [self.accessor.get_one_document_by_query(
+                    "graphs",
+                    {"name": graph_name})]
+            graph_rows += graph_row
+        return graph_rows
 
     def get_number_of_render_rows(self, rows_data):
         """
@@ -66,7 +82,7 @@ class GraphContent(Element):
             num_rows += row_max
         return num_rows
 
-    def get_rows(self):
+    def get_dashboard_row_data(self):
         """
         return all the graph titles to display in this container
         format:
