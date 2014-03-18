@@ -46,6 +46,7 @@ class APIRequest(object):
         self.accessor = MongoAccessor()
         self.request = request
         self.request_type = request_type
+        self.process()
 
     def process(self):
         """
@@ -59,8 +60,8 @@ class APIGETRequest(APIRequest):
     def __init__(self, request, request_type):
         """
         """
+        self.response = None
         super(APIGETRequest, self).__init__(request, request_type)
-        self.response = self.process()
 
     def render(self):
         """
@@ -74,9 +75,9 @@ class APIGETRequest(APIRequest):
         logging.debug("Processing API Request: %s" % self.request_type)
         rt = self.request_type
         if rt == "get_dashboard_names":
-            return self.get_dashboard_names()
+            self.response = self.get_dashboard_names()
         elif rt == "get_dashboard_information":
-            return self.get_dashboard_information()
+            self.response = self.get_dashboard_information()
         else:
             raise NotImplementedError("request: %s is not implemented" % self.request_type)
 
@@ -99,10 +100,7 @@ class APIGETRequest(APIRequest):
 class APIPOSTRequest(APIRequest):
 
     def __init__(self, request, request_type):
-        self.request_type = request_type
-        self.request = request
-        self.accessor = MongoAccessor()
-        self.process()
+        super(APIPOSTRequest, self).__init__(request, request_type)
 
     def process(self):
         """
