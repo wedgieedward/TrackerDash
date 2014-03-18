@@ -20,21 +20,6 @@
             <div class="panel-group" id="panel-254778">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                         <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-254778" href="#panel-element-576134">Licensing Information</a>
-                    </div>
-                    <div id="panel-element-576134" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <p>
-                                TrackerDash makes extensive use of <a href="http://www.highcharts.com/products/highcharts">Highcharts JS</a> which is licensed under creative commons. While under creative commons you are free to use TrackerDash and HighCharts software for non-commercial purposes, running this software might conflict with their Licensing terms, which can be found <a href="http://shop.highsoft.com/faq">here.</a>
-                            </p>
-                            <p>
-                                TrackerDash and all it's code is Licensed under <a href="http://en.wikipedia.org/wiki/Beerware">Beerware</a>, so feel free to do what ever you want with this code for non commercial purposes.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
                          <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-254778" href="#panel-element-623231">About TrackerDash</a>
                     </div>
                     <div id="panel-element-623231" class="panel-collapse collapse">
@@ -57,6 +42,21 @@
                             </p>
                             <p>
                                 Feedback will be greatly received and feel free to fork this project and expand on it's functionality.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                         <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-254778" href="#panel-element-576134">Licensing Information</a>
+                    </div>
+                    <div id="panel-element-576134" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <p>
+                                TrackerDash makes extensive use of <a href="http://www.highcharts.com/products/highcharts">Highcharts JS</a> which is licensed under creative commons. While under creative commons you are free to use TrackerDash and HighCharts software for non-commercial purposes, running this software might conflict with their Licensing terms, which can be found <a href="http://shop.highsoft.com/faq">here.</a>
+                            </p>
+                            <p>
+                                TrackerDash and all it's code is Licensed under <a href="http://en.wikipedia.org/wiki/Beerware">Beerware</a>, so feel free to do what ever you want with this code for non commercial purposes.
                             </p>
                         </div>
                     </div>
