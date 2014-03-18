@@ -6,8 +6,9 @@ import logging
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 
-from demo_data import DEMO_DATA
-from mongo_accessor import MongoAccessor
+from TrackerDash.constants import ESSENTIAL_COLLECTIONS
+from TrackerDash.database.demo_data import DEMO_DATA
+from TrackerDash.database.mongo_accessor import MongoAccessor
 
 
 def is_mongo_running():
@@ -51,6 +52,18 @@ def get_dashboard_names(accessor):
     dash_documents = accessor.get_all_documents_from_collection("dashboard")
     dash_names = [dash["name"] for dash in dash_documents]
     return dash_names
+
+
+def get_configured_data_sources(accessor):
+    """
+    data sources are collections that are not explicitly created at startup
+    we have to assume that any collection configured that is no a system or app collection
+    is a data_source
+    """
+    collections = accessor.get_local_collections()
+    data_sources = [
+        collection for collection in collections if collection not in ESSENTIAL_COLLECTIONS]
+    return data_sources
 
 
 if __name__ == '__main__':

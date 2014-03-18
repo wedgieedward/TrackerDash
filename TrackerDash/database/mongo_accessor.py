@@ -1,20 +1,17 @@
 """
 Client for accessing the mongodatabase
 """
+import logging
+import pymongo
+
+from bson import objectid
 from datetime import datetime
 from datetime import timedelta
-import logging
-from bson import objectid
-import pymongo
+
+from TrackerDash.constants import ESSENTIAL_COLLECTIONS
 
 LIVE_DATABASE = "TrackerDashApp"
 TEST_DATABASE = "TrackerDashTEST"
-
-ESSENTIAL_COLLECTIONS = (
-    "showreel",
-    "dashboard",
-    "graph",
-    "config")
 
 
 class MongoAccessor(object):

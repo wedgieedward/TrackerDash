@@ -54,7 +54,6 @@ def get_ip_address():
 
 if __name__ == '__main__':
     logging.info("Starting TrackerDash")
-    logging.info("Trying to connect to a running mongodb instance")
     if not database_common.is_mongo_running():
         print ("Could not connect to a running mongodb instance"
                "please run 'sudo service mongodb start'")

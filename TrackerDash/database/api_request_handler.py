@@ -71,6 +71,8 @@ class APIGETRequest(APIRequest):
     def process(self):
         """
         process the request
+        should not return anything
+        raise exceptions here to generate a http 500 error
         """
         logging.debug("Processing API Request: %s" % self.request_type)
         rt = self.request_type
@@ -78,6 +80,12 @@ class APIGETRequest(APIRequest):
             self.response = self.get_dashboard_names()
         elif rt == "get_dashboard_information":
             self.response = self.get_dashboard_information()
+        elif rt == "get_graph_names":
+            self.response = self.get_graph_names()
+        elif rt == "get_graph_information":
+            self.response = self.get_graph_information()
+        elif rt == "get_data_sources":
+            self.response = {"data_sources": db_common.get_configured_data_sources(self.accessor)}
         else:
             raise NotImplementedError("request: %s is not implemented" % self.request_type)
 
@@ -96,6 +104,23 @@ class APIGETRequest(APIRequest):
             del doc["_id"]
         return {"dashboards": dash_docs}
 
+    def get_graph_information(self):
+        """
+        get all the configured graph information
+        """
+        graph_docs = self.accessor.get_all_documents_from_collection('graph')
+        for doc in graph_docs:
+            del doc["_id"]
+        return {"graphs": graph_docs}
+
+    def get_graph_names(self):
+        """
+        get the names of all the configured graphs
+        """
+        graph_docs = self.get_graph_information()
+        graph_names = [graph["title"] for graph in graph_docs["graphs"]]
+        return {"graphs": graph_names}
+
 
 class APIPOSTRequest(APIRequest):
 
@@ -107,12 +132,16 @@ class APIPOSTRequest(APIRequest):
         """
         logging.debug("Processing API POST request: %s" % self.request_type)
         rt = self.request_type
+        content = json.loads(self.request.content.readlines()[0])
         if rt == "post_data":
-            content = json.loads(self.request.content.readlines()[0])
             data_source = content["data_source"]
             document = content["data"]
             self.accessor.add_document_to_collection_redundant(data_source, document, 60)
             return self
+        elif rt == "create_graph":
+            graph_data = content["data"]
+            data_source = graph_data.get("data_source",)
+
         else:
             raise NotImplementedError(
                 "POST request: %s has not been implemented" % self.request_type)

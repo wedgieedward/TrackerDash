@@ -7,7 +7,6 @@ import sys
 from klein import Klein
 
 from twisted.internet import reactor
-from twisted.internet.defer import succeed
 from twisted.web.static import File
 
 from TrackerDash.constants import APP_LOG_FILE
@@ -124,14 +123,14 @@ class WebDispatcher(object):
         """
         route for the api to communicate with
         """
-        return succeed
+        return ''
 
     @app.route('/api/<string:api_request>', methods=['GET'])
     def api_get_request(self, request, api_request):
         """
         get information over the api
         """
-        request_obj = APIRequest.APIGETRequest(api_request)
+        request_obj = APIRequest.APIGETRequest(request, api_request)
         json = request_obj.render()
         return json
 
@@ -140,4 +139,5 @@ class WebDispatcher(object):
         """
         post information over the api
         """
-        return APIRequest.APIPOSTRequest(request, api_request)
+        APIRequest.APIPOSTRequest(request, api_request)
+        return ''
