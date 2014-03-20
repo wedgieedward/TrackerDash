@@ -12,5 +12,5 @@ setup(name='TrackerDash',
       author_email='edward@thomason.me.uk',
       license='Beerware',
       packages=['TrackerDash'],
-      install_requires=["Twisted>=12.1", "werkzeug", "klein", "pymongo"],
+      install_requires=["Twisted>=12.1", "werkzeug", "klein", "pymongo", "colander"],
       zip_safe=False)
