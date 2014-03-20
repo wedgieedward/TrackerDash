@@ -1,5 +1,5 @@
 VERSION = "1"
-TAG = "Pre-Alpha"
+TAG = "Alpha"
 TWISTED_LOG_FILE = "twisted_log.log"
 APP_LOG_FILE = "trackerdash.log"
 ESSENTIAL_COLLECTIONS = (
