@@ -3,11 +3,13 @@
         <div class="col-md-12 column">
             <div class="jumbotron">
                 <h1>
-                    There's nothing to display :(
+                    Something Went Wrong :(
                 </h1>
                 <br/>
                 <p>
-                    Functionality to add graph data through the web interface is currently not implemented.
+                    A graph in the dashboard row_data could not be found or rendered.
+                    Please check the dashboards configuration and make sure that the graphs
+                    are present in the database
                 </p>
             </div>
         </div>

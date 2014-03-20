@@ -31,11 +31,23 @@ class GraphContent(Element):
         render the content for the graph container
         """
         if self._configured:
-            graph_row_xml = XMLString(self.get_row_xml())
-            return graph_row_xml.load()
+            try:
+                graph_row_xml = XMLString(self.get_row_xml())
+                return graph_row_xml.load()
+            except Exception as err:
+                logging.error("Exception raised when rendering graphs, exception: %r" % err)
+                oops_container = self.get_bad_container()
+                return oops_container.load()
         else:
-            oops_container = XMLFile(FilePath("TrackerDash/snippets/no_dash_data_container.xml"))
+            oops_container = self.get_bad_container()
             return oops_container.load()
+
+    def get_bad_container(self):
+        """
+        something has gone wrong that causes the page not to render correctly
+        return some xml to respond to this
+        """
+        return XMLFile(FilePath("TrackerDash/snippets/no_dash_data_container.xml"))
 
     def get_row_xml(self):
         """
@@ -45,41 +57,51 @@ class GraphContent(Element):
         graph_row_data = self.get_graph_rows(dashboard_row_data)
         render_rows = self.get_number_of_render_rows(graph_row_data)
         for row in graph_row_data:
-            xml += '<div class="row clearfix">'
-            for graph_document in row:
-                xml += '<div class="col-md-%s column">' % (graph_document["width"], )
-                this_graph = HighchartsGraph(graph_document, render_rows)
-                xml += this_graph.load()
+            if row is not None:
+                xml += '<div class="row clearfix">'
+                for graph_document in row:
+                    if graph_document is not None:
+                        xml += '<div class="col-md-%s column">' % (graph_document["width"], )
+                        this_graph = HighchartsGraph(graph_document, render_rows)
+                        xml += this_graph.load()
+                        xml += '</div>'
+                    else:
+                        raise KeyError("graph not found")
                 xml += '</div>'
-            xml += '</div>'
-        xml += "</div>"
+            else:
+                raise KeyError("graph not found")
 
+        xml += "</div>"
         return xml
 
     def get_graph_rows(self, dashboard_row_data):
         """
         given the row array, get the graph document from the database
         """
+        logging.info("Dashboard_row_data: %r" % dashboard_row_data)
         graph_rows = []
         for row in dashboard_row_data:
             graph_row = []
             for graph_name in row:
                 graph_row += [self.accessor.get_one_document_by_query(
-                    "graph",
-                    {"title": graph_name})]
-            graph_rows += graph_row
+                    "graph", {"title": graph_name})]
+            graph_rows += [graph_row]
         return graph_rows
 
     def get_number_of_render_rows(self, rows_data):
         """
         """
+        logging.info("Error in this function, row data: %r" % rows_data)
         num_rows = 0
         for row in rows_data:
-            row_max = 0
-            for graph_document in row:
-                if graph_document["height"] > row_max:
-                    row_max = graph_document["height"]
-            num_rows += row_max
+            if row is not None:
+                row_max = 0
+                for graph_document in row:
+                    if graph_document is not None:
+                        logging.info("graph document, document %r" % graph_document)
+                        if graph_document["height"] > row_max:
+                            row_max = graph_document["height"]
+                num_rows += row_max
         return num_rows
 
     def get_dashboard_row_data(self):

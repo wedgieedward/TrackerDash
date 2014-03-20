@@ -7,6 +7,7 @@ from twisted.internet.defer import succeed
 from TrackerDash.database import common as db_common
 from TrackerDash.database.mongo_accessor import MongoAccessor
 from TrackerDash.schemas.api import Graph as GraphSchema
+from TrackerDash.schemas.api import Dashboard as DashboardSchema
 
 
 def process_request(request):
@@ -146,11 +147,8 @@ class APIPOSTRequest(APIRequest):
         # Create a new graph object
         elif rt == "create_graph":
             graph_data = content["data"]
-            try:
-                graph_data_validated = GraphSchema.deserialize(graph_data)
-            except Exception as exc:
-                logging.error("Exception: %r raised when trying to deserialize graph data: %r" % (
-                    exc, graph_data))
+            schema = GraphSchema()
+            graph_data_validated = schema.deserialize(graph_data)
 
             # We need to ensure that a datasource collection is present.
             try:
@@ -158,7 +156,16 @@ class APIPOSTRequest(APIRequest):
             except NameError:
                 logging.debug(
                     "data source for graph '%s' already exists" % graph_data_validated["title"])
+            self.accessor.add_document_to_collection("graph", graph_data_validated)
             return self
+
+        # Create a new dashboard
+        elif rt == "create_dashboard":
+            dashboard_data = content["data"]
+            logging.info("create_dashboard request data: %r" % dashboard_data)
+            schema = DashboardSchema()
+            dashboard_data_validated = schema.deserialize(dashboard_data)
+            self.accessor.add_document_to_collection("dashboard", dashboard_data_validated)
 
         else:
             raise NotImplementedError(

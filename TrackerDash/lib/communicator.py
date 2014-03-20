@@ -11,7 +11,7 @@ class Communicator(object):
     Communicator Class To TrackerDash
     Provides a scriptable interface to TrackerDash Library
     """
-    post_header = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+    _post_header = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 
     def __init__(self, host, port):
         self._host = host
@@ -36,6 +36,7 @@ class Communicator(object):
         except urllib2.URLError:
             return (False, "Connection Refused")
 
+    # Dashboard Methods
     def get_dashboard_names(self):
         """
         return a list of configured dashboards
@@ -59,12 +60,27 @@ class Communicator(object):
 
         return dashboard_info
 
+    def create_new_dashboard(self, dashboard_data):
+        """
+        given a dictionary containing the data for a dashboard create a dashboard
+        dashboard_data:
+            name (type: string, unique: True)
+            row_data (array of rows)
+
+        row:
+            an array of strings that map to a configured graph
+        """
+        json_data = json.dumps({"data": dashboard_data})
+        return requests.post(
+            self._url + '/api/create_dashboard', data=json_data, headers=self._post_header)
+
+    # Graph Methods
     def get_graph_names(self):
         """
         get a list of names for configured graphs
         """
-        data = json.load(urllib2.urlopen(self._url + '/api/get_dashboard_names'))
-        return data["dashboards"]
+        data = json.load(urllib2.urlopen(self._url + '/api/get_graph_names'))
+        return data["graphs"]
 
     def get_graph_information(self, graph_name=None):
         """
@@ -83,6 +99,15 @@ class Communicator(object):
 
         return graph_info
 
+    def create_new_graph(self, graph_data):
+        """
+        given a dictionary containing the data for a graph create a new graph
+        """
+        json_data = json.dumps({"data": graph_data})
+        return requests.post(
+            self._url + '/api/create_graph', data=json_data, headers=self._post_header)
+
+    # Data source methods
     def get_data_sources(self):
         """
         get all the configured data_sources
@@ -96,4 +121,4 @@ class Communicator(object):
         """
         json_data = json.dumps({"data_source": data_source, "data": data})
         return requests.post(
-            self._url + '/api/post_data', data=json_data, headers=self.post_header)
+            self._url + '/api/post_data', data=json_data, headers=self._post_header)

@@ -10,6 +10,14 @@ class DashboardSchemaSanity(unittest.TestCase):
     """
     Test the behavior of the dashboard schema
     """
+    def test_one_row(self):
+        """
+        test what happens with just one graph in a single row
+        """
+        dashboard_dict = {"name": "Edward Post Dashboard Name", "row_data": [["my_graph"]]}
+        dashboard_schema = api.Dashboard()
+        deserialized = dashboard_schema.deserialize(dashboard_dict)
+        self.assertEquals(deserialized, dashboard_dict)
 
     def test_valid_dashboard(self):
         """
