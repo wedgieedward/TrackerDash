@@ -99,18 +99,19 @@ class HighChartsDataRenderer(object):
         series = []
         if chart_type in TIME_LINEAR_GRAPH_TYPES:
             data = {}
-            first_doc = self.relevant_data[0]
-            keys = first_doc.keys()
-            keys.remove("_id")
-            for key in keys:
-                data[key] = []
-
-            for document in self.relevant_data:
+            if len(self.relevant_data) != 0:
+                first_doc = self.relevant_data[0]
+                keys = first_doc.keys()
+                keys.remove("_id")
                 for key in keys:
-                    data[key].append(document[key])
+                    data[key] = []
 
-            for key in keys:
-                series.append({"name": key, "data": data[key]})
+                for document in self.relevant_data:
+                    for key in keys:
+                        data[key].append(document[key])
+
+                for key in keys:
+                    series.append({"name": key, "data": data[key]})
 
         elif chart_type in SINGLE_DOCUMENT_GRAPH_TYPES:
             document = self.relevant_data[0]

@@ -39,13 +39,13 @@
                                 <span class="glyphicon glyphicon-cog"/> Settings<strong class="caret"/>
                             </a>
                             <ul class="dropdown-menu">
-                                <li>
+                                <!-- <li>
                                     <a href="../configure/"><span class="glyphicon glyphicon-cog"/> Configure Trackerdash</a>
                                 </li>
                                 <li>
                                     <a href="#"><span class="glyphicon glyphicon-cog"/> Database Settings</a>
-                                </li>
-                                <li class="divider"/>
+                                </li> -->
+                                <!-- <li class="divider"/> -->
                                 <li>
                                     <a href="../log/network_log"><span class='glyphicon glyphicon-list-alt'/> Network Log</a>
                                 </li>
@@ -53,11 +53,11 @@
                                     <a href="../log/application_log"><span class='glyphicon glyphicon-list-alt'/> Application Log</a>
                                 </li>
                                 <li class="divider"/>
-                                <li>
+                                <!-- <li>
                                     <a href="../dash/TrackerDash"><span class="glyphicon glyphicon-stats"/> TrackerDash Dashboard</a>
-                                </li>
-                                <li class="divider">
-                                </li>
+                                </li> -->
+                            <!--     <li class="divider">
+                                </li> -->
                                 <li>
                                     <a href="https://github.com/wedgieedward/TrackerDash/issues"><span class="glyphicon glyphicon-warning-sign"/> Report a bug.</a>
                                 </li>
