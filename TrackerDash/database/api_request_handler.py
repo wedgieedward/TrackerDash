@@ -6,6 +6,7 @@ import logging
 from twisted.internet.defer import succeed
 from TrackerDash.database import common as db_common
 from TrackerDash.database.mongo_accessor import MongoAccessor
+from TrackerDash.schemas.api import Graph as GraphSchema
 
 
 def process_request(request):
@@ -133,14 +134,31 @@ class APIPOSTRequest(APIRequest):
         logging.debug("Processing API POST request: %s" % self.request_type)
         rt = self.request_type
         content = json.loads(self.request.content.readlines()[0])
+
+        # Post Raw Data To A Data Source
         if rt == "post_data":
             data_source = content["data_source"]
             document = content["data"]
+            # No validation needed here as we can post to a non existant data source
             self.accessor.add_document_to_collection_redundant(data_source, document, 60)
             return self
+
+        # Create a new graph object
         elif rt == "create_graph":
             graph_data = content["data"]
-            data_source = graph_data.get("data_source",)
+            try:
+                graph_data_validated = GraphSchema.deserialize(graph_data)
+            except Exception as exc:
+                logging.error("Exception: %r raised when trying to deserialize graph data: %r" % (
+                    exc, graph_data))
+
+            # We need to ensure that a datasource collection is present.
+            try:
+                self.accessor.create_collection(graph_data_validated["data_source"])
+            except NameError:
+                logging.debug(
+                    "data source for graph '%s' already exists" % graph_data_validated["title"])
+            return self
 
         else:
             raise NotImplementedError(

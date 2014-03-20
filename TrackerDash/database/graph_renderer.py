@@ -31,7 +31,7 @@ class HighChartsDataRenderer(object):
         """
         returns an array of document(s)
         """
-        chart_type = self.graph_document["type"]
+        chart_type = self.graph_document["graph_type"]
         if chart_type in TIME_LINEAR_GRAPH_TYPES:
             data_range = self.graph_document["data_range"]
             records = self.accessor.get_all_documents_created_in_last(
@@ -95,7 +95,7 @@ class HighChartsDataRenderer(object):
         self.dictionary["subtitle"] = {'text': self.graph_document["description"]}
 
     def set_series_data(self):
-        chart_type = self.graph_document["type"]
+        chart_type = self.graph_document["graph_type"]
         series = []
         if chart_type in TIME_LINEAR_GRAPH_TYPES:
             data = {}
@@ -127,7 +127,7 @@ class HighChartsDataRenderer(object):
     def set_type(self):
         """
         """
-        chart_type = self.graph_document["type"]
+        chart_type = self.graph_document["graph_type"]
         if chart_type in TIME_LINEAR_GRAPH_TYPES:
             self.dictionary["chart"] = {"type": chart_type}
 

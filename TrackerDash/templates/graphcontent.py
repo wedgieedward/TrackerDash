@@ -66,7 +66,7 @@ class GraphContent(Element):
             for graph_name in row:
                 graph_row += [self.accessor.get_one_document_by_query(
                     "graph",
-                    {"name": graph_name})]
+                    {"title": graph_name})]
             graph_rows += graph_row
         return graph_rows
 
