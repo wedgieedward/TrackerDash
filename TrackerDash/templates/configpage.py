@@ -1,9 +1,9 @@
 """
 configuration page
 """
-from twisted.web.template import XMLFile, renderer
-from twisted.python.filepath import FilePath
-from basewebpage import BasePage
+from twisted.web.template import renderer
+from TrackerDash.templates.basewebpage import BasePage
+from TrackerDash.templates.database_configuration import DatabaseContent
 
 
 class ConfigPage(BasePage):
@@ -19,8 +19,7 @@ class ConfigPage(BasePage):
         """
         get the content for the configuration page
         """
-        config_content = XMLFile(FilePath("TrackerDash/snippets/configuration.xml"))
-        return config_content.load()
+        return DatabaseContent()
 
     @renderer
     def auto_refresh(self, request, tag):

@@ -39,13 +39,13 @@
                                 <span class="glyphicon glyphicon-cog"/> Settings<strong class="caret"/>
                             </a>
                             <ul class="dropdown-menu">
-                                <!-- <li>
+<!--                                 <li>
                                     <a href="../configure/"><span class="glyphicon glyphicon-cog"/> Configure Trackerdash</a>
-                                </li>
-                                <li>
-                                    <a href="#"><span class="glyphicon glyphicon-cog"/> Database Settings</a>
                                 </li> -->
-                                <!-- <li class="divider"/> -->
+                                <li>
+                                    <a href="../configure/"><span class="glyphicon glyphicon-cog"/> Database Settings</a>
+                                </li>
+                                <li class="divider"/>
                                 <li>
                                     <a href="../log/network_log"><span class='glyphicon glyphicon-list-alt'/> Network Log</a>
                                 </li>
