@@ -5,6 +5,7 @@ from twisted.python.filepath import FilePath
 from twisted.web.template import Element, XMLFile, XMLString, renderer
 
 from TrackerDash.database.mongo_accessor import MongoAccessor
+from TrackerDash.database import common as db_common
 
 
 class DatabaseContent(Element):
@@ -28,6 +29,7 @@ class DatabaseContent(Element):
         output_string += self.get_showreel_xml()
         output_string += self.get_dashboard_xml()
         output_string += self.get_graph_xml()
+        output_string += self.get_data_sources_xml()
 
         output_string += "</div>"
         renderable_string = XMLString(output_string)
@@ -64,7 +66,7 @@ class DatabaseContent(Element):
         else:
             documents = self.accessor.get_all_documents_from_collection(collection)
             for document in documents:
-                string += self.get_list_item(document["name"])
+                string += self.get_list_item(document["title"])
         return string
 
     def get_dashboard_xml(self):
@@ -85,6 +87,21 @@ class DatabaseContent(Element):
                 badge_number = self.get_number_of_graphs_from_dashboard(document)
                 string += self.get_list_item_with_badge(name, badge_number)
 
+        return string
+
+    def get_data_sources_xml(self):
+        """
+        """
+        title = "Data Sources"
+        data_sources = db_common.get_configured_data_sources(self.accessor)
+        string = ""
+        string += self.get_title_string(title, len(data_sources))
+        if len(data_sources) == 0:
+            string += self.get_nothing_configured_list_item()
+        else:
+            for data_source in data_sources:
+                number_of_recs = self.accessor.get_number_of_documents_in_collection(data_source)
+                string += self.get_list_item_with_badge(data_source, number_of_recs)
         return string
 
     def get_number_of_graphs_from_dashboard(self, document):
