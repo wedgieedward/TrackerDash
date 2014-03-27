@@ -105,12 +105,20 @@ class HighChartsDataRenderer(object):
                 first_doc = self.relevant_data[0]
                 keys = first_doc.keys()
                 keys.remove("_id")
+
+                # Sort the keys and make them pretty to display (title)
+                keys.sort()
+                for key in keys:
+                    key = key.title()
                 for key in keys:
                     data[key] = []
 
                 for document in self.relevant_data:
+                    # Get the generation time
                     bson_id = objectid.ObjectId(document["_id"])
                     datetime = bson_id.generation_time
+
+                    # Convert to utc time in miliseconds
                     for_web = time.mktime(datetime.timetuple()) * 1000
 
                     for key in keys:
