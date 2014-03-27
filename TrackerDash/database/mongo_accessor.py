@@ -171,6 +171,7 @@ class MongoAccessor(object):
 
     def get_all_documents_created_in_last(self,
                                           collection_name,
+                                          months=0,
                                           weeks=0,
                                           days=0,
                                           hours=0,
@@ -180,11 +181,13 @@ class MongoAccessor(object):
         Given a collection and a time interval, get all the documents in that collection
         created after that defined time interval
         """
-        timestamp_query = datetime.now() - timedelta(weeks=weeks,
-                                                     days=days,
-                                                     hours=hours,
-                                                     minutes=minutes,
-                                                     seconds=seconds)
+        # months gets ignored intentionally
+        timestamp_query = datetime.now() - timedelta(
+            weeks=weeks,
+            days=days,
+            hours=hours,
+            minutes=minutes,
+            seconds=seconds)
         query = {"_id": {"$gt": objectid.ObjectId.from_datetime(timestamp_query)}}
         return self.get_documents_by_query(collection_name, query)
 

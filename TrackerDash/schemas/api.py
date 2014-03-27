@@ -37,7 +37,7 @@ class DataRange(colander.MappingSchema):
     hours = colander.SchemaNode(colander.Int(), missing=0)
     days = colander.SchemaNode(colander.Int(), missing=0)
     weeks = colander.SchemaNode(colander.Int(), missing=0)
-    months = colander.SchemaNode(colander.Int(), missing=0)
+    seconds = colander.SchemaNode(colander.Int(), missing=0)
 
 
 class Graph(colander.MappingSchema):
