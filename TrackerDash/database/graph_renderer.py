@@ -1,8 +1,10 @@
 """
 class for rendering individual graphs
 """
+from bson import objectid
 import json
 import logging
+import time
 from TrackerDash.database.mongo_accessor import MongoAccessor
 
 TIME_LINEAR_GRAPH_TYPES = ('line', 'bar', 'area', 'column', 'scatter', 'bar', 'column')
@@ -107,8 +109,12 @@ class HighChartsDataRenderer(object):
                     data[key] = []
 
                 for document in self.relevant_data:
+                    bson_id = objectid.ObjectId(document["_id"])
+                    datetime = bson_id.generation_time
+                    for_web = time.mktime(datetime.timetuple()) * 1000
+
                     for key in keys:
-                        data[key].append(document[key])
+                        data[key].append([for_web, document[key]])
 
                 for key in keys:
                     series.append({"name": key, "data": data[key]})
@@ -131,6 +137,7 @@ class HighChartsDataRenderer(object):
         chart_type = self.graph_document["graph_type"]
         if chart_type in TIME_LINEAR_GRAPH_TYPES:
             self.dictionary["chart"] = {"type": chart_type}
+            self.dictionary["xAxis"] = {"type": 'datetime'}
 
     def process(self):
         """
