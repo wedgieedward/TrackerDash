@@ -8,10 +8,10 @@ import logging
 import logging.handlers
 import socket
 import sys
-from constants import APP_LOG_FILE
-from database import common as database_common
-from database.mongo_accessor import MongoAccessor
-from webdispatcher import WebDispatcher
+from TrackerDash.constants import APP_LOG_FILE
+from TrackerDash.database import common as database_common
+from TrackerDash.database.mongo_accessor import MongoAccessor
+from TrackerDash.webdispatcher import WebDispatcher
 
 # logging setup
 logging.basicConfig(filename=APP_LOG_FILE, filemode='w', level=logging.INFO)
