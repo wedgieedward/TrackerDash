@@ -91,7 +91,7 @@ class GraphSchemaSanity(unittest.TestCase):
                                       "hours": 0,
                                       "days": 0,
                                       "weeks": 1,
-                                      "months": 0},
+                                      "seconds": 0},
                        "graph_type": "area",
                        "stacked": True
                        }
@@ -131,7 +131,7 @@ class GraphSchemaSanity(unittest.TestCase):
              "hours": 0,
              "days": 0,
              "weeks": 1,
-             "months": 0})
+             "seconds": 0})
 
     def test_data_range(self):
         """

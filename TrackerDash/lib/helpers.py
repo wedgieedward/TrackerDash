@@ -34,6 +34,9 @@ class TransformedDict(collections.MutableMapping):
     def __keytransform__(self, key):
         return key
 
+    def __repr__(self):
+        return str(self.store)
+
 
 class BaseSchemaObject(TransformedDict):
     """

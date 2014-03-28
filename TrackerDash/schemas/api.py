@@ -57,7 +57,7 @@ class Graph(colander.MappingSchema):
                                     "hours": 0,
                                     "days": 0,
                                     "weeks": 1,
-                                    "months": 0})
+                                    "seconds": 0})
     graph_type = colander.SchemaNode(colander.String(),
                                      validator=colander.OneOf(SUPPORTED_GRAPHS),
                                      missing="line")
