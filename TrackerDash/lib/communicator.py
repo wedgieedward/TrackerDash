@@ -18,31 +18,27 @@ class Communicator(object):
         self._port = port
         self._url = "http://%s:%s" % (self._host, self._port)
 
-    def _test_connection(self):
+    def create_new_dashboard(self, dashboard_data):
         """
-        tests that we can communicate with a TrackerDash instance
-        """
-        try:
-            socket = urllib2.urlopen(self._url + '/api/status')
-            code = socket.getcode()
-            if code == 200:
-                return (True, "Connection Successful")
-            else:
-                return (False, "Returned %s error" % code)
+        given a dictionary containing the data for a dashboard create a dashboard
+        dashboard_data:
+            name (type: string, unique: True)
+            row_data (array of rows)
 
-        except urllib2.HTTPError:
-            return (False, "Could not connect to server")
-
-        except urllib2.URLError:
-            return (False, "Connection Refused")
-
-    # Dashboard Methods
-    def get_dashboard_names(self):
+        row:
+            an array of strings that map to a configured graph
         """
-        return a list of configured dashboards
+        json_data = json.dumps({"data": dashboard_data})
+        return requests.post(
+            self._url + '/api/create_dashboard', data=json_data, headers=self._post_header)
+
+    def create_new_graph(self, graph_data):
         """
-        data = json.load(urllib2.urlopen(self._url + '/api/get_dashboard_names'))
-        return data["dashboards"]
+        given a dictionary containing the data for a graph create a new graph
+        """
+        json_data = json.dumps({"data": graph_data})
+        return requests.post(
+            self._url + '/api/create_graph', data=json_data, headers=self._post_header)
 
     def get_dashboard_information(self, dashboard_name=False):
         """
@@ -60,27 +56,19 @@ class Communicator(object):
 
         return dashboard_info
 
-    def create_new_dashboard(self, dashboard_data):
+    def get_dashboard_names(self):
         """
-        given a dictionary containing the data for a dashboard create a dashboard
-        dashboard_data:
-            name (type: string, unique: True)
-            row_data (array of rows)
+        return a list of configured dashboards
+        """
+        data = json.load(urllib2.urlopen(self._url + '/api/get_dashboard_names'))
+        return data["dashboards"]
 
-        row:
-            an array of strings that map to a configured graph
+    def get_data_sources(self):
         """
-        json_data = json.dumps({"data": dashboard_data})
-        return requests.post(
-            self._url + '/api/create_dashboard', data=json_data, headers=self._post_header)
-
-    # Graph Methods
-    def get_graph_names(self):
+        get all the configured data_sources
         """
-        get a list of names for configured graphs
-        """
-        data = json.load(urllib2.urlopen(self._url + '/api/get_graph_names'))
-        return data["graphs"]
+        data = json.load(urllib2.urlopen(self._url + '/api/get_data_sources'))
+        return data["data_sources"]
 
     def get_graph_information(self, graph_name=None):
         """
@@ -99,21 +87,12 @@ class Communicator(object):
 
         return graph_info
 
-    def create_new_graph(self, graph_data):
+    def get_graph_names(self):
         """
-        given a dictionary containing the data for a graph create a new graph
+        get a list of names for configured graphs
         """
-        json_data = json.dumps({"data": graph_data})
-        return requests.post(
-            self._url + '/api/create_graph', data=json_data, headers=self._post_header)
-
-    # Data source methods
-    def get_data_sources(self):
-        """
-        get all the configured data_sources
-        """
-        data = json.load(urllib2.urlopen(self._url + '/api/get_data_sources'))
-        return data["data_sources"]
+        data = json.load(urllib2.urlopen(self._url + '/api/get_graph_names'))
+        return data["graphs"]
 
     def post_data_to_data_source(self, data_source, data):
         """
@@ -122,3 +101,21 @@ class Communicator(object):
         json_data = json.dumps({"data_source": data_source, "data": data})
         return requests.post(
             self._url + '/api/post_data', data=json_data, headers=self._post_header)
+
+    def test_connection(self):
+        """
+        tests that we can communicate with a TrackerDash instance
+        """
+        try:
+            socket = urllib2.urlopen(self._url + '/api/status')
+            code = socket.getcode()
+            if code == 200:
+                return (True, "Connection Successful")
+            else:
+                return (False, "Returned %s error" % code)
+
+        except urllib2.HTTPError:
+            return (False, "Could not connect to server")
+
+        except urllib2.URLError:
+            return (False, "Connection Refused")
