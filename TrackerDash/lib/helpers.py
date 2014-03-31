@@ -55,6 +55,18 @@ class BaseSchemaObject(TransformedDict):
         except Invalid as invalid:
             return (False, invalid.asdict())
 
+    def process(self, store=False):
+        """
+        will return the deserialized version of the dictionary if valid
+        """
+        try:
+            valid_data = self.schema.deserialize(self.store)
+            if store:
+                self.store.update(valid_data)
+            return valid_data
+        except Invalid as invalid:
+            return (False, invalid.asdict())
+
 
 class DashboardObject(BaseSchemaObject):
     """
