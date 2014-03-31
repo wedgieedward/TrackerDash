@@ -81,7 +81,12 @@ class HighChartsDataRenderer(object):
                 "cursor": 'pointer',
                 "dataLabels": {
                     "enabled": True,
-                    "inside": True
+                    "inside": True,
+                    "style": {
+                        "font": 'Helvetica',
+                        "fontWeight": 'bold',
+                        "fontSize": '12px'
+                    }
                 },
                 # "showInLegend": True
             },
@@ -127,7 +132,12 @@ class HighChartsDataRenderer(object):
     def set_title(self):
         """
         """
-        self.dictionary["title"] = {'text': self.graph_document['title']}
+        self.dictionary["title"] = {
+            'text': self.graph_document['title'],
+            'style': {
+                "fontWeight": 'bold'
+            }
+        }
 
     def set_description(self):
         """
@@ -187,9 +197,35 @@ class HighChartsDataRenderer(object):
                 "title": {
                     "text": self.get_timeseries_axis_title(),
                     "align": "high"
+                },
+                "labels": {
+                    "style": {
+                        'fontWeight': 'bold'
+                    }
                 }
             }
-            self.dictionary["yAxis"] = {"title": ''}
+            self.dictionary["yAxis"] = {
+                "title": '',
+                "allowDecimals": False,
+                "opposite": True,
+                "labels": {
+                    "style": {
+                        "font": 'Helvetica',
+                        "fontWeight": 'bold',
+                        "fontSize": '14px'
+                    }
+                }
+            }
+        else:
+            self.dictionary["xAxis"] = {
+                "labels": {
+                    "style": {
+                        "font": 'Helvetica',
+                        'fontWeight': 'bold',
+                        'fontSize': '14px'
+                    }
+                }
+            }
 
     def get_timeseries_axis_title(self):
         """

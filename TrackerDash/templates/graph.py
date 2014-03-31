@@ -50,24 +50,26 @@ class HighchartsGraph(object):
         """
         returns the javascript needed to render this particular chart
         """
-        return ("""
-                <div>
-                    <script type="text/javascript">
-                        $(document).ready(function () {
-                            win_height = $(window).height();
-                            top_nav_bar_height = $("#top_nav_bar").height();
-                            bottom_nav_bar_height = $("#bottom_nav_bar").height();
-                            offset = 0;
-                            num_rows = %d;
-                            span_rows = %d;
-                            if (top_nav_bar_height != null){
-                                offset = top_nav_bar_height + bottom_nav_bar_height;
-                            }
-                            height = ((win_height - offset) / num_rows) * span_rows;
-                            $("#%s").css({"height": height.toString()+"px"});
-                            $('#%s').highcharts(jQuery.parseJSON(%r));
-                        });
-                    </script>
-                <div id="%s" style="min-width: 310px; margin: 0"></div>
-                </div>
-                """)
+        return (
+            """
+            <div>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        win_height = $(window).height();
+                        top_nav_bar_height = $("#top_nav_bar").height();
+                        bottom_nav_bar_height = $("#bottom_nav_bar").height();
+                        offset = 0;
+                        fudge_padding = 20;
+                        num_rows = %d;
+                        span_rows = %d;
+                        if (top_nav_bar_height != null){
+                            offset = top_nav_bar_height + bottom_nav_bar_height;
+                        }
+                        height = ((win_height - offset - fudge_padding) / num_rows) * span_rows;
+                        $("#%s").css({"height": height.toString()+"px"});
+                        $('#%s').highcharts(jQuery.parseJSON(%r));
+                    });
+                </script>
+            <div id="%s" style="min-width: 310px; margin: 0"></div>
+            </div>
+            """)
