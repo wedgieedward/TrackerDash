@@ -4,7 +4,7 @@ Schemas needed to validate incoming api requests
 
 import colander
 
-SUPPORTED_GRAPHS = ('line', 'bar', 'area', 'column', 'scatter', 'bar', 'column', "pie")
+SUPPORTED_GRAPHS = ('line', 'bar', 'area', 'column', 'scatter', 'bar', "pie")
 
 
 class GraphRow(colander.SequenceSchema):
