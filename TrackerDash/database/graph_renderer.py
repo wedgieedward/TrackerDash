@@ -14,7 +14,6 @@ SINGLE_DOCUMENT_GRAPH_TYPES = ("pie")
 class HighChartsDataRenderer(object):
     # If there is a lot of data, use every nth document instead
     OPTIMISE_AMOUNT = 5
-
     # Number of records where we should start optimising
     OPTIMISE_BOUNDRY = 1000
 
@@ -65,21 +64,45 @@ class HighChartsDataRenderer(object):
     def get_plot_options(self):
         """
         """
-        options = {'bar': {'dataLabels': {'enabled': True}},
-                   'area': {'fillOpacity': 0.5,
-                            'marker': {"enabled": False}},
-                   "pie": {"allowPointSelect": True,
-                           "cursor": 'pointer',
-                           "dataLabels": {"enabled": False},
-                           "showInLegend": True},
-                   "scatter": {"marker": {"radius": 5,
-                                          "states": {"hover": {"enabled": True,
-                                                               "lineColor": 'rgb(100,100,100)'}
-                                                     }
-                                          }
-                               },
-                   "line": {"marker": {"enabled": False}},
-                   }
+        options = {
+            'bar': {
+                'dataLabels': {
+                    'enabled': True
+                }
+            },
+            'area': {
+                'fillOpacity': 0.5,
+                'marker': {
+                    "enabled": False
+                }
+            },
+            "pie": {
+                "allowPointSelect": True,
+                "cursor": 'pointer',
+                "dataLabels": {
+                    "enabled": True,
+                    "inside": True
+                },
+                # "showInLegend": True
+            },
+            "scatter": {
+                "marker": {
+                    "radius": 5,
+                    "states": {
+                        "hover": {
+                            "enabled": True,
+                            "lineColor": 'rgb(100,100,100)'
+                        }
+                    }
+                }
+            },
+            "line": {
+                "marker": {
+                    "enabled": False
+                }
+            },
+        }
+
         if self.graph_document["stacked"]:
             options["series"] = {"stacking": "normal"}
 
