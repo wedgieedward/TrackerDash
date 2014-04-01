@@ -124,16 +124,6 @@ class HighChartsDataRenderer(object):
         """
         self.dictionary["plotOptions"] = self.get_plot_options()
         self.dictionary["credits"] = {"enabled": False}
-        # self.dictionary['legend'] = {'layout': 'vertical',
-        #                              'align': 'right',
-        #                              'verticalAlign': 'top',
-        #                              'x': -40,
-        #                              'y': 100,
-        #                              'floating': True,
-        #                              'borderWidth': 1,
-        #                              'backgroundColor': '#FFFFFF',
-        #                              'shadow': True
-        #                              }
 
     def set_title(self):
         """
@@ -199,7 +189,10 @@ class HighChartsDataRenderer(object):
         """
         chart_type = self.graph_document["graph_type"]
         if chart_type in TIME_LINEAR_GRAPH_TYPES:
-            self.dictionary["chart"] = {"type": chart_type}
+            self.dictionary["chart"] = {
+                "type": chart_type,
+                "backgroundColor": 'rgba(255, 255, 255, 0.1)'
+            }
             self.dictionary["xAxis"] = {
                 "type": 'datetime',
                 "title": {
