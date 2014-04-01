@@ -36,7 +36,6 @@ class MongoAccessor(object):
         date_info is a dictionary of key values to represent the input to
         a time delta function
         """
-        logging.info("**date_info: %s" % date_info)
         return (self.get_date() - timedelta(**date_info))
 
     def modify_document_for_database(self, document):
