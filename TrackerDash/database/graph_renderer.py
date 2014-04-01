@@ -38,7 +38,6 @@ class HighChartsDataRenderer(object):
         self.set_type()
 
     def render_as_json(self):
-        logging.info("EDD FINAL: %r" % self.dictionary)
         logging.debug(
             "renderering graph: %s as json, output dict: %r" % (
                 self.graph_document["title"],
@@ -104,7 +103,8 @@ class HighChartsDataRenderer(object):
             "line": {
                 "marker": {
                     "enabled": False
-                }
+                },
+                "lineWidth": 5
             },
         }
 
@@ -162,10 +162,8 @@ class HighChartsDataRenderer(object):
 
                 for document in self.relevent_data:
                     # Get the generation time
-                    logging.info("Edd - %r" % document)
                     datetime = document["__date"]
                     del document["__date"]
-                    logging.info("Edd - %r" % document)
 
                     # Convert to utc time in miliseconds
                     for_web = time.mktime(datetime.timetuple()) * 1000
