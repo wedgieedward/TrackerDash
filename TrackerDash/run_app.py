@@ -34,6 +34,11 @@ parser.add_argument(
     help="WARNING: clears the entire database back to base settings",
     action="store_true")
 parser.add_argument(
+    "-cd",
+    "--clean_datasources",
+    help="WARNING: clears all the data sources in the database",
+    action="store_true")
+parser.add_argument(
     "-d",
     "--demo_data",
     help="Add mock demo data to the database",
@@ -81,6 +86,9 @@ if __name__ == '__main__':
             elif user_input in ('', 'n', 'N'):
                 print "Not clearing the database."
                 break
+    if args.clean_datasources:
+        for collection in database_common.get_configured_data_sources(accessor):
+            accessor.delete_collection(collection)
     if args.demo_data:
         print "Adding demo data to the database."
         database_common.add_demo_data()

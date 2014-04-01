@@ -1,5 +1,6 @@
-import bson
-import datetime
+
+from datetime import datetime
+from datetime import timedelta
 import unittest
 
 from TrackerDash.database.mongo_accessor import MongoAccessor
@@ -153,9 +154,11 @@ class AccessorSanity(unittest.TestCase):
         """
         accessor = TestAccessor()
         for x in range(days):
-            dtime = datetime.datetime.now() - datetime.timedelta(days=x)
-            ID = bson.objectid.ObjectId.from_datetime(dtime)
-            document = {"_id": ID, "days": x}
+            timestamp = (datetime.utcnow() - timedelta(days=x))
+            document = {
+                "days": x,
+                "__date": timestamp
+            }
             accessor.add_document_to_collection(collection_name, document)
 
 if __name__ == '__main__':

@@ -1,7 +1,6 @@
 """
 class for rendering individual graphs
 """
-from bson import objectid
 import json
 import logging
 import time
@@ -39,6 +38,7 @@ class HighChartsDataRenderer(object):
         self.set_type()
 
     def render_as_json(self):
+        logging.info("EDD FINAL: %r" % self.dictionary)
         logging.debug(
             "renderering graph: %s as json, output dict: %r" % (
                 self.graph_document["title"],
@@ -153,6 +153,7 @@ class HighChartsDataRenderer(object):
                 first_doc = self.relevent_data[0]
                 keys = first_doc.keys()
                 keys.remove("_id")
+                keys.remove("__date")
 
                 # Sort the keys and make them pretty to display (title)
                 keys.sort()
@@ -161,8 +162,10 @@ class HighChartsDataRenderer(object):
 
                 for document in self.relevent_data:
                     # Get the generation time
-                    bson_id = objectid.ObjectId(document["_id"])
-                    datetime = bson_id.generation_time
+                    logging.info("Edd - %r" % document)
+                    datetime = document["__date"]
+                    del document["__date"]
+                    logging.info("Edd - %r" % document)
 
                     # Convert to utc time in miliseconds
                     for_web = time.mktime(datetime.timetuple()) * 1000
@@ -177,6 +180,7 @@ class HighChartsDataRenderer(object):
             document = self.relevent_data[0]
             keys = document.keys()
             keys.remove("_id")
+            keys.remove("__date")
             keys.sort()
             data = []
             for key in keys:

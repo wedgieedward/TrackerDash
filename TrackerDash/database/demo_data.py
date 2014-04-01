@@ -1,4 +1,3 @@
-from bson import objectid
 from datetime import datetime
 from datetime import timedelta
 import uuid
@@ -23,15 +22,14 @@ def get_demo_doc(offset):
     """
     get a document that is worthy of demoing
     """
-    gen_time = datetime.now() - timedelta(days=offset)
-    dummy_id = objectid.ObjectId.from_datetime(gen_time)
+    timestamp = (datetime.utcnow() - timedelta(days=offset))
     return {
-        "_id": dummy_id,
         "Alpha": get_num(),
         "Beta": get_num(),
         "Charlie": get_num(),
         "Delta": get_num(),
-        "Echo": get_num()
+        "Echo": get_num(),
+        "__date": timestamp
     }
 
 description = "This was created by the -d (demo) flag on startup"

@@ -1,14 +1,14 @@
 """
 Client for accessing the mongodatabase
 """
-import logging
-import pymongo
-
-from bson import objectid
 from datetime import datetime
 from datetime import timedelta
+import logging
+
+import pymongo
 
 from TrackerDash.constants import ESSENTIAL_COLLECTIONS
+
 
 LIVE_DATABASE = "TrackerDashApp"
 TEST_DATABASE = "TrackerDashTEST"
@@ -23,6 +23,28 @@ class MongoAccessor(object):
     def __init__(self):
         self.client = pymongo.MongoClient()
         self.database = self.client[self.database_name]
+
+    def get_date(self):
+        """
+        get an appropriate value to insert into mongodb to represent date
+        """
+        return datetime.utcnow()
+
+    def get_date_x_ago(self, **date_info):
+        """
+        get a date **date_info time ago
+        date_info is a dictionary of key values to represent the input to
+        a time delta function
+        """
+        logging.info("**date_info: %s" % date_info)
+        return (self.get_date() - timedelta(**date_info))
+
+    def modify_document_for_database(self, document):
+        """
+        alter the document before inserting it into the database
+        """
+        # Add a __date field to the record (if it doesn't already exist)
+        document["__date"] = document.get("__date", self.get_date())
 
     # Database Methods
     def get_raw_database(self):
@@ -118,10 +140,12 @@ class MongoAccessor(object):
     def add_document_to_collection(self, collection_name, document):
         """
         add a json document to a specified collection
+        This should be the only way a document is added to the collection.
         """
         logging.debug("Inseting %r into collection %s" % (document, collection_name))
         try:
             collection = self.get_collection(collection_name)
+            self.modify_document_for_database(document)
             collection.insert(document)
         except LookupError:
             logging.debug(
@@ -142,6 +166,7 @@ class MongoAccessor(object):
             elif len(documents_in_period) >= 1:
                 last_document_inserted = documents_in_period[-1]
                 del last_document_inserted["_id"]
+                del last_document_inserted["__date"]
                 if last_document_inserted != document:
                     self.add_document_to_collection(collection_name, document)
         except LookupError:
@@ -171,24 +196,14 @@ class MongoAccessor(object):
 
     def get_all_documents_created_in_last(self,
                                           collection_name,
-                                          months=0,
-                                          weeks=0,
-                                          days=0,
-                                          hours=0,
-                                          minutes=0,
-                                          seconds=0):
+                                          **kwargs):
         """
         Given a collection and a time interval, get all the documents in that collection
         created after that defined time interval
         """
         # months gets ignored intentionally
-        timestamp_query = datetime.now() - timedelta(
-            weeks=weeks,
-            days=days,
-            hours=hours,
-            minutes=minutes,
-            seconds=seconds)
-        query = {"_id": {"$gt": objectid.ObjectId.from_datetime(timestamp_query)}}
+        timestamp = self.get_date_x_ago(**kwargs)
+        query = {"__date": {"$gte": timestamp}}
         return self.get_documents_by_query(collection_name, query)
 
 
