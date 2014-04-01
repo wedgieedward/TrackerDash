@@ -79,14 +79,20 @@ class HighChartsDataRenderer(object):
                 "allowPointSelect": True,
                 "cursor": 'pointer',
                 "dataLabels": {
+                    "distance": -50,
                     "enabled": True,
                     "inside": True,
+                    "offset": 0,
                     "style": {
                         "font": 'Helvetica',
                         "fontWeight": 'bold',
-                        "fontSize": '12px'
-                    }
+                        "fontSize": '14px'
+                    },
+                    "color": 'white',
+                    "y": 0,
+                    "overflow": False,
                 },
+                "size": '90%'
                 # "showInLegend": True
             },
             "scatter": {
