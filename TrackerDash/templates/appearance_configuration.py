@@ -23,18 +23,29 @@ class AppearanceContent(Element):
     def configuration_content(self, request, tag):
         """
         """
+        set_theme = theme_helpers.get_configured_theme(self.accessor)
         output_string = ""
         output_string += "<div>"
         output_string += "<h3>Themes</h3>"
-        output_string += '<div class="btn-group">'
+        output_string += '<div class="btn-group-vertical">'
 
         for theme in theme_helpers.get_configured_themes():
-            output_string += (
-                "<button type=\"button\" onclick=\"setTheme('%s')\" class=\"btn btn-default\">%s</button>" % (
-                    theme,
-                    theme
-                )
-            )
+            if theme == set_theme:
+                output_string += (
+                    "<button type=\"button\" onclick=\"setTheme"
+                    "('%s')\" class=\"%s\">%s</button>" % (
+                        theme,
+                        "btn btn-primary",
+                        theme
+                    ))
+            else:
+                output_string += (
+                    "<button type=\"button\" onclick=\"setTheme"
+                    "('%s')\" class=\"%s\">%s</button>" % (
+                        theme,
+                        "btn btn-default",
+                        theme
+                    ))
 
         output_string += "</div>"
         output_string += "</div>"

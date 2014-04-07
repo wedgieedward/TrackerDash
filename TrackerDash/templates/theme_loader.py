@@ -23,21 +23,9 @@ class ThemeLoader(Element):
     def theme_link(self, request, tag):
         link_string = (
             '<link href="../web/css/custom/%s/bootstrap.min.css" rel="stylesheet"> </link>' % (
-                self.get_configured_theme()
+                theme_helpers.get_configured_theme(self.accessor)
             )
         )
         string = XMLString(link_string)
         return string.load()
 
-    def get_configured_theme(self):
-        """
-        go to the configuration and get the saved theme
-        """
-        theme_document = self.accessor.get_one_document_by_query('config', {'config': 'theme'})
-        if theme_document is None:
-            logging.info("No theme found, adding default theme")
-            theme = theme_helpers.get_default_theme()
-            theme_helpers.set_theme(self.accessor, theme)
-        else:
-            theme = theme_document["theme"]
-        return theme
