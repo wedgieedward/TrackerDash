@@ -6,29 +6,14 @@ import logging
 from twisted.python.filepath import FilePath
 from twisted.web.template import Element, XMLFile, XMLString, renderer
 
+from TrackerDash.common import theme_helpers
 from TrackerDash.database.mongo_accessor import MongoAccessor
 
 
 class ThemeLoader(Element):
 
-    default_theme = 'cosmo'
-    themes = (
-        'amelia',
-        'bootstrap',
-        'cerulean',
-        'cosmo',
-        'cyborg',
-        'darkly',
-        'flatly',
-        'journal',
-        'lumen',
-        'readable',
-        'simplex',
-        'slate',
-        'spacelab',
-        'united',
-        'yeti',
-    )
+    default_theme = 'bootstrap'
+    themes = theme_helpers.get_configured_themes()
 
     def __init__(self):
         super(ThemeLoader, self).__init__()
