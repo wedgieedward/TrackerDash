@@ -49,7 +49,7 @@ class ThemeLoader(Element):
         """
         go to the configuration and get the saved theme
         """
-        theme_document = self.accessor.get_one_document_by_query('config', 'theme')
+        theme_document = self.accessor.get_one_document_by_query('config', {'config': 'theme'})
         if theme_document is None:
             logging.info("No theme found, adding default theme")
             theme = self.get_default_theme()
@@ -69,4 +69,5 @@ class ThemeLoader(Element):
         set a theme
         """
         logging.info("Setting application theme: %s" % theme)
-        self.accessor.add_document_to_collection('config', {"theme": theme})
+        self.accessor.remove_documents_by_query('config', {"config": "theme"})
+        self.accessor.add_document_to_collection('config', {"config": 'theme', "theme": theme})

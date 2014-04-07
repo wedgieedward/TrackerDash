@@ -205,6 +205,13 @@ class MongoAccessor(object):
         query = {"__date": {"$gte": timestamp}}
         return self.get_documents_by_query(collection_name, query)
 
+    def remove_documents_by_query(self, collection_name, query):
+        """
+        given a query, delete all documents that match it
+        """
+        collection = self.get_collection(collection_name)
+        collection.remove(query)
+
 
 class TestAccessor(MongoAccessor):
     database_name = TEST_DATABASE
