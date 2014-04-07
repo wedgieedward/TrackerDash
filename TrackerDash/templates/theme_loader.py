@@ -12,7 +12,6 @@ from TrackerDash.database.mongo_accessor import MongoAccessor
 
 class ThemeLoader(Element):
 
-    default_theme = 'bootstrap'
     themes = theme_helpers.get_configured_themes()
 
     def __init__(self):
@@ -37,22 +36,8 @@ class ThemeLoader(Element):
         theme_document = self.accessor.get_one_document_by_query('config', {'config': 'theme'})
         if theme_document is None:
             logging.info("No theme found, adding default theme")
-            theme = self.get_default_theme()
-            self.set_theme(theme)
+            theme = theme_helpers.get_default_theme()
+            theme_helpers.set_theme(self.accessor, theme)
         else:
             theme = theme_document["theme"]
         return theme
-
-    def get_default_theme(self):
-        """
-        get the default theme
-        """
-        return self.default_theme
-
-    def set_theme(self, theme):
-        """
-        set a theme
-        """
-        logging.info("Setting application theme: %s" % theme)
-        self.accessor.remove_documents_by_query('config', {"config": "theme"})
-        self.accessor.add_document_to_collection('config', {"config": 'theme', "theme": theme})

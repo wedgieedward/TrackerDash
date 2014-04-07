@@ -4,6 +4,8 @@ Api request handler
 import json
 import logging
 from twisted.internet.defer import succeed
+
+from TrackerDash.common import theme_helpers
 from TrackerDash.database import common as db_common
 from TrackerDash.database.mongo_accessor import MongoAccessor
 from TrackerDash.schemas.api import Graph as GraphSchema
@@ -89,6 +91,7 @@ class APIGETRequest(APIRequest):
         elif rt == "get_data_sources":
             self.response = {"data_sources": db_common.get_configured_data_sources(self.accessor)}
         else:
+            logging.info("request: %s is not implemented" % self.request_type)
             raise NotImplementedError("request: %s is not implemented" % self.request_type)
 
     def get_dashboard_names(self):
@@ -167,6 +170,12 @@ class APIPOSTRequest(APIRequest):
             dashboard_data_validated = schema.deserialize(dashboard_data)
             self.accessor.add_document_to_collection("dashboard", dashboard_data_validated)
 
+        elif rt == "set_theme":
+            logging.info("content for set_theme: %r" % content)
+            theme_helpers.set_theme(self.accessor, content)
+            return self
+
         else:
+            logging.info("request: %s is not implemented" % self.request_type)
             raise NotImplementedError(
                 "POST request: %s has not been implemented" % self.request_type)

@@ -7,3 +7,4 @@ ESSENTIAL_COLLECTIONS = (
     "dashboard",
     "graph",
     "config")
+DEFAULT_THEME = 'bootstrap'

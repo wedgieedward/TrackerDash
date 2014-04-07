@@ -1,4 +1,18 @@
 <div xmlns:t="http://twistedmatrix.com/ns/twisted.web.template/0.1">
+    <script>
+        function setTheme(theme)
+        {
+            console.log(theme);
+            $.ajax({
+                    cache: false,
+                    url: "../api/set_theme",
+                    type: "POST",
+                    dataType: "json",
+                    data: JSON.stringify(theme),
+                });
+            location.reload();
+        }
+    </script>
     <div class="container">
         <div class="row clearfix">
             <div class="col-md-3 column">
@@ -12,7 +26,7 @@
                         <a href='../configure/database'><span class="glyphicon glyphicon-cog"></span> Database Settings</a>
                     </div>
                     <div class="panel-body">
-                        <a href='../configure/appearance'><span class="glyphicon glyphicon-cog"></span> Appearance Settings</a>
+                        <a href='../configure/appearance'><span class="glyphicon glyphicon-eye-open"></span> Appearance Settings</a>
                     </div>
                     <div class="panel-body">
                         <a href='#'><span class="glyphicon glyphicon-cog"></span> API Settings</a>
