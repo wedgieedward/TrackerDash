@@ -1,10 +1,11 @@
 """
 base web page
 """
-from twisted.web.template import Element, XMLFile, renderer
 from twisted.python.filepath import FilePath
+from twisted.web.template import Element, XMLFile, renderer
 
-from navbar import NavBar
+from TrackerDash.templates.navbar import NavBar
+from TrackerDash.templates.theme_loader import ThemeLoader
 
 
 class BasePage(Element):
@@ -36,7 +37,7 @@ class BasePage(Element):
         """
         return the xml required for the stylesheets for this page
         """
-        return XMLFile(FilePath("TrackerDash/snippets/stylesheets.xml")).load()
+        return ThemeLoader()
 
     @renderer
     def favicons(self, request, tag):

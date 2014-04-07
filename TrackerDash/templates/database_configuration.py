@@ -19,11 +19,18 @@ class DatabaseContent(Element):
         self.accessor = MongoAccessor()
 
     @renderer
-    def listbox_content(self, request, tag):
+    def header(self, request, tag):
+        """
+        """
+        return 'Database Content Overview'
+
+    @renderer
+    def configuration_content(self, request, tag):
         """
         get the list content
         """
         output_string = ""
+        output_string += '<div class="list-group">'
         output_string += "<div>"
 
         output_string += self.get_showreel_xml()
@@ -31,6 +38,7 @@ class DatabaseContent(Element):
         output_string += self.get_graph_xml()
         output_string += self.get_data_sources_xml()
 
+        output_string += "</div>"
         output_string += "</div>"
         renderable_string = XMLString(output_string)
         return renderable_string.load()

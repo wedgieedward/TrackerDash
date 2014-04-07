@@ -56,9 +56,9 @@ class WebDispatcher(object):
     def static_web_routing(self, _request):
         return File('TrackerDash/web')
 
-    @app.route('/configure/', methods=['GET'])
-    def configuration_page(self, _request):
-        return ConfigPage()
+    @app.route('/configure/<string:config_page>', methods=['GET'])
+    def configuration_page(self, _request, config_page):
+        return ConfigPage(config_page)
 
     @app.route('/newdash/', methods=['GET'])
     def add_new_dashboard(self, _request):

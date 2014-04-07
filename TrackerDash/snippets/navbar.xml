@@ -15,7 +15,7 @@
                             <ul class="dropdown-menu">
                                 <!-- Render the dashboard names dynamically -->
                                 <li t:render="dashboards_dropdown">
-                                    <a><t:attr name="href"><t:slot name="dashLink" /></t:attr><span class="glyphicon glyphicon-stats"></span>
+                                    <a><t:attr name="href"><t:slot name="dashLink" /></t:attr><span class="glyphicon glyphicon-dashboard"></span>
                                         <t:slot name="dashName" />
                                     </a>
                                 </li>
@@ -43,7 +43,10 @@
                                     <a href="../configure/"><span class="glyphicon glyphicon-cog"/> Configure Trackerdash</a>
                                 </li> -->
                                 <li>
-                                    <a href="../configure/"><span class="glyphicon glyphicon-cog"/> Database Settings</a>
+                                    <a href="../configure/database"><span class="glyphicon glyphicon-cog"/> Database Settings</a>
+                                </li>
+                                <li>
+                                    <a href="../configure/appearance"><span class="glyphicon glyphicon-eye-open"/> Appearance Settings</a>
                                 </li>
                                 <li class="divider"/>
                                 <li>

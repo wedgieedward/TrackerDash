@@ -9,10 +9,10 @@
                         </h3>
                     </div>
                     <div class="panel-body">
-                        <a href='#'><span class="glyphicon glyphicon-cog"></span> Database Settings</a>
+                        <a href='../configure/database'><span class="glyphicon glyphicon-cog"></span> Database Settings</a>
                     </div>
                     <div class="panel-body">
-                        <a href='#'><span class="glyphicon glyphicon-cog"></span> Dashboard Settings</a>
+                        <a href='../configure/appearance'><span class="glyphicon glyphicon-cog"></span> Appearance Settings</a>
                     </div>
                     <div class="panel-body">
                         <a href='#'><span class="glyphicon glyphicon-cog"></span> API Settings</a>
@@ -21,12 +21,10 @@
             </div>
             <div class="col-md-5 column">
                 <h2>
-                    Database Settings
+                    <t:transparent t:render='header'/>
                 </h2>
                 <br/>
-                <div class="list-group">
-                    <t:transparent t:render="listbox_content"/>
-                </div>
+                <t:transparent t:render='configuration_content'/>
             </div>
         </div>
     </div>
