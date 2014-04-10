@@ -12,6 +12,7 @@ def get_configured_themes():
         for subdirname in dirnames:
             if subdirname != 'fonts':
                 configured_themes.append(subdirname)
+    configured_themes.sort()
     return configured_themes
 
 
