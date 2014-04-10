@@ -1,5 +1,7 @@
 """
 class for rendering individual graphs
+
+TODO: Re Structure this class as a priority to be able to apply default and custom parameters
 """
 import json
 import logging
@@ -191,7 +193,7 @@ class HighChartsDataRenderer(object):
         if chart_type in TIME_LINEAR_GRAPH_TYPES:
             self.dictionary["chart"] = {
                 "type": chart_type,
-                "backgroundColor": 'rgba(255, 255, 255, 0.1)'
+                "backgroundColor": 'transparent'
             }
             self.dictionary["xAxis"] = {
                 "type": 'datetime',
@@ -218,6 +220,7 @@ class HighChartsDataRenderer(object):
                 }
             }
         else:
+            self.dictionary["chart"] = {"backgroundColor": 'transparent'}
             self.dictionary["xAxis"] = {
                 "labels": {
                     "style": {
