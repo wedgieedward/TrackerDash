@@ -43,10 +43,12 @@ html {
   font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
+  overflow-x: hidden;
 }
 
 a {
@@ -781,6 +783,7 @@ pre code {
 }
 
 .container {
+  overflow-x: hidden;
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
@@ -788,6 +791,7 @@ pre code {
 }
 
 .container-full {
+  overflow-x: hidden;
   margin: auto;
   width: 80%;
 }
@@ -813,6 +817,7 @@ pre code {
 }
 
 .row {
+  overflow-x: hidden;
   margin-right: -15px;
   margin-left: -15px;
 }

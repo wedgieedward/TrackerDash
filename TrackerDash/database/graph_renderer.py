@@ -133,7 +133,8 @@ class HighChartsDataRenderer(object):
         self.dictionary["title"] = {
             'text': self.graph_document['title'],
             'style': {
-                "fontWeight": 'bold'
+                "fontWeight": 'bold',
+                "color": 'white'
             }
         }
 
@@ -190,6 +191,8 @@ class HighChartsDataRenderer(object):
         """
         """
         chart_type = self.graph_document["graph_type"]
+        self.dictionary["legend"] = {"itemStyle": {"color": 'white'}}
+
         if chart_type in TIME_LINEAR_GRAPH_TYPES:
             self.dictionary["chart"] = {
                 "type": chart_type,
@@ -203,7 +206,8 @@ class HighChartsDataRenderer(object):
                 },
                 "labels": {
                     "style": {
-                        'fontWeight': 'bold'
+                        'fontWeight': 'bold',
+                        'color': 'white'
                     }
                 }
             }
@@ -215,7 +219,8 @@ class HighChartsDataRenderer(object):
                     "style": {
                         "font": 'Helvetica',
                         "fontWeight": 'bold',
-                        "fontSize": '14px'
+                        "fontSize": '14px',
+                        'color': 'white'
                     }
                 }
             }
@@ -226,7 +231,8 @@ class HighChartsDataRenderer(object):
                     "style": {
                         "font": 'Helvetica',
                         'fontWeight': 'bold',
-                        'fontSize': '14px'
+                        'fontSize': '14px',
+                        'color': 'white'
                     }
                 }
             }
