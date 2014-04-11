@@ -3,7 +3,7 @@ Graph object
 """
 import uuid
 
-from TrackerDash.database.graph_renderer import HighChartsDataRenderer
+from TrackerDash.graphing.graph_constructor import HighchartsConstructor
 
 
 class HighchartsGraph(object):
@@ -28,8 +28,8 @@ class HighchartsGraph(object):
         """
         creates a HighChartsDataRenderer and renders it as json
         """
-        renderer = HighChartsDataRenderer(self.graph_document)
-        return renderer.render_as_json()
+        constructor = HighchartsConstructor(self.graph_document)
+        return constructor.render_as_json()
 
     def get_formatted_string(self):
         """

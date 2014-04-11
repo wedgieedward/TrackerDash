@@ -10,9 +10,10 @@ from TrackerDash.constants import TIME_LINEAR_GRAPH_TYPES
 from TrackerDash.constants import SINGLE_DOCUMENT_GRAPH_TYPES
 from TrackerDash.database.graph_data_renderer import DataRenderer
 from TrackerDash.database.mongo_accessor import MongoAccessor
+from TrackerDash.graphing import styles
 
 
-class BaseGraphConstructer(object):
+class BaseGraphConstructor(object):
     """
     Base Graph Constructor Object
     """
@@ -22,7 +23,7 @@ class BaseGraphConstructer(object):
         self._graph_document = graph_document
         self.accessor = MongoAccessor()
         self.data_renderer = DataRenderer(self._graph_document)
-        self.relevent_data = self.data_renderer.process()
+        self.relevent_data = self.data_renderer.relevent_data
         self.graph_dictionary = {}
         self.graph_type = self._graph_document.get(
             "graph_type",
@@ -37,6 +38,7 @@ class BaseGraphConstructer(object):
         self.set_description()
         self.set_graph_hyperlink()
         self.set_graph_type()
+        self.set_plot_options()
         self.set_series_data()
         self.apply_theme_settings()
 
@@ -89,8 +91,13 @@ class BaseGraphConstructer(object):
         """
         raise NotImplementedError("Tried calling on base class")
 
+    def set_plot_options(self):
+        """
+        apply the plot options for the graph
+        """
 
-class HighchartsConstructor(BaseGraphConstructer):
+
+class HighchartsConstructor(BaseGraphConstructor):
     """
     constructs a configured highcharts object
     """
@@ -154,10 +161,6 @@ class HighchartsConstructor(BaseGraphConstructer):
                             "text": self.get_timeseries_axis_title(),
                         }
                     },
-                    "yAxis": {
-                        "allowDecimals": False,
-                        "opposite": True
-                    }
                 }
             )
         stacked = self._graph_document.get("stacked", '')
@@ -221,12 +224,25 @@ class HighchartsConstructor(BaseGraphConstructer):
         apply the configured display theme for this graph
         """
         style = theme_helpers.get_configured_style()
+        style_dict = styles.get_style_dict(style)
+        if style_dict is not None:
+            self.mergedicts(self.graph_dictionary, style_dict)
 
+    def get_timeseries_axis_title(self):
+        """
+        generate a title based on self._graph_document["data_range"]
+        """
+        order = [
+            "weeks",
+            "days",
+            "hours",
+            "minutes"
+        ]
+        appended_string = ""
+        for key in order:
+            if self._graph_document["data_range"][key] != 0:
+                appended_string += "%s %s " % (
+                    self._graph_document["data_range"][key], key)
 
-
-
-
-
-
-
-
+        title = "data for the last: %s" % appended_string
+        return title.title()
