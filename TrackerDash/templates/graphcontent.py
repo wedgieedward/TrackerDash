@@ -31,13 +31,13 @@ class GraphContent(Element):
         render the content for the graph container
         """
         if self._configured:
-            # try:
-            graph_row_xml = XMLString(self.get_row_xml())
-            return graph_row_xml.load()
-            # except Exception as err:
-            #     logging.error("Exception raised when rendering graphs, exception: %r" % err)
-            #     oops_container = self.get_bad_container()
-            #     return oops_container.load()
+            try:
+                graph_row_xml = XMLString(self.get_row_xml())
+                return graph_row_xml.load()
+            except Exception as err:
+                logging.error("Exception raised when rendering graphs, exception: %r" % err)
+                oops_container = self.get_bad_container()
+                return oops_container.load()
         else:
             oops_container = self.get_bad_container()
             return oops_container.load()

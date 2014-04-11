@@ -12,7 +12,7 @@ TIME_LINEAR_GRAPH_TYPES = ('line', 'bar', 'area', 'column', 'scatter', 'bar', 'c
 SINGLE_DOCUMENT_GRAPH_TYPES = ("pie")
 
 
-class HighChartsDataRenderer(object):
+class DataRenderer(object):
     # If there is a lot of data, use every nth document instead
     OPTIMISE_AMOUNT = 5
     # Number of records where we should start optimising
