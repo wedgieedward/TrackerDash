@@ -24,10 +24,11 @@ class AppearanceContent(Element):
         """
         """
         set_theme = theme_helpers.get_configured_theme(self.accessor)
+        set_style = theme_helpers.get_configured_style(self.accessor)
         output_string = ""
         output_string += "<div>"
         output_string += "<h3>Themes</h3>"
-        output_string += '<div class="btn-group-vertical">'
+        output_string += '<div class="btn-group">'
 
         for theme in theme_helpers.get_configured_themes():
             if theme == set_theme:
@@ -45,6 +46,28 @@ class AppearanceContent(Element):
                         theme,
                         "btn btn-default",
                         theme
+                    ))
+
+        output_string += "</div>"
+
+        output_string += "<h3>Colour Schemes</h3>"
+        output_string += '<div class="btn-group">'
+        for style in theme_helpers.get_configured_styles():
+            if style == set_style:
+                output_string += (
+                    "<button type=\"button\" onclick=\"setStyle"
+                    "('%s')\" class=\"%s\">%s</button>" % (
+                        style,
+                        "btn btn-primary",
+                        style
+                    ))
+            else:
+                output_string += (
+                    "<button type=\"button\" onclick=\"setStyle"
+                    "('%s')\" class=\"%s\">%s</button>" % (
+                        style,
+                        "btn btn-default",
+                        style
                     ))
 
         output_string += "</div>"

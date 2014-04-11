@@ -175,6 +175,11 @@ class APIPOSTRequest(APIRequest):
             theme_helpers.set_theme(self.accessor, content)
             return self
 
+        elif rt == "set_style":
+            logging.info("content for set_style: %r" % content)
+            theme_helpers.set_style(self.accessor, content)
+            return self
+
         else:
             logging.info("request: %s is not implemented" % self.request_type)
             raise NotImplementedError(

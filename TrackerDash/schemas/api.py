@@ -62,3 +62,4 @@ class Graph(colander.MappingSchema):
                                      validator=colander.OneOf(SUPPORTED_GRAPHS),
                                      missing="line")
     stacked = colander.SchemaNode(colander.Bool(), missing=False)
+    url = colander.SchemaNode(colander.String(), missing='')

@@ -16,6 +16,7 @@ class DataRenderer(object):
     OPTIMISE_BOUNDRY = 1000
 
     def __init__(self, graph_document):
+        logging.info("DataRenderer init")
         self.graph_document = graph_document
         self.data_range = self.graph_document["data_range"]
         self.data_source = graph_document["data_source"]

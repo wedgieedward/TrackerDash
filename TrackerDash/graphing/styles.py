@@ -1,20 +1,25 @@
 """
 styles constants
 """
+from copy import deepcopy
+import logging
 
 
-def mergedicts(dict1, dict2):
+def mergedicts(dictionary1, dictionary2):
     """
-    http://stackoverflow.com/questions/7204805/
-    python-dictionaries-of-dictionaries-merge
+    merges merge_dict into main_dict
     """
-    for k in set(dict1.keys()).union(dict2.keys()):
-        if k in dict1 and k in dict2:
-            yield (k, dict(mergedicts(dict1[k], dict2[k])))
-        elif k in dict1:
-            yield (k, dict1[k])
+    output = {}
+    for item, value in dictionary1.iteritems():
+        if item in dictionary2:
+            if isinstance(dictionary2[item], dict):
+                output[item] = mergedicts(value, dictionary2.pop(item))
         else:
-            yield (k, dict2[k])
+            output[item] = value
+    for item, value in dictionary2.iteritems():
+        output[item] = value
+    logging.info("EDDDDD  %s" % output)
+    return output
 
 
 BASE_STYLE = {
@@ -96,8 +101,8 @@ BASE_STYLE = {
 }
 
 LIGHT_STYLE = {
-    "title": {'color': 'black'},
-    "subtitle": {'color': 'black'},
+    "title": {'style': {'color': 'black'}},
+    "subtitle": {'style': {'color': 'black'}},
     'xAxis': {'labels': {'style': {'color': 'black'}}},
     'yAxis': {"labels": {"style": {'color': 'black'}}},
     'legend': {"itemStyle": {"color": "black"}},
@@ -105,18 +110,18 @@ LIGHT_STYLE = {
 }
 
 DARK_STYLE = {
-    "title": {'color': 'white'},
-    "subtitle": {'color': 'white'},
+    "title": {'style': {'color': 'white'}},
+    "subtitle": {'style': {'color': 'white'}},
     'xAxis': {'labels': {'style': {'color': 'white'}}},
     'yAxis': {"labels": {"style": {'color': 'white'}}},
     'legend': {"itemStyle": {"color": "white"}},
 }
 
-STYLES = {
-    'light': mergedicts(BASE_STYLE, LIGHT_STYLE),
-    'dark': mergedicts(BASE_STYLE, DARK_STYLE)
-}
-
 
 def get_style_dict(style):
-    return STYLES.get(style, None)
+    if style == 'light':
+        return mergedicts(deepcopy(BASE_STYLE), deepcopy(LIGHT_STYLE))
+    elif style == 'dark':
+        return mergedicts(deepcopy(BASE_STYLE), deepcopy(DARK_STYLE))
+    else:
+        return deepcopy(BASE_STYLE)

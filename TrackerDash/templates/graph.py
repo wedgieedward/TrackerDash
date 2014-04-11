@@ -29,6 +29,7 @@ class HighchartsGraph(object):
         creates a HighChartsDataRenderer and renders it as json
         """
         constructor = HighchartsConstructor(self.graph_document)
+        constructor.process()
         return constructor.render_as_json()
 
     def get_formatted_string(self):

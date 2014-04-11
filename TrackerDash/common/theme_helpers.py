@@ -69,6 +69,10 @@ def get_default_style():
     return DEFAULT_STYLE
 
 
+def get_configured_styles():
+    return ('light', 'dark')
+
+
 def set_style(accessor, style):
     """
     set a style to the configuration table
@@ -77,10 +81,3 @@ def set_style(accessor, style):
     accessor.remove_documents_by_query('config', {"config": "style"})
     accessor.add_document_to_collection(
         'config', {"config": 'style', "style": style})
-
-
-
-
-
-
-

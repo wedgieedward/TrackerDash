@@ -12,7 +12,20 @@
                 });
             location.reload();
         }
+        function setStyle(style)
+        {
+            console.log(style);
+            $.ajax({
+                    cache: false,
+                    url: "../api/set_style",
+                    type: "POST",
+                    dataType: "json",
+                    data: JSON.stringify(style),
+                });
+            location.reload();
+        }
     </script>
+
     <div class="container">
         <div class="row clearfix">
             <div class="col-md-3 column">
@@ -37,7 +50,6 @@
                 <h2>
                     <t:transparent t:render='header'/>
                 </h2>
-                <br/>
                 <t:transparent t:render='configuration_content'/>
             </div>
         </div>

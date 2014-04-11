@@ -58,7 +58,8 @@ DEMO_DATA = (
             "seconds": 0
         },
         "graph_type": "pie",
-        "stacked": False
+        "stacked": False,
+        "url": 'http://www.google.com'
     }),
     ('graph', {
         "title": "Demo Line Graph",
