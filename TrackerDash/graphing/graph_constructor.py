@@ -170,8 +170,10 @@ class HighchartsConstructor(BaseGraphConstructor):
         if bool(stacked):
             self.graph_dictionary.update(
                 {
-                    "series": {
-                        "stacking": "normal"
+                    'plotOptions': {
+                        "series": {
+                            "stacking": "normal"
+                        }
                     }
                 }
             )
