@@ -24,7 +24,8 @@ BASE_STYLE = {
     'plotOptions': {
         'bar': {
             'dataLabels': {
-                'enabled': True
+                'enabled': True,
+                'color': 'white'
             }
         },
         'area': {
