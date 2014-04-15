@@ -1,7 +1,8 @@
+import random
+import uuid
+
 from datetime import datetime
 from datetime import timedelta
-import uuid
-import random
 
 data_source_1 = str(uuid.uuid4())
 data_source_2 = str(uuid.uuid4())

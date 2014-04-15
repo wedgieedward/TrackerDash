@@ -10,7 +10,8 @@ class AppearanceContent(Element):
     """
     def __init__(self):
         super(AppearanceContent, self).__init__()
-        self.loader = XMLFile(FilePath("TrackerDash/snippets/configuration.xml"))
+        self.loader = XMLFile(
+            FilePath("TrackerDash/snippets/configuration.xml"))
         self.accessor = MongoAccessor()
 
     @renderer

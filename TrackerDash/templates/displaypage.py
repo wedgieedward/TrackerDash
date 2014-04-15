@@ -18,14 +18,16 @@ class DisplayPage(DashPage):
     @renderer
     def auto_refresh(self, request, tag):
         return XMLString(
-            '<meta http-equiv="refresh" content="%s"></meta>' % (self.refresh_interval)).load()
+            '<meta http-equiv="refresh" content="%s"></meta>' % (
+                self.refresh_interval)).load()
 
     @renderer
     def header_scripts(self, request, tag):
         """
         return the header script tags required for this page
         """
-        return XMLFile(FilePath("TrackerDash/snippets/headerscripts.xml")).load()
+        return XMLFile(
+            FilePath("TrackerDash/snippets/headerscripts.xml")).load()
 
     @renderer
     def content(self, request, tag):

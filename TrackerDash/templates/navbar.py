@@ -4,9 +4,9 @@ navbar element
 from twisted.web.template import Element, XMLFile, renderer
 from twisted.python.filepath import FilePath
 
+from TrackerDash.constants import VERSION, TAG
 from TrackerDash.database import common
 from TrackerDash.database.mongo_accessor import MongoAccessor
-from TrackerDash.constants import VERSION, TAG
 
 
 class NavBar(Element):

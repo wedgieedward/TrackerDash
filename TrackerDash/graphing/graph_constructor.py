@@ -21,7 +21,6 @@ class BaseGraphConstructor(object):
     charting_library = None
 
     def __init__(self, graph_document):
-        logging.info("Constructing %s" % self.charting_library)
         self._graph_document = graph_document
         self.accessor = MongoAccessor()
         self.data_renderer = DataRenderer(self._graph_document)
@@ -229,15 +228,11 @@ class HighchartsConstructor(BaseGraphConstructor):
         apply the configured display theme for this graph
         """
         style = theme_helpers.get_configured_style(self.accessor)
-        logging.info("style %s" % style)
         style_dict = styles.get_style_dict(style)
         if style_dict is not None:
-            logging.info("style dict: %s" % style_dict)
-            logging.info("self.graph: %s" % self.graph_dictionary)
             self.graph_dictionary = styles.mergedicts(
                 deepcopy(self.graph_dictionary),
                 deepcopy(style_dict))
-            logging.info("self.graph: %s" % self.graph_dictionary)
 
     def get_timeseries_axis_title(self):
         """

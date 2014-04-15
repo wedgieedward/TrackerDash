@@ -4,7 +4,7 @@ New Dashboard Page Template
 
 from twisted.web.template import XMLFile, renderer
 from twisted.python.filepath import FilePath
-from basewebpage import BasePage
+from TrackerDash.templates.basewebpage import BasePage
 
 
 class NewDash(BasePage):

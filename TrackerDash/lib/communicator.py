@@ -30,7 +30,9 @@ class Communicator(object):
         """
         json_data = json.dumps({"data": dashboard_data})
         return requests.post(
-            self._url + '/api/create_dashboard', data=json_data, headers=self._post_header)
+            self._url + '/api/create_dashboard',
+            data=json_data,
+            headers=self._post_header)
 
     def create_new_graph(self, graph_data):
         """
@@ -38,13 +40,16 @@ class Communicator(object):
         """
         json_data = json.dumps({"data": graph_data})
         return requests.post(
-            self._url + '/api/create_graph', data=json_data, headers=self._post_header)
+            self._url + '/api/create_graph',
+            data=json_data,
+            headers=self._post_header)
 
     def get_dashboard_information(self, dashboard_name=False):
         """
         given a dashboard name, get it's information
         """
-        data = json.load(urllib2.urlopen(self._url + '/api/get_dashboard_information'))
+        data = json.load(urllib2.urlopen(
+            self._url + '/api/get_dashboard_information'))
         if dashboard_name:
             dashboard_info = []
             for dash in data["dashboards"]:
@@ -60,14 +65,16 @@ class Communicator(object):
         """
         return a list of configured dashboards
         """
-        data = json.load(urllib2.urlopen(self._url + '/api/get_dashboard_names'))
+        data = json.load(
+            urllib2.urlopen(self._url + '/api/get_dashboard_names'))
         return data["dashboards"]
 
     def get_data_sources(self):
         """
         get all the configured data_sources
         """
-        data = json.load(urllib2.urlopen(self._url + '/api/get_data_sources'))
+        data = json.load(
+            urllib2.urlopen(self._url + '/api/get_data_sources'))
         return data["data_sources"]
 
     def get_graph_information(self, graph_name=None):
@@ -75,7 +82,8 @@ class Communicator(object):
         get all the configured graphs unless a specific graph name is specified
         if graph_name is specified return just that graph's information
         """
-        data = json.load(urllib2.urlopen(self._url + '/api/get_graph_information'))
+        data = json.load(
+            urllib2.urlopen(self._url + '/api/get_graph_information'))
         if graph_name:
             graph_info = []
             for graph in data["graphs"]:
@@ -100,7 +108,9 @@ class Communicator(object):
         """
         json_data = json.dumps({"data_source": data_source, "data": data})
         return requests.post(
-            self._url + '/api/post_data', data=json_data, headers=self._post_header)
+            self._url + '/api/post_data',
+            data=json_data,
+            headers=self._post_header)
 
     def test_connection(self):
         """

@@ -58,8 +58,9 @@ class Graph(colander.MappingSchema):
                                     "days": 0,
                                     "weeks": 1,
                                     "seconds": 0})
-    graph_type = colander.SchemaNode(colander.String(),
-                                     validator=colander.OneOf(SUPPORTED_GRAPHS),
-                                     missing="line")
+    graph_type = colander.SchemaNode(
+        colander.String(),
+        validator=colander.OneOf(SUPPORTED_GRAPHS),
+        missing="line")
     stacked = colander.SchemaNode(colander.Bool(), missing=False)
     url = colander.SchemaNode(colander.String(), missing='')

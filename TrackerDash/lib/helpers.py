@@ -2,6 +2,7 @@
 helper api utilities
 """
 import collections
+
 from colander import Invalid
 
 from TrackerDash.schemas.api import Dashboard

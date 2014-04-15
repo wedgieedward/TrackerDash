@@ -32,7 +32,8 @@ class DashPage(BasePage):
         """
         return the header script tags required for this page
         """
-        return XMLFile(FilePath("TrackerDash/snippets/dashheaderscripts.xml")).load()
+        return XMLFile(
+            FilePath("TrackerDash/snippets/dashheaderscripts.xml")).load()
 
     @renderer
     def content(self, request, tag):

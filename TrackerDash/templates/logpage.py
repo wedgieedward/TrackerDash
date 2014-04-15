@@ -1,6 +1,7 @@
 from twisted.web.template import XMLFile, renderer, XMLString
 from twisted.python.filepath import FilePath
-from basewebpage import BasePage
+
+from TrackerDash.templates.basewebpage import BasePage
 
 
 class LogPage(BasePage):
@@ -47,7 +48,8 @@ class LogPage(BasePage):
         """
         for log_line in self.get_log_file_contents():
             log_type = self.get_log_label(log_line)
-            yield tag.clone().fillSlots(log_line=log_line, log_label=log_type.load())
+            yield tag.clone().fillSlots(
+                log_line=log_line, log_label=log_type.load())
 
     def get_log_file_contents(self):
         """

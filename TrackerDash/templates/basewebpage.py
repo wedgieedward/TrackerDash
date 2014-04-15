@@ -51,7 +51,8 @@ class BasePage(Element):
         """
         return the header script tags required for this page
         """
-        return XMLFile(FilePath("TrackerDash/snippets/headerscripts.xml")).load()
+        return XMLFile(
+            FilePath("TrackerDash/snippets/headerscripts.xml")).load()
 
     @renderer
     def navbar(self, request, tag):
@@ -76,7 +77,8 @@ class BasePage(Element):
         if not self.display_alarms:
             return ''
         else:
-            alarm_snippet = XMLFile(FilePath("TrackerDash/snippets/green_alarm.xml"))
+            alarm_snippet = XMLFile(
+                FilePath("TrackerDash/snippets/green_alarm.xml"))
             return alarm_snippet.load()
 
     @renderer
@@ -85,4 +87,5 @@ class BasePage(Element):
         This should be overriden on a per page-type basis.
         We will just return nothing here
         """
-        return XMLFile(FilePath("TrackerDash/snippets/welcomecontainer.xml")).load()
+        return XMLFile(
+            FilePath("TrackerDash/snippets/welcomecontainer.xml")).load()

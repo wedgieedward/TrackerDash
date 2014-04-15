@@ -3,6 +3,7 @@ Api request handler
 """
 import json
 import logging
+
 from twisted.internet.defer import succeed
 
 from TrackerDash.common import theme_helpers
@@ -24,18 +25,20 @@ def process_request(request):
     if method == "create_dashboard":
         return create_dashboard_request_handler(arguments["create_dashboard"])
     else:
-        raise NotImplementedError("No API method for request type '%s'" % method)
+        raise NotImplementedError(
+            "No API method for request type '%s'" % method)
 
 
 def create_dashboard_request_handler(data):
     """
     """
-    logging.info("create_dashboard_request_handler: data=%r" % data)
     dashboard_name = json.loads(data[0])["name"]
     accessor = MongoAccessor()
-    docs = accessor.get_documents_by_query("dashboard", {"name": dashboard_name})
+    docs = accessor.get_documents_by_query(
+        "dashboard", {"name": dashboard_name})
     if docs == []:
-        accessor.add_document_to_collection("dashboard", {"name": dashboard_name})
+        accessor.add_document_to_collection(
+            "dashboard", {"name": dashboard_name})
     else:
         raise NameError("Document Already Exists")
     return succeed
@@ -78,7 +81,7 @@ class APIGETRequest(APIRequest):
         should not return anything
         raise exceptions here to generate a http 500 error
         """
-        logging.debug("Processing API Request: %s" % self.request_type)
+        logging.debug("Processing API GET Request: %s" % self.request_type)
         rt = self.request_type
         if rt == "get_dashboard_names":
             self.response = self.get_dashboard_names()
@@ -89,10 +92,14 @@ class APIGETRequest(APIRequest):
         elif rt == "get_graph_information":
             self.response = self.get_graph_information()
         elif rt == "get_data_sources":
-            self.response = {"data_sources": db_common.get_configured_data_sources(self.accessor)}
+            self.response = {
+                "data_sources": db_common.get_configured_data_sources(
+                    self.accessor)
+            }
         else:
             logging.info("request: %s is not implemented" % self.request_type)
-            raise NotImplementedError("request: %s is not implemented" % self.request_type)
+            raise NotImplementedError(
+                "request: %s is not implemented" % self.request_type)
 
     def get_dashboard_names(self):
         """
@@ -104,7 +111,8 @@ class APIGETRequest(APIRequest):
         """
         return the dashboard documents
         """
-        dash_docs = self.accessor.get_all_documents_from_collection('dashboard')
+        dash_docs = self.accessor.get_all_documents_from_collection(
+            'dashboard')
         for doc in dash_docs:
             del doc["_id"]
         return {"dashboards": dash_docs}
@@ -143,8 +151,12 @@ class APIPOSTRequest(APIRequest):
         if rt == "post_data":
             data_source = content["data_source"]
             document = content["data"]
-            # No validation needed here as we can post to a non existant data source
-            self.accessor.add_document_to_collection_redundant(data_source, document, 60)
+            # No validation needed here as we can post to a
+            # non existant data source
+            self.accessor.add_document_to_collection_redundant(
+                data_source,
+                document,
+                60)
             return self
 
         # Create a new graph object
@@ -155,11 +167,14 @@ class APIPOSTRequest(APIRequest):
 
             # We need to ensure that a datasource collection is present.
             try:
-                self.accessor.create_collection(graph_data_validated["data_source"])
+                self.accessor.create_collection(
+                    graph_data_validated["data_source"])
             except NameError:
                 logging.debug(
-                    "data source for graph '%s' already exists" % graph_data_validated["title"])
-            self.accessor.add_document_to_collection("graph", graph_data_validated)
+                    "data source for graph '%s' already exists" % (
+                        graph_data_validated["title"], ))
+            self.accessor.add_document_to_collection(
+                "graph", graph_data_validated)
             return self
 
         # Create a new dashboard
@@ -168,7 +183,8 @@ class APIPOSTRequest(APIRequest):
             logging.info("create_dashboard request data: %r" % dashboard_data)
             schema = DashboardSchema()
             dashboard_data_validated = schema.deserialize(dashboard_data)
-            self.accessor.add_document_to_collection("dashboard", dashboard_data_validated)
+            self.accessor.add_document_to_collection(
+                "dashboard", dashboard_data_validated)
 
         elif rt == "set_theme":
             logging.info("content for set_theme: %r" % content)
@@ -183,4 +199,5 @@ class APIPOSTRequest(APIRequest):
         else:
             logging.info("request: %s is not implemented" % self.request_type)
             raise NotImplementedError(
-                "POST request: %s has not been implemented" % self.request_type)
+                "POST request: %s has not been implemented" % (
+                    self.request_type, ))

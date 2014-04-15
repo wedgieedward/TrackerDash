@@ -2,6 +2,7 @@
 graph container element
 """
 import logging
+
 from twisted.web.template import Element, XMLFile, renderer, XMLString
 from twisted.python.filepath import FilePath
 
@@ -16,14 +17,16 @@ class GraphContent(Element):
 
     def __init__(self, dashboard_name):
         super(GraphContent, self).__init__()
-        self.loader = XMLFile(FilePath("TrackerDash/snippets/graphcontent.xml"))
+        self.loader = XMLFile(
+            FilePath("TrackerDash/snippets/graphcontent.xml"))
         self.dashboard_name = dashboard_name
         self.accessor = MongoAccessor()
         self.dashboard_document = self.accessor.get_one_document_by_query(
             "dashboard",
             {"name": self.dashboard_name})
         logging.debug("Dashboard Document: %r" % self.dashboard_document)
-        self._configured = True if "row_data" in self.dashboard_document else False
+        self._configured = True if (
+            "row_data" in self.dashboard_document) else False
 
     @renderer
     def render_content(self, request, tag):
@@ -35,7 +38,9 @@ class GraphContent(Element):
                 graph_row_xml = XMLString(self.get_row_xml())
                 return graph_row_xml.load()
             except Exception as err:
-                logging.error("Exception raised when rendering graphs, exception: %r" % err)
+                logging.error(
+                    "Exception raised when rendering graphs, exception: %r" % (
+                        err, ))
                 oops_container = self.get_bad_container()
                 return oops_container.load()
         else:
@@ -47,7 +52,8 @@ class GraphContent(Element):
         something has gone wrong that causes the page not to render correctly
         return some xml to respond to this
         """
-        return XMLFile(FilePath("TrackerDash/snippets/no_dash_data_container.xml"))
+        return XMLFile(
+            FilePath("TrackerDash/snippets/no_dash_data_container.xml"))
 
     def get_row_xml(self):
         """
@@ -61,8 +67,10 @@ class GraphContent(Element):
                 xml += '<div class="row clearfix">'
                 for graph_document in row:
                     if graph_document is not None:
-                        xml += '<div class="col-md-%s column">' % (graph_document["width"], )
-                        this_graph = HighchartsGraph(graph_document, render_rows)
+                        xml += '<div class="col-md-%s column">' % (
+                            graph_document["width"], )
+                        this_graph = HighchartsGraph(
+                            graph_document, render_rows)
                         xml += this_graph.load()
                         xml += '</div>'
                     else:
@@ -78,15 +86,12 @@ class GraphContent(Element):
         """
         given the row array, get the graph document from the database
         """
-        logging.info("Dashboard_row_data: %r" % dashboard_row_data)
         graph_rows = []
         for row in dashboard_row_data:
             graph_row = []
             for graph_name in row:
-                logging.info("Trying to get graph document for graph: %r" % graph_name)
                 graph_document = self.accessor.get_one_document_by_query(
                     "graph", {"title": graph_name})
-                logging.info("Graph document returned as %r" % graph_document)
                 graph_row += [graph_document]
             graph_rows += [graph_row]
         return graph_rows

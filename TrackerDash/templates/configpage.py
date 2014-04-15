@@ -2,8 +2,8 @@
 configuration page
 """
 from twisted.web.template import renderer
-from TrackerDash.templates.basewebpage import BasePage
 from TrackerDash.templates.appearance_configuration import AppearanceContent
+from TrackerDash.templates.basewebpage import BasePage
 from TrackerDash.templates.database_configuration import DatabaseContent
 
 

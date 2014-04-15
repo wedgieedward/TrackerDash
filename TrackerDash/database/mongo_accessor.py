@@ -96,7 +96,7 @@ class MongoAccessor(object):
         """
         given a collection name, add the collection to the database
         """
-        logging.debug("creating collection %s" % collection_name)
+        logging.info("creating collection %s" % collection_name)
         try:
             self.database.create_collection(collection_name)
         except pymongo.errors.CollectionInvalid:
@@ -108,7 +108,7 @@ class MongoAccessor(object):
         given a collection name or collection object,
         drop the collection from the database
         """
-        logging.debug("deleting collection %s" % collection_name)
+        logging.info("deleting collection %s" % collection_name)
         return self.database.drop_collection(collection_name)
 
     def get_collection(self, collection_name):
@@ -141,18 +141,23 @@ class MongoAccessor(object):
         add a json document to a specified collection
         This should be the only way a document is added to the collection.
         """
-        logging.debug("Inseting %r into collection %s" % (document, collection_name))
+        logging.info("Inseting %r into collection %s" % (
+            document, collection_name))
         try:
             collection = self.get_collection(collection_name)
             self.modify_document_for_database(document)
             collection.insert(document)
         except LookupError:
-            logging.debug(
-                "Collection %s not found, creating now and trying again" % collection_name)
+            logging.info(
+                "Collection %s not found, creating now and trying again" % (
+                    collection_name, ))
             self.create_collection(collection_name)
             self.add_document_to_collection(collection_name, document)
 
-    def add_document_to_collection_redundant(self, collection_name, document, redundency_seconds):
+    def add_document_to_collection_redundant(self,
+                                             collection_name,
+                                             document,
+                                             redundency_seconds):
         """
         will only add a new document if needed
         """
@@ -169,7 +174,8 @@ class MongoAccessor(object):
                 if last_document_inserted != document:
                     self.add_document_to_collection(collection_name, document)
         except LookupError:
-            # the collection hasn't even been created yet, just add the document to it
+            # the collection hasn't even been created yet,
+            # just add the document to it
             self.add_document_to_collection(collection_name, document)
 
     def get_documents_by_query(self, collection_name, query):

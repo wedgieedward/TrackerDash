@@ -2,7 +2,6 @@
 styles constants
 """
 from copy import deepcopy
-import logging
 
 
 def mergedicts(dictionary1, dictionary2):
@@ -18,7 +17,6 @@ def mergedicts(dictionary1, dictionary2):
             output[item] = value
     for item, value in dictionary2.iteritems():
         output[item] = value
-    logging.info("EDDDDD  %s" % output)
     return output
 
 
@@ -52,7 +50,7 @@ BASE_STYLE = {
                 "y": 0,
                 "overflow": False,
             },
-            "size": '90%'
+            "size": '100%'
         },
         "scatter": {
             "marker": {

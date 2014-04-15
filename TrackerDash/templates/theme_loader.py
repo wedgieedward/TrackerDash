@@ -1,8 +1,6 @@
 """
 module to handle theme handling
 """
-import logging
-
 from twisted.python.filepath import FilePath
 from twisted.web.template import Element, XMLFile, XMLString, renderer
 
@@ -22,10 +20,10 @@ class ThemeLoader(Element):
     @renderer
     def theme_link(self, request, tag):
         link_string = (
-            '<link href="../web/css/custom/%s/bootstrap.min.css" rel="stylesheet"> </link>' % (
+            '<link href="../web/css/custom/%s/bootstrap.min.css"'
+            ' rel="stylesheet"> </link>' % (
                 theme_helpers.get_configured_theme(self.accessor)
             )
         )
         string = XMLString(link_string)
         return string.load()
-

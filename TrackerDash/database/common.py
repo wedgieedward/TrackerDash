@@ -62,7 +62,8 @@ def get_configured_data_sources(accessor):
     """
     collections = accessor.get_local_collections()
     data_sources = [
-        collection for collection in collections if collection not in ESSENTIAL_COLLECTIONS]
+        collection for collection in collections if collection not in (
+            ESSENTIAL_COLLECTIONS)]
     return data_sources
 
 
