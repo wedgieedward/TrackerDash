@@ -93,7 +93,8 @@ class GraphSchemaSanity(unittest.TestCase):
                                       "weeks": 1,
                                       "seconds": 0},
                        "graph_type": "area",
-                       "stacked": True
+                       "stacked": True,
+                       "url": "https://www.example.com"
                        }
         graph_schema = api.Graph()
         deserialized = graph_schema.deserialize(valid_graph)
