@@ -141,7 +141,7 @@ class MongoAccessor(object):
         add a json document to a specified collection
         This should be the only way a document is added to the collection.
         """
-        logging.info("Inseting %r into collection %s" % (
+        logging.info("Inserting %r into collection %s" % (
             document, collection_name))
         try:
             collection = self.get_collection(collection_name)
@@ -173,6 +173,11 @@ class MongoAccessor(object):
                 del last_document_inserted["__date"]
                 if last_document_inserted != document:
                     self.add_document_to_collection(collection_name, document)
+            else:
+                logging.info(
+                    "Ignoring %r because an identical document "
+                    "has been inserted into %r within the last %s seconds" % (
+                        document, collection_name, redundency_seconds))
         except LookupError:
             # the collection hasn't even been created yet,
             # just add the document to it

@@ -45,6 +45,15 @@ def add_demo_data():
         accessor.add_document_to_collection(collection, document)
 
 
+def remove_demo_data():
+    """
+    go through the configured demo data and remove it from the database:
+    """
+    accessor = MongoAccessor()
+    for collection, document in DEMO_DATA:
+        accessor.remove_documents_by_query(collection, document)
+
+
 def get_dashboard_names(accessor):
     """
     given an instance of an accessor, get the configured dashboard names
