@@ -91,12 +91,15 @@ BASE_STYLE = {
                 "font": 'Helvetica',
                 "fontWeight": 'bold',
                 "fontSize": '14px',
-                'color': 'white'
             }
         }
     }
 
 }
+
+# For a good reference on what colours to use see:
+#     http://www.tedmontgomery.com/tutorial/clrspcBL.html
+
 
 LIGHT_STYLE = {
     "title": {'style': {'color': 'black'}},
@@ -104,7 +107,7 @@ LIGHT_STYLE = {
     'xAxis': {'labels': {'style': {'color': 'black'}}},
     'yAxis': {"labels": {"style": {'color': 'black'}}},
     'legend': {"itemStyle": {"color": "black"}},
-
+    # highcharts by default is designed for a white background
 }
 
 DARK_STYLE = {
@@ -113,6 +116,22 @@ DARK_STYLE = {
     'xAxis': {'labels': {'style': {'color': 'white'}}},
     'yAxis': {"labels": {"style": {'color': 'white'}}},
     'legend': {"itemStyle": {"color": "white"}},
+    'colors': [
+        "#FF4040",
+        "#FF8040",
+        "#FFC000",
+        "#44FF44",
+        "#0040C0",
+        "#0080C0",
+        "#C00040",
+        "#C04080",
+        "#00C000",
+        "#00C080",
+        "#80C080",
+        "#4040FF",
+        "#4080FF",
+        "#C080FF",
+    ]
 }
 
 
