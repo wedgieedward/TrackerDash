@@ -104,18 +104,26 @@ BASE_STYLE = {
 LIGHT_STYLE = {
     "title": {'style': {'color': 'black'}},
     "subtitle": {'style': {'color': 'black'}},
-    'xAxis': {'labels': {'style': {'color': 'black'}}},
+    'xAxis': {
+        'labels': {'style': {'color': 'black'}},
+        'title': {'style': {'color': 'black'}}
+    },
     'yAxis': {"labels": {"style": {'color': 'black'}}},
     'legend': {"itemStyle": {"color": "black"}},
+    'labels': {"style": {"color": "black"}},
     # highcharts by default is designed for a white background
 }
 
 DARK_STYLE = {
     "title": {'style': {'color': 'white'}},
     "subtitle": {'style': {'color': 'white'}},
-    'xAxis': {'labels': {'style': {'color': 'white'}}},
+    'xAxis': {
+        'labels': {'style': {'color': 'white'}},
+        'title': {'style': {'color': 'white'}}
+    },
     'yAxis': {"labels": {"style": {'color': 'white'}}},
     'legend': {"itemStyle": {"color": "white"}},
+    'labels': {"style": {"color": "white"}},
     'colors': [
         "#FF4040",
         "#FF8040",
