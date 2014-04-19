@@ -26,21 +26,19 @@ def is_mongo_running():
         return False
 
 
-def is_mongo_configured():
+def is_mongo_configured(accessor):
     """
     works out if mongodb is configured to run with trackerdash
     i.e. first time running
     """
-    accessor = MongoAccessor()
     return accessor.verify_essential_collections_present()
 
 
-def add_demo_data():
+def add_demo_data(accessor):
     """
     should not be called by the app
     add demo dashboard data to the database
     """
-    accessor = MongoAccessor()
     for collection, document in DEMO_DATA:
         accessor.add_document_to_collection(collection, document)
 
@@ -74,8 +72,3 @@ def get_configured_data_sources(accessor):
         collection for collection in collections if collection not in (
             ESSENTIAL_COLLECTIONS)]
     return data_sources
-
-
-if __name__ == '__main__':
-    print "Mongo Running: %s" % is_mongo_running()
-    print "Mongo Configured For TrackerDash: %s" % is_mongo_configured()

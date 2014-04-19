@@ -66,7 +66,7 @@ if __name__ == '__main__':
     print "Found mongodb instance running"
 
     accessor = MongoAccessor()
-    if not database_common.is_mongo_configured():
+    if not database_common.is_mongo_configured(accessor):
         print "Database not configured to run TrackerDash, initialising now."
         logging.debug("database is not configured, adding essential collections")
         accessor.add_essential_collections()
@@ -91,7 +91,7 @@ if __name__ == '__main__':
             accessor.delete_collection(collection)
     if args.demo_data:
         print "Adding demo data to the database."
-        database_common.add_demo_data()
+        database_common.add_demo_data(accessor)
 
     if args.local:
         host = localhost
