@@ -1,10 +1,10 @@
 import unittest
 
-from test_database_module import TestDatabaseCommon
-from accessor_sanity import AccessorSanity
-from module_sanity import TrackerSanity
-from nav_bar_sanity import NavBarSanity
-from schema_sanity import GraphSchemaSanity, DashboardSchemaSanity
+from test_database_module import *
+from accessor_sanity import *
+from module_sanity import *
+from nav_bar_sanity import *
+from schema_sanity import *
 
 
 if __name__ == '__main__':

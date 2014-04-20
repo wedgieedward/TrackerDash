@@ -7,6 +7,43 @@ from colander import Invalid
 from TrackerDash.schemas import api
 
 
+class ShowreelItemSchemaSanity(unittest.TestCase):
+    def test_valid_showreel_item(self):
+        valid_struct = {
+            "title": "something",
+            "item_type": "graph"
+        }
+        showreelschema = api.ShowreelItem()
+        deserialized = showreelschema.deserialize(valid_struct)
+        self.assertEquals(deserialized, valid_struct)
+
+    def test_invalid_itemtype(self):
+        invalid_struct = {
+            "title": "something",
+            "item_type": "invalid"
+        }
+        showreelschema = api.ShowreelItem()
+        self.assertRaises(
+            Invalid, showreelschema.deserialize, invalid_struct)
+
+
+class ShowreelSchemaSanity(unittest.TestCase):
+    def test_valid_showreel(self):
+        """
+        """
+        valid_struct = {
+            "title": "test_showreel",
+            "refresh_interval": 60,
+            "reels": [
+                {"title": "dashboard name", "item_type": "dashboard"},
+                {"title": "graph_name", "item_type": "graph"}
+            ]
+        }
+        showreelschema = api.Showreel()
+        deserialized = showreelschema.deserialize(valid_struct)
+        self.assertEquals(deserialized, valid_struct)
+
+
 class DashboardSchemaSanity(unittest.TestCase):
     """
     Test the behavior of the dashboard schema
