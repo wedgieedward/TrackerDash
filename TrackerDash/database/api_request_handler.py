@@ -32,13 +32,13 @@ def process_request(request):
 def create_dashboard_request_handler(data):
     """
     """
-    dashboard_name = json.loads(data[0])["name"]
+    dashboard_name = json.loads(data[0])["title"]
     accessor = MongoAccessor()
     docs = accessor.get_documents_by_query(
-        "dashboard", {"name": dashboard_name})
+        "dashboard", {"title": dashboard_name})
     if docs == []:
         accessor.add_document_to_collection(
-            "dashboard", {"name": dashboard_name})
+            "dashboard", {"title": dashboard_name})
     else:
         raise NameError("Document Already Exists")
     return succeed

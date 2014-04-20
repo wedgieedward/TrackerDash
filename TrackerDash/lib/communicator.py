@@ -20,9 +20,10 @@ class Communicator(object):
 
     def create_new_dashboard(self, dashboard_data):
         """
-        given a dictionary containing the data for a dashboard create a dashboard
+        given a dictionary containing the data for
+        a dashboard create a dashboard
         dashboard_data:
-            name (type: string, unique: True)
+            title (type: string, unique: True)
             row_data (array of rows)
 
         row:

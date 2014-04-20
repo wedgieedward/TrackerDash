@@ -50,7 +50,7 @@ class TestDatabaseCommon(unittest.TestCase):
         self.assertEquals(common.get_dashboard_names(self.accessor), [])
 
         self.accessor.add_document_to_collection(
-            "dashboard", {"name": "test", "row_data": [["something"]]})
+            "dashboard", {"title": "test", "row_data": [["something"]]})
         dashboards = common.get_dashboard_names(self.accessor)
         self.assertEquals(len(dashboards), 1)
         self.assertIn('test', dashboards)
@@ -69,3 +69,37 @@ class TestDatabaseCommon(unittest.TestCase):
         data_sources = common.get_configured_data_sources(self.accessor)
         self.assertEquals(len(data_sources), 1)
         self.assertIn('data_source_test', data_sources)
+
+    def test_get_graph_names(self):
+        self.accessor.add_essential_collections()
+        self.assertEquals(common.get_graph_names(self.accessor), [])
+        self.accessor.add_document_to_collection(
+            'graph', {"title": "test_name"})
+
+        graph_names = common.get_graph_names(self.accessor)
+        self.assertEquals(len(graph_names), 1)
+        self.assertIn('test_name', graph_names)
+
+        self.accessor.add_document_to_collection(
+            'graph', {"title": "test_name2"})
+
+        graph_names = common.get_graph_names(self.accessor)
+        self.assertEquals(len(graph_names), 2)
+        self.assertIn('test_name2', graph_names)
+
+    def test_get_showreel_names(self):
+        self.accessor.add_essential_collections()
+        self.assertEquals(common.get_showreel_names(self.accessor), [])
+        self.accessor.add_document_to_collection(
+            'showreel', {"title": "test_name"})
+
+        showreel_names = common.get_showreel_names(self.accessor)
+        self.assertEquals(len(showreel_names), 1)
+        self.assertIn('test_name', showreel_names)
+
+        self.accessor.add_document_to_collection(
+            'showreel', {"title": "test_name2"})
+
+        showreel_names = common.get_showreel_names(self.accessor)
+        self.assertEquals(len(showreel_names), 2)
+        self.assertIn('test_name2', showreel_names)

@@ -57,15 +57,33 @@ def get_dashboard_names(accessor):
     given an instance of an accessor, get the configured dashboard names
     """
     dash_documents = accessor.get_all_documents_from_collection("dashboard")
-    dash_names = [dash["name"] for dash in dash_documents]
+    dash_names = [dash["title"] for dash in dash_documents]
     return dash_names
+
+
+def get_graph_names(accessor):
+    """
+    given an instance of an accessor, get the configured graph names
+    """
+    graph_documents = accessor.get_all_documents_from_collection("graph")
+    graph_names = [graph["title"] for graph in graph_documents]
+    return graph_names
+
+
+def get_showreel_names(accessor):
+    """
+    given an instance of an accessor, get the configured graph names
+    """
+    showreel_documents = accessor.get_all_documents_from_collection("showreel")
+    showreels = [showreel["title"] for showreel in showreel_documents]
+    return showreels
 
 
 def get_configured_data_sources(accessor):
     """
     data sources are collections that are not explicitly created at startup
-    we have to assume that any collection configured that is no a system or app collection
-    is a data_source
+    we have to assume that any collection configured that is no a system or
+    app collection is a data_source
     """
     collections = accessor.get_local_collections()
     data_sources = [

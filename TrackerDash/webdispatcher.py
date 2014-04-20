@@ -12,11 +12,12 @@ from twisted.web.static import File
 from TrackerDash.constants import APP_LOG_FILE
 from TrackerDash.constants import TWISTED_LOG_FILE
 from TrackerDash.templates.basewebpage import BasePage
+from TrackerDash.templates.configpage import ConfigPage
 from TrackerDash.templates.dashpage import DashPage
 from TrackerDash.templates.displaypage import DisplayPage
-from TrackerDash.templates.configpage import ConfigPage
-from TrackerDash.templates.newdash import NewDash
+from TrackerDash.templates.graphpage import GraphPage
 from TrackerDash.templates.logpage import LogPage
+from TrackerDash.templates.newdash import NewDash
 from TrackerDash.database import api_request_handler as APIRequest
 
 
@@ -48,7 +49,7 @@ class WebDispatcher(object):
         """
         Index Routing
         """
-        return '<meta http-equiv="refresh" content="1;url=/dash/"/>'
+        return '<meta http-equiv="refresh" content="1;url=/home/"/>'
 
     # Static files hosted on the server under web.
     # Use for static web files such as css and script files.
@@ -67,7 +68,7 @@ class WebDispatcher(object):
         """
         return NewDash()
 
-    @app.route('/dash/', methods=["GET"])
+    @app.route('/home/', methods=["GET"])
     def basedash(self, _request):
         """
         route to the test html page
@@ -81,12 +82,23 @@ class WebDispatcher(object):
         """
         return DashPage(dashboard)
 
-    @app.route('/display/<string:dashboard>', methods=["GET"])
-    def get_display_page(self, _request, dashboard):
+    @app.route('/graph/<string:graph>', methods=["GET"])
+    def get_graph_page(self, _request, graph):
+        return GraphPage(graph)
+
+    @app.route('/display/dashboard/<string:dashboard>', methods=["GET"])
+    def get_display_page_for_dash(self, _request, dashboard):
         """
         return a displaypage
         """
-        return DisplayPage(dashboard)
+        return DisplayPage(dashboard, 'dashboard')
+
+    @app.route('/display/graph/<string:graph>', methods=["GET"])
+    def get_display_page_for_graph(self, _request, graph):
+        """
+        return a displaypage
+        """
+        return DisplayPage(graph, 'graph')
 
     @app.route('/log/<string:log_type>', methods=["GET"])
     def get_log_page(self, _request, log_type):

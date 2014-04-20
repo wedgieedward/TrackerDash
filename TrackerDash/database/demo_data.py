@@ -1,6 +1,7 @@
 import random
 import uuid
 
+from copy import deepcopy
 from datetime import datetime
 from datetime import timedelta
 
@@ -33,6 +34,13 @@ def get_demo_doc(offset):
         "__date": timestamp
     }
 
+
+def generate_graph_dict_from_name(name):
+        """
+        """
+        return deepcopy(
+            {"title": name, "dimensions": {"width": 12, "height": 1}})
+
 description = "This was created by the -d (demo) flag on startup"
 
 
@@ -47,8 +55,6 @@ DEMO_DATA = (
     # Graphs
     ('graph', {
         "title": "Demo Pie Graph",
-        "width": 12,
-        "height": 1,
         "data_source": "named_data_source",
         "description": description,
         "data_range": {
@@ -64,8 +70,6 @@ DEMO_DATA = (
     }),
     ('graph', {
         "title": "Demo Line Graph",
-        "width": 12,
-        "height": 1,
         "data_source": "named_data_source",
         "description": description,
         "data_range": {
@@ -80,8 +84,6 @@ DEMO_DATA = (
     }),
     ('graph', {
         "title": "Demo Line Graph (Stacked)",
-        "width": 12,
-        "height": 1,
         "data_source": "named_data_source",
         "description": description,
         "data_range": {
@@ -96,8 +98,6 @@ DEMO_DATA = (
     }),
     ('graph', {
         "title": "Demo Area Graph",
-        "width": 12,
-        "height": 1,
         "data_source": "named_data_source",
         "description": description,
         "data_range": {
@@ -112,8 +112,6 @@ DEMO_DATA = (
     }),
     ('graph', {
         "title": "Demo Area Graph (Stacked)",
-        "width": 12,
-        "height": 1,
         "data_source": "named_data_source",
         "description": description,
         "data_range": {
@@ -128,8 +126,6 @@ DEMO_DATA = (
     }),
     ('graph', {
         "title": "Demo Column Graph",
-        "width": 12,
-        "height": 1,
         "data_source": "named_data_source",
         "description": description,
         "data_range": {
@@ -144,8 +140,6 @@ DEMO_DATA = (
     }),
     ('graph', {
         "title": "Demo Column Graph (Stacked)",
-        "width": 12,
-        "height": 1,
         "data_source": "named_data_source",
         "description": description,
         "data_range": {
@@ -160,8 +154,6 @@ DEMO_DATA = (
     }),
     ('graph', {
         "title": "Demo Scatter Graph",
-        "width": 12,
-        "height": 1,
         "data_source": "named_data_source",
         "description": description,
         "data_range": {
@@ -176,8 +168,6 @@ DEMO_DATA = (
     }),
     ('graph', {
         "title": "Demo Bar Graph",
-        "width": 12,
-        "height": 1,
         "data_source": "named_data_source",
         "description": description,
         "data_range": {
@@ -192,8 +182,6 @@ DEMO_DATA = (
     }),
     ('graph', {
         "title": "Demo Bar Graph (Stacked)",
-        "width": 12,
-        "height": 1,
         "data_source": "named_data_source",
         "description": description,
         "data_range": {
@@ -209,44 +197,44 @@ DEMO_DATA = (
 
     # Dashboards
     ('dashboard', {
-        "name": "[DEMO] Pie Chart",
-        "row_data": [["Demo Pie Graph"]]
+        "title": "[DEMO] Pie Chart",
+        "row_data": [
+            [generate_graph_dict_from_name("Demo Pie Graph")]
+        ]
     }),
     ('dashboard', {
-        "name": "[DEMO] Line Chart",
-        "row_data": [["Demo Line Graph"]]
+        "title": "[DEMO] Line Charts",
+        "row_data": [
+            [generate_graph_dict_from_name("Demo Line Graph")],
+            [generate_graph_dict_from_name("Demo Line Graph (Stacked)")]
+        ]
     }),
     ('dashboard', {
-        "name": "[DEMO] Line Chart (Stacked)",
-        "row_data": [["Demo Line Graph (Stacked)"]]
+        "title": "[DEMO] Area Charts",
+        "row_data": [
+            [generate_graph_dict_from_name("Demo Area Graph")],
+            [generate_graph_dict_from_name("Demo Area Graph (Stacked)")]
+        ]
     }),
     ('dashboard', {
-        "name": "[DEMO] Area Chart",
-        "row_data": [["Demo Area Graph"]]
+        "title": "[DEMO] Column Charts",
+        "row_data": [
+            [generate_graph_dict_from_name("Demo Column Graph")],
+            [generate_graph_dict_from_name("Demo Column Graph (Stacked)")]
+        ]
     }),
     ('dashboard', {
-        "name": "[DEMO] Area Chart (Stacked)",
-        "row_data": [["Demo Area Graph (Stacked)"]]
+        "title": "[DEMO] Scatter Chart",
+        "row_data": [
+            [generate_graph_dict_from_name("Demo Scatter Graph")]
+        ]
     }),
     ('dashboard', {
-        "name": "[DEMO] Column Chart",
-        "row_data": [["Demo Column Graph"]]
-    }),
-    ('dashboard', {
-        "name": "[DEMO] Column Chart (Stacked)",
-        "row_data": [["Demo Column Graph (Stacked)"]]
-    }),
-    ('dashboard', {
-        "name": "[DEMO] Scatter Chart",
-        "row_data": [["Demo Scatter Graph"]]
-    }),
-    ('dashboard', {
-        "name": "[DEMO] Bar Chart",
-        "row_data": [["Demo Bar Graph"]]
-    }),
-    ('dashboard', {
-        "name": "[DEMO] Bar Chart (Stacked)",
-        "row_data": [["Demo Bar Graph (Stacked)"]]
+        "title": "[DEMO] Bar Charts",
+        "row_data": [
+            [generate_graph_dict_from_name("Demo Bar Graph")],
+            [generate_graph_dict_from_name("Demo Bar Graph (Stacked)")]
+        ]
     }),
 
 )

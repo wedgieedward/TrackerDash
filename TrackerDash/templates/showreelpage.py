@@ -1,20 +1,20 @@
 """
-Dashboard Page
+Graph Page
 """
 from twisted.python.filepath import FilePath
 from twisted.web.template import renderer, XMLFile
 
 from TrackerDash.templates.basewebpage import BasePage
 from TrackerDash.templates.navbar import NavBar
-from TrackerDash.templates.dashcontent import DashContent
+from TrackerDash.templates.showreelpagecontent import ShowreelContent
 
 
-class DashPage(BasePage):
+class ShowreelPage(BasePage):
     display_alarms = False
 
-    def __init__(self, dashboard_name):
-        self.dashboard_name = dashboard_name
-        super(DashPage, self).__init__()
+    def __init__(self, show_reel):
+        super(ShowreelPage, self).__init__()
+        self.show_reel = show_reel
 
     @renderer
     def auto_refresh(self, request, tag):
@@ -25,7 +25,7 @@ class DashPage(BasePage):
         """
         return the dashboard
         """
-        return NavBar(self.dashboard_name, 'dashboard')
+        return NavBar(False)
 
     @renderer
     def header_scripts(self, request, tag):
@@ -40,4 +40,4 @@ class DashPage(BasePage):
         """
         return the content of this page
         """
-        return DashContent(self.dashboard_name)
+        return ShowreelContent(self.show_reel)

@@ -1,4 +1,3 @@
 <div xmlns:t="http://twistedmatrix.com/ns/twisted.web.template/0.1">
-<link href="../web/css/style.css" rel="stylesheet"> </link>
 <t:transparent t:render="theme_link"/>
 </div>

@@ -7,25 +7,57 @@ import colander
 SUPPORTED_GRAPHS = ('line', 'bar', 'area', 'column', 'scatter', 'bar', "pie")
 
 
+class ShowreelItem(colander.MappingSchema):
+    title = colander.SchemaNode(colander.String())
+    item_type = colander.SchemaNode(
+        colander.String(),
+        validator=colander.OneOf(["graph", "dashboard"]))
+
+
+class ShowreelItems(colander.SequenceSchema):
+    item = ShowreelItem()
+
+
+class Showreel(colander.MappingSchema):
+    """
+    schema for a showreel document
+    """
+    title = colander.SchemaNode(colander.String())
+    refresh_interval = colander.SchemaNode(colander.Int())
+    reels = ShowreelItems()
+
+
+class GraphDimension(colander.MappingSchema):
+    width = colander.SchemaNode(colander.Int(),
+                                validator=colander.OneOf([4, 6, 8, 12]))
+    height = colander.SchemaNode(colander.Int(),
+                                 validator=colander.Range(1, 5))
+
+
+class DashGraph(colander.MappingSchema):
+    title = colander.SchemaNode(colander.String())
+    dimensions = GraphDimension()
+
+
 class GraphRow(colander.SequenceSchema):
     """
     a list of graph names
     """
-    graph_name = colander.SchemaNode(colander.String())
+    row_data = DashGraph()
 
 
 class GraphRows(colander.SequenceSchema):
     """
     A list of graph rows
     """
-    row = GraphRow()
+    rows = GraphRow()
 
 
 class Dashboard(colander.MappingSchema):
     """
     Schema for a dashboard document
     """
-    name = colander.SchemaNode(colander.String())
+    title = colander.SchemaNode(colander.String())
     row_data = GraphRows()
 
 
@@ -45,10 +77,7 @@ class Graph(colander.MappingSchema):
     Schema for a graph document
     """
     title = colander.SchemaNode(colander.String())
-    width = colander.SchemaNode(colander.Int(),
-                                validator=colander.OneOf([4, 6, 8, 12]))
-    height = colander.SchemaNode(colander.Int(),
-                                 validator=colander.Range(1, 5))
+
     data_source = colander.SchemaNode(colander.String())
 
     # Optional args

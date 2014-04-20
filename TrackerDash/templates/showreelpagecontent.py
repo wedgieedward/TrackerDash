@@ -7,31 +7,30 @@ from twisted.web.template import Element, XMLFile, renderer, XMLString
 from twisted.python.filepath import FilePath
 
 from TrackerDash.database.mongo_accessor import MongoAccessor
-from TrackerDash.templates.graph import HighchartsGraph
 
 
-class GraphContent(Element):
+class ShowreelContent(Element):
     """
     Element to handle the content of a dashboard page
     """
 
-    def __init__(self, graph_name):
-        super(GraphContent, self).__init__()
+    def __init__(self, showreel_name):
+        super(ShowreelContent, self).__init__()
         self.loader = XMLFile(
             FilePath("TrackerDash/snippets/graphcontent.xml"))
-        self.graph_name = graph_name
+        self.showreel_name = showreel_name
         self.accessor = MongoAccessor()
-        self.graph_document = self.accessor.get_one_document_by_query(
-            "graph",
-            {"title": self.graph_name})
-        logging.debug("Graph Document: %r" % self.graph_document)
+        self.showreel_document = self.accessor.get_one_document_by_query(
+            "showreel",
+            {"title": self.showreel_name})
+        logging.debug("Showreel Document: %r" % self.showreel_document)
 
     @renderer
     def render_content(self, request, tag):
         """
         render the content for the graph container
         """
-        if self.graph_document is not None:
+        if self.showreel_document is not None:
             graph_row_xml = XMLString(self.get_graph_xml())
             return graph_row_xml.load()
         else:
@@ -49,13 +48,5 @@ class GraphContent(Element):
     def get_graph_xml(self):
         """
         """
-        xml = "<div>"
-        xml += '<div class="row clearfix">'
-        xml += '<div class="col-md-12 column">'
-        this_graph = HighchartsGraph(self.graph_document, 1, 1)
-        xml += this_graph.load()
-        xml += '</div>'
-        xml += '</div>'
-        xml += "</div>"
 
-        return xml
+        return ""

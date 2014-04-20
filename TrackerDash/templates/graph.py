@@ -8,12 +8,12 @@ from TrackerDash.graphing.graph_constructor import HighchartsConstructor
 
 class HighchartsGraph(object):
 
-    def __init__(self, graph_document, number_of_rows):
+    def __init__(self, graph_document, graph_height, number_of_rows):
         self.graph_document = graph_document
         self.graph_title = graph_document["title"]
         self.graph_description = graph_document["description"]
         self.unique_ref = uuid.uuid4()
-        self.row_span = graph_document["height"]
+        self.row_span = graph_height
         self.number_of_rows = number_of_rows
 
     def load(self):
