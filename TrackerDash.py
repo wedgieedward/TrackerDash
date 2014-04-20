@@ -15,7 +15,6 @@ from TrackerDash.webdispatcher import WebDispatcher
 
 # logging setup
 logging.basicConfig(filename=APP_LOG_FILE, filemode='w', level=logging.INFO)
-logging.handlers.RotatingFileHandler(APP_LOG_FILE, maxBytes=200000000, backupCount=5)
 logging.info("Initialised Log File")
 
 # defaults
@@ -43,7 +42,11 @@ parser.add_argument(
     "--demo_data",
     help="Add mock demo data to the database",
     action="store_true")
-parser.add_argument("-p", "--port", help="run on specified port, default = 8090", type=int)
+parser.add_argument(
+    "-p",
+    "--port",
+    help="run on specified port, default = 8090",
+    type=int)
 
 
 def get_ip_address():
@@ -68,7 +71,8 @@ if __name__ == '__main__':
     accessor = MongoAccessor()
     if not database_common.is_mongo_configured(accessor):
         print "Database not configured to run TrackerDash, initialising now."
-        logging.debug("database is not configured, adding essential collections")
+        logging.debug(
+            "database is not configured, adding essential collections")
         accessor.add_essential_collections()
 
     args = parser.parse_args()
@@ -78,7 +82,8 @@ if __name__ == '__main__':
         for x in range(5):
             # Only want to prompt up to 5 times
             user_input = raw_input(
-                "WARNING: Are You Sure You Want To Clear The Database? [y|n] default: no: ")
+                "WARNING: Are You Sure You Want To Clear The Database? "
+                "[y|n] default: no: ")
             if user_input in ('y', 'Y'):
                 print "Clearing the database."
                 accessor.reset_all()
@@ -87,7 +92,8 @@ if __name__ == '__main__':
                 print "Not clearing the database."
                 break
     if args.clean_datasources:
-        for collection in database_common.get_configured_data_sources(accessor):
+        for collection in database_common.get_configured_data_sources(
+                accessor):
             accessor.delete_collection(collection)
     if args.demo_data:
         print "Adding demo data to the database."
