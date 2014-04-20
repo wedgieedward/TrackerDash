@@ -22,10 +22,13 @@ go to the TrackerDash directory: `cd TrackerDash`
 
 run setup.py:  `sudo python setup.py install`
 
+run setup.py:  `sudo python setup.py install`
+test installation was successful run:  `sudo python setup.py test`
+
 ### Start TrackerDash server
 
-To start TrackerDash normally: `python TrackerDash/run_app.py`
+To start TrackerDash normally: `python TrackerDash.py`
 
-To see a list of available commands: `python TrackerDash/run_app.py --help`
+To see a list of available commands: `python TrackerDash.py --help`
 
 _By default, the application will listen on your local network IP Address on port 8090. To listen on a specific port use the -p <port number> command on runtime. You can use -l to run the server on localhost_
