@@ -5,6 +5,7 @@ from accessor_sanity import *
 from module_sanity import *
 from nav_bar_sanity import *
 from schema_sanity import *
+from theme_helpers_tester import *
 
 
 if __name__ == '__main__':
