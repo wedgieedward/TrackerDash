@@ -50,3 +50,29 @@ class TestThemeHelpers(unittest.TestCase):
         self.assertIsNotNone(style_document)
         self.assertEquals(
             style_document["style"], theme_helpers.get_default_style())
+
+    def test_set_style(self):
+        """
+        """
+        configured_style = theme_helpers.get_configured_style(self.accessor)
+        self.assertIsNotNone(configured_style)
+
+        test_string = "test_style"
+        theme_helpers.set_style(self.accessor, test_string)
+
+        new_style = theme_helpers.get_configured_style(self.accessor)
+        self.assertNotEquals(new_style, configured_style)
+        self.assertEquals(new_style, test_string)
+
+    def test_set_theme(self):
+        """
+        """
+        configured_theme = theme_helpers.get_configured_theme(self.accessor)
+        self.assertIsNotNone(configured_theme)
+
+        test_string = "test_theme"
+        theme_helpers.set_theme(self.accessor, test_string)
+
+        new_theme = theme_helpers.get_configured_theme(self.accessor)
+        self.assertNotEquals(new_theme, configured_theme)
+        self.assertEquals(new_theme, test_string)
