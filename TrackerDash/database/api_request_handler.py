@@ -4,44 +4,11 @@ Api request handler
 import json
 import logging
 
-from twisted.internet.defer import succeed
-
 from TrackerDash.common import theme_helpers
 from TrackerDash.database import common as db_common
 from TrackerDash.database.mongo_accessor import MongoAccessor
 from TrackerDash.schemas.api import Graph as GraphSchema
 from TrackerDash.schemas.api import Dashboard as DashboardSchema
-
-
-def process_request(request):
-    """
-    Given a request, do stuff.
-    """
-    arguments = request.args
-    if len(arguments.keys()) != 1:
-        raise SyntaxError("Too many arguments")
-
-    method = arguments.keys()[0]
-    if method == "create_dashboard":
-        return create_dashboard_request_handler(arguments["create_dashboard"])
-    else:
-        raise NotImplementedError(
-            "No API method for request type '%s'" % method)
-
-
-def create_dashboard_request_handler(data):
-    """
-    """
-    dashboard_name = json.loads(data[0])["title"]
-    accessor = MongoAccessor()
-    docs = accessor.get_documents_by_query(
-        "dashboard", {"title": dashboard_name})
-    if docs == []:
-        accessor.add_document_to_collection(
-            "dashboard", {"title": dashboard_name})
-    else:
-        raise NameError("Document Already Exists")
-    return succeed
 
 
 class APIRequest(object):
@@ -140,12 +107,18 @@ class APIPOSTRequest(APIRequest):
     def __init__(self, request, request_type):
         super(APIPOSTRequest, self).__init__(request, request_type)
 
+    def get_content(self):
+        """
+        get the content from the request
+        """
+        return json.loads(self.request.content.readlines()[0])
+
     def process(self):
         """
         """
         logging.debug("Processing API POST request: %s" % self.request_type)
         rt = self.request_type
-        content = json.loads(self.request.content.readlines()[0])
+        content = self.get_content()
 
         # Post Raw Data To A Data Source
         if rt == "post_data":
