@@ -33,6 +33,11 @@ parser.add_argument(
     help="WARNING: clears the entire database back to base settings",
     action="store_true")
 parser.add_argument(
+    "-sc",
+    "--safe_clean",
+    help="Remove all database configuration except data_sources",
+    type="store_true")
+parser.add_argument(
     "-cd",
     "--clean_datasources",
     help="WARNING: clears all the data sources in the database",
@@ -83,7 +88,7 @@ if __name__ == '__main__':
             # Only want to prompt up to 5 times
             user_input = raw_input(
                 "WARNING: Are You Sure You Want To Clear The Database? "
-                "[y|n] default: no: ")
+                "[y|N] default: no: ")
             if user_input in ('y', 'Y'):
                 print "Clearing the database."
                 accessor.reset_all()
@@ -95,6 +100,8 @@ if __name__ == '__main__':
         for collection in database_common.get_configured_data_sources(
                 accessor):
             accessor.delete_collection(collection)
+    if args.safe_clean:
+        accessor.reset_essential_collections()
     if args.demo_data:
         print "Adding demo data to the database."
         database_common.add_demo_data(accessor)

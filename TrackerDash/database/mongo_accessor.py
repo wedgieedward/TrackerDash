@@ -60,6 +60,15 @@ class MongoAccessor(object):
             self.delete_collection(collection)
         self.add_essential_collections()
 
+    def reset_essential_collections(self):
+        """
+        warning: deletes the contents of ESSENTIAL_COLLECTIONS, retaining
+        data_sources
+        """
+        for collection in ESSENTIAL_COLLECTIONS:
+            self.delete_collection(collection)
+        self.add_essential_collections()
+
     def add_essential_collections(self):
         """
         add the minimum collections required for TrackerDash to operate
@@ -69,7 +78,8 @@ class MongoAccessor(object):
 
     def verify_essential_collections_present(self):
         """
-        returns true if all the collections required to operate are present in the database
+        returns true if all the collections required to operate are
+        present in the database
         """
         present = True
         all_collections = self.get_local_collections()
@@ -82,7 +92,8 @@ class MongoAccessor(object):
     # Collection Operations
     def get_all_collections(self):
         """
-        return a list of all the collections in the database including system collections
+        return a list of all the collections in the database including system
+        collections
         """
         return self.database.collection_names(include_system_collections=True)
 
@@ -208,8 +219,8 @@ class MongoAccessor(object):
                                           collection_name,
                                           **kwargs):
         """
-        Given a collection and a time interval, get all the documents in that collection
-        created after that defined time interval
+        Given a collection and a time interval, get all the documents in that
+        collection created after that defined time interval
         """
         # months gets ignored intentionally
         timestamp = self.get_date_x_ago(**kwargs)
