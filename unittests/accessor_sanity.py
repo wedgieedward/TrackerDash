@@ -1,4 +1,4 @@
-
+from copy import deepcopy
 from datetime import datetime
 from datetime import timedelta
 import unittest
@@ -76,17 +76,22 @@ class AccessorSanity(unittest.TestCase):
         collection = "timequerycollection"
         days = 30
         self.add_data_over_x_days(collection, days)
-        docs_in_collection = accessor.get_number_of_documents_in_collection(collection)
+        docs_in_collection = accessor.get_number_of_documents_in_collection(
+            collection)
         self.assertEquals(docs_in_collection, days)
-        docs_in_last_seven_days = accessor.get_all_documents_created_in_last(collection, weeks=1)
+        docs_in_last_seven_days = accessor.get_all_documents_created_in_last(
+            collection, weeks=1)
         self.assertEquals(len(docs_in_last_seven_days), 7)
-        docs_in_last_seven_days = accessor.get_all_documents_created_in_last(collection, days=7)
+        docs_in_last_seven_days = accessor.get_all_documents_created_in_last(
+            collection, days=7)
         self.assertEquals(len(docs_in_last_seven_days), 7)
-        docs_in_the_last_eight_days = accessor.get_all_documents_created_in_last(
-            collection, weeks=1, days=1)
+        docs_in_the_last_eight_days = (
+            accessor.get_all_documents_created_in_last(
+                collection, weeks=1, days=1))
         self.assertEquals(len(docs_in_the_last_eight_days), 8)
-        docs_in_the_last_eight_days = accessor.get_all_documents_created_in_last(
-            collection, days=8)
+        docs_in_the_last_eight_days = (
+            accessor.get_all_documents_created_in_last(
+                collection, days=8))
         self.assertEquals(len(docs_in_the_last_eight_days), 8)
 
     def test_create_duplicate_collection(self):
@@ -118,7 +123,8 @@ class AccessorSanity(unittest.TestCase):
         for x in range(number_of_docs_to_add):
             document = {"value": x}
             accessor.add_document_to_collection(collection, document)
-        number_of_docs_in_collection = accessor.get_number_of_documents_in_collection(collection)
+        number_of_docs_in_collection = (
+            accessor.get_number_of_documents_in_collection(collection))
         self.assertEquals(number_of_docs_in_collection, number_of_docs_to_add)
         last_doc = accessor.get_last_document_inserted(collection)
         self.assertIsNotNone(last_doc)
@@ -127,26 +133,46 @@ class AccessorSanity(unittest.TestCase):
     def test_redundant_post(self):
         accessor = TestAccessor()
         collection = "redundencytest"
-        accessor.add_document_to_collection_redundant(collection, {"test": 1, "foo": "bar"}, 60)
-        accessor.add_document_to_collection_redundant(collection, {"test": 1, "foo": "bar"}, 60)
-        accessor.add_document_to_collection_redundant(collection, {"test": 1, "foo": "bar"}, 60)
-        accessor.add_document_to_collection_redundant(collection, {"test": 1, "foo": "bar"}, 60)
-        accessor.add_document_to_collection_redundant(collection, {"test": 1, "foo": "bar"}, 60)
-        accessor.add_document_to_collection_redundant(collection, {"test": 1, "foo": "bar"}, 60)
-        accessor.add_document_to_collection_redundant(collection, {"test": 1, "foo": "bar"}, 60)
-        self.assertEquals(accessor.get_number_of_documents_in_collection(collection), 1)
-        accessor.add_document_to_collection_redundant(collection, {"test": 2, "foo": "bar"}, 60)
-        accessor.add_document_to_collection_redundant(collection, {"test": 2, "foo": "bar"}, 60)
-        accessor.add_document_to_collection_redundant(collection, {"test": 2, "foo": "bar"}, 60)
-        accessor.add_document_to_collection_redundant(collection, {"test": 2, "foo": "bar"}, 60)
-        accessor.add_document_to_collection_redundant(collection, {"test": 2, "foo": "bar"}, 60)
-        accessor.add_document_to_collection_redundant(collection, {"test": 2, "foo": "bar"}, 60)
-        accessor.add_document_to_collection_redundant(collection, {"test": 2, "foo": "bar"}, 60)
-        accessor.add_document_to_collection_redundant(collection, {"test": 2, "foo": "bar"}, 60)
-        self.assertEquals(accessor.get_number_of_documents_in_collection(collection), 2)
-        accessor.add_document_to_collection_redundant(collection, {"test": 1, "foo": "bar"}, 60)
-        accessor.add_document_to_collection_redundant(collection, {"test": 2, "foo": "bar"}, 60)
-        self.assertEquals(accessor.get_number_of_documents_in_collection(collection), 4)
+        accessor.add_document_to_collection_redundant(
+            collection, {"test": 1, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(
+            collection, {"test": 1, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(
+            collection, {"test": 1, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(
+            collection, {"test": 1, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(
+            collection, {"test": 1, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(
+            collection, {"test": 1, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(
+            collection, {"test": 1, "foo": "bar"}, 60)
+        self.assertEquals(
+            accessor.get_number_of_documents_in_collection(collection), 1)
+        accessor.add_document_to_collection_redundant(
+            collection, {"test": 2, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(
+            collection, {"test": 2, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(
+            collection, {"test": 2, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(
+            collection, {"test": 2, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(
+            collection, {"test": 2, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(
+            collection, {"test": 2, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(
+            collection, {"test": 2, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(
+            collection, {"test": 2, "foo": "bar"}, 60)
+        self.assertEquals(
+            accessor.get_number_of_documents_in_collection(collection), 2)
+        accessor.add_document_to_collection_redundant(
+            collection, {"test": 1, "foo": "bar"}, 60)
+        accessor.add_document_to_collection_redundant(
+            collection, {"test": 2, "foo": "bar"}, 60)
+        self.assertEquals(
+            accessor.get_number_of_documents_in_collection(collection), 4)
 
     def add_data_over_x_days(self, collection_name, days):
         """
@@ -160,6 +186,63 @@ class AccessorSanity(unittest.TestCase):
                 "__date": timestamp
             }
             accessor.add_document_to_collection(collection_name, document)
+
+    def test_date_gets_added_to_record(self):
+        """
+        modify_document_for_database is meant to add a utc date to each
+        inserted record
+        """
+        accessor = TestAccessor()
+        document = {u"test": u"document"}
+        accessor.add_document_to_collection(
+            "test_collection", deepcopy(document))
+
+        saved_document = accessor.get_one_document_by_query(
+            'test_collection', document)
+        self.assertIsNotNone(saved_document)
+        self.assertNotEquals(saved_document, document)
+        self.assertIn("__date", saved_document)
+        del saved_document["__date"]
+        del saved_document["_id"]
+        self.assertEquals(saved_document, document)
+
+    def test_get_all_documents_from_collection(self):
+        """
+        tests that we can save and get all the documents in a collection
+        """
+        accessor = TestAccessor()
+        document = {"test": "document"}
+        collection = "test_collection"
+        for x in range(1, 20):
+            accessor.add_document_to_collection(collection, deepcopy(document))
+            recs = accessor.get_all_documents_from_collection(collection)
+            self.assertEquals(len(recs), x)
+            recs = accessor.get_documents_by_query(
+                collection, deepcopy(document))
+            self.assertEquals(len(recs), x)
+
+    def test_remove_documents_by_query(self):
+        """
+        tests that we delete by query correctly
+        """
+        accessor = TestAccessor()
+        collection = "test_collection"
+        max_val = 20
+        for x in range(1, max_val):
+            document = {"key": x}
+            accessor.add_document_to_collection(collection, document)
+            self.assertEquals(
+                accessor.get_number_of_documents_in_collection(collection), x)
+
+        for x in range(1, max_val)[::-1]:  # reverse list
+            document = {"key": x}
+            self.assertEquals(
+                accessor.get_number_of_documents_in_collection(collection), x)
+            accessor.remove_documents_by_query(collection, document)
+            self.assertEquals(
+                accessor.get_number_of_documents_in_collection(collection),
+                x - 1)
+
 
 if __name__ == '__main__':
     unittest.main()
