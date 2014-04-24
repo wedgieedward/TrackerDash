@@ -236,5 +236,23 @@ DEMO_DATA = (
             [generate_graph_dict_from_name("Demo Bar Graph (Stacked)")]
         ]
     }),
+    ('showreel', {
+        "title": "Demo Showreel",
+        "refresh_interval": 15,
+        "reels": [
+            {
+                "title": "[DEMO] Line Charts",
+                "item_type": "dashboard"
+            },
+            {
+                "title": "Demo Pie Graph",
+                "item_type": 'graph'
+            },
+            {
+                "title": "[DEMO] Area Charts",
+                "item_type": "dashboard"
+            }
+        ]
+    })
 
 )

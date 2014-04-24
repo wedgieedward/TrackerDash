@@ -60,5 +60,5 @@ class NavBar(Element):
         elif self.item_type == 'graph':
             link = "../display/graph/%s" % self.item_to_display
         else:
-            link = '#'
+            link = '../display/showreel/%s' % self.item_to_display
         yield tag.clone().fillSlots(displayLink=link)

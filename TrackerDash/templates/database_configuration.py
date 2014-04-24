@@ -60,7 +60,7 @@ class DatabaseContent(Element):
             documents = self.accessor.get_all_documents_from_collection(
                 collection)
             for document in documents:
-                string += self.get_list_item(document["name"])
+                string += self.get_list_item(document["title"])
         return string
 
     def get_graph_xml(self):
@@ -98,7 +98,7 @@ class DatabaseContent(Element):
             documents = self.accessor.get_all_documents_from_collection(
                 collection)
             for document in documents:
-                name = document["name"]
+                name = document["title"]
                 badge_number = self.get_number_of_graphs_from_dashboard(
                     document)
                 string += self.get_list_item_with_badge(name, badge_number)

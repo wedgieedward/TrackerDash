@@ -16,6 +16,7 @@ from TrackerDash.templates.configpage import ConfigPage
 from TrackerDash.templates.dashpage import DashPage
 from TrackerDash.templates.displaypage import DisplayPage
 from TrackerDash.templates.graphpage import GraphPage
+from TrackerDash.templates.showreelpage import ShowreelPage
 from TrackerDash.templates.logpage import LogPage
 from TrackerDash.templates.newdash import NewDash
 from TrackerDash.database import api_request_handler as APIRequest
@@ -99,6 +100,17 @@ class WebDispatcher(object):
         return a displaypage
         """
         return DisplayPage(graph, 'graph')
+
+    @app.route('/showreel/<string:showreel>', methods=["GET"])
+    def get_showreel_page(self, _request, showreel):
+        return ShowreelPage(showreel)
+
+    @app.route('/display/showreel/<string:showreel>', methods=["GET"])
+    def get_display_page_for_showreel(self, _request, showreel):
+        """
+        return a displaypage
+        """
+        return DisplayPage(showreel, 'showreel')
 
     @app.route('/log/<string:log_type>', methods=["GET"])
     def get_log_page(self, _request, log_type):

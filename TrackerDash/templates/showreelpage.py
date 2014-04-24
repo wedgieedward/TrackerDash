@@ -25,7 +25,7 @@ class ShowreelPage(BasePage):
         """
         return the dashboard
         """
-        return NavBar(False)
+        return NavBar(self.show_reel)
 
     @renderer
     def header_scripts(self, request, tag):

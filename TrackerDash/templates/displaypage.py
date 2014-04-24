@@ -8,6 +8,7 @@ from twisted.web.template import renderer, XMLString, XMLFile
 from TrackerDash.templates.basewebpage import BasePage
 from TrackerDash.templates.dashcontent import DashContent
 from TrackerDash.templates.graphcontent import GraphContent
+from TrackerDash.templates.showreelpagecontent import ShowreelContent
 from TrackerDash.templates.theme_loader import ThemeLoader
 
 
@@ -24,6 +25,8 @@ class DisplayPage(BasePage):
 
     @renderer
     def auto_refresh(self, request, tag):
+        if self.item_type == 'showreel':
+            return ''
         return XMLString(
             '<meta http-equiv="refresh" content="%s"></meta>' % (
                 self.refresh_interval)).load()
@@ -52,6 +55,8 @@ class DisplayPage(BasePage):
             return DashContent(self.item_to_display)
         elif self.item_type == 'graph':
             return GraphContent(self.item_to_display)
+        elif self.item_type == 'showreel':
+            return ShowreelContent(self.item_to_display)
 
     @renderer
     def navbar(self, request, tag):

@@ -71,6 +71,6 @@ class HighchartsGraph(object):
                         $('#%s').highcharts(jQuery.parseJSON(%r));
                     });
                 </script>
-            <div id="%s" style="min-width: 310px; margin: 0"></div>
+            <div id="%s" style="min-width: 310px; margin: 0; overflow: hidden;"></div>
             </div>
             """)
