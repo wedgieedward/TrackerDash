@@ -84,8 +84,6 @@ class GraphObject(BaseSchemaObject):
     Implements a shell of a Graph Object
     Required Keys:
         title: (string)
-        width: (int: [4, 6, 8, 12])
-        height: (int: 1-5)
         data_source: (string)
 
     Optional Keys:
@@ -95,3 +93,19 @@ class GraphObject(BaseSchemaObject):
         stacked: (boolean: default: False)
     """
     schema = Graph()
+
+
+class ShowreelObject(BaseSchemaObject):
+    """
+    Implements a shell of a Showreel Object
+    Required Keys:
+        title: (string)
+        refresh_interval: (int)
+        reels: (list of showreel dicts)
+
+    example reel_dict
+    {
+        "title": <configured graph|dashboard title> (string),
+        "item_type": <graph|dashboard> (string)
+    }
+    """
