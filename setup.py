@@ -6,7 +6,7 @@ if sys.version_info < (2, 7):
 
 setup(
     name='TrackerDash',
-    version='0.2',
+    version='0.3',
     description=(
         'Live Information Dashboard Written In Python Using Twisted-Klein'),
     url='https://github.com/wedgieedward/TrackerDash',
