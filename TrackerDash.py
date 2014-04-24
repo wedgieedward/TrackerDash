@@ -36,7 +36,7 @@ parser.add_argument(
     "-sc",
     "--safe_clean",
     help="Remove all database configuration except data_sources",
-    type="store_true")
+    action="store_true")
 parser.add_argument(
     "-cd",
     "--clean_datasources",
@@ -97,10 +97,12 @@ if __name__ == '__main__':
                 print "Not clearing the database."
                 break
     if args.clean_datasources:
+        print "Cleaning Datasources"
         for collection in database_common.get_configured_data_sources(
                 accessor):
             accessor.delete_collection(collection)
     if args.safe_clean:
+        print "Cleaning out Essential Collections, preserving datasources"
         accessor.reset_essential_collections()
     if args.demo_data:
         print "Adding demo data to the database."
