@@ -1,5 +1,7 @@
 """
 Api request handler
+TODO:
+Use serializers to generate correct output
 """
 import json
 import logging
@@ -82,6 +84,7 @@ class APIGETRequest(APIRequest):
             'dashboard')
         for doc in dash_docs:
             del doc["_id"]
+            del doc["__date"]
         return {"dashboards": dash_docs}
 
     def get_graph_information(self):
@@ -91,6 +94,7 @@ class APIGETRequest(APIRequest):
         graph_docs = self.accessor.get_all_documents_from_collection('graph')
         for doc in graph_docs:
             del doc["_id"]
+            del doc["__date"]
         return {"graphs": graph_docs}
 
     def get_graph_names(self):
