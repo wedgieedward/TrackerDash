@@ -85,6 +85,8 @@ BASE_STYLE = {
     },
     'yAxis': {
         "title": '',
+        "maxPadding": 0,
+        "minPadding": 0,
         "allowDecimals": False,
         "opposite": True,
         "labels": {

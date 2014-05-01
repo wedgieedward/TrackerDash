@@ -65,9 +65,9 @@ class DisplayPage(BasePage):
         """
         return ""
 
-    @renderer
-    def footer(self, request, tag):
-        """
-        we do not want to render the footer
-        """
-        return ""
+    # @renderer
+    # def footer(self, request, tag):
+    #     """
+    #     we do not want to render the footer
+    #     """
+    #     return ""

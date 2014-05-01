@@ -116,7 +116,13 @@
                             <!--     <li class="divider">
                                 </li> -->
                                 <li>
-                                    <a href="https://github.com/wedgieedward/TrackerDash/issues"><span class="glyphicon glyphicon-warning-sign"/> Report a bug.</a>
+                                    <a href="https://github.com/wedgieedward/TrackerDash/"><span class="glyphicon glyphicon-info-sign"/> About</a>
+                                </li>
+                                <li>
+                                    <a href="https://github.com/wedgieedward/TrackerDash/wiki"><span class="glyphicon glyphicon-list-alt"/> Wiki</a>
+                                </li>
+                                <li>
+                                    <a href="https://github.com/wedgieedward/TrackerDash/issues"><span class="glyphicon glyphicon-warning-sign"/> Report A Bug</a>
                                 </li>
                                 <li class="divider"/>
                                 <li>

@@ -8,14 +8,9 @@
             </ul>
             <ul class="nav nav-pills pull-right">
                 <li>
-                    <a href="https://github.com/wedgieedward/TrackerDash/">About</a>
+                    <div id="digital_clock" class="clock"></div>
                 </li>
-                <li>
-                    <a href="https://github.com/wedgieedward/TrackerDash/wiki">Wiki</a>
-                </li>
-                <li>
-                    <a href="https://github.com/wedgieedward/TrackerDash/issues">Report A Bug</a>
-                </li>
+
             </ul>
         </span>
     </div>
