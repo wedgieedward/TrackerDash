@@ -204,7 +204,7 @@ class HighchartsConstructor(BaseGraphConstructor):
                     for_web = time.mktime(datetime.timetuple()) * 1000
 
                     for key in keys:
-                        data[key].append([for_web, document[key]])
+                        data[key].append([for_web, document.get(key, 0)])
 
                 for key in keys:
                     series.append({"name": key, "data": data[key]})
@@ -217,7 +217,7 @@ class HighchartsConstructor(BaseGraphConstructor):
             keys.sort()
             data = []
             for key in keys:
-                data.append([key, document[key]])
+                data.append([key, document.get(key, 0)])
             series = [{"type": self.graph_type,
                        "data": data}]
 
