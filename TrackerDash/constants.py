@@ -9,6 +9,6 @@ ESSENTIAL_COLLECTIONS = (
     "config")
 DEFAULT_THEME = 'bootstrap'
 DEFAULT_STYLE = 'light'
-TIME_LINEAR_GRAPH_TYPES = (
-    'line', 'bar', 'area', 'column', 'scatter', 'bar', 'column')
-SINGLE_DOCUMENT_GRAPH_TYPES = ("pie")
+TIME_LINEAR_GRAPH_TYPES = [
+    'line', 'bar', 'area', 'column', 'scatter', 'bar', 'column']
+SINGLE_DOCUMENT_GRAPH_TYPES = ["pie", "gauge", ]

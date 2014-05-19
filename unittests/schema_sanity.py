@@ -1,9 +1,12 @@
 """
 unit test the schemas
 """
-from copy import deepcopy
 import unittest
+
 from colander import Invalid
+from copy import deepcopy
+
+from TrackerDash.constants import SINGLE_DOCUMENT_GRAPH_TYPES, TIME_LINEAR_GRAPH_TYPES
 from TrackerDash.schemas import api
 
 
@@ -226,6 +229,26 @@ class GraphSchemaSanity(unittest.TestCase):
 
         self.assertEquals(deserialized["data_range"]["days"], 7)
 
+    def test_graph_type(self):
+        """
+        tests that all possible graphs will serialise
+        """
+        valid_graph = {"title": "Tall Wide Graph",
+                       "data_source": "someuniquestring",
+                       "data_range": {}}
+        graph_schema = api.Graph()
+        deserialized = graph_schema.deserialize(valid_graph)
+        self.assertNotEquals(deserialized, valid_graph)
+
+        for graph in TIME_LINEAR_GRAPH_TYPES:
+            valid_graph["graph_type"] = graph
+            deserialized = graph_schema.deserialize(valid_graph)
+            self.assertNotEquals(deserialized, valid_graph)
+
+        for graph in SINGLE_DOCUMENT_GRAPH_TYPES:
+            valid_graph["graph_type"] = graph
+            deserialized = graph_schema.deserialize(valid_graph)
+            self.assertNotEquals(deserialized, valid_graph)
 
 if __name__ == '__main__':
     unittest.main()
