@@ -1,7 +1,8 @@
 """
 class for rendering individual graphs
 
-TODO: Re Structure this class as a priority to be able to apply default and custom parameters
+TODO: Re Structure this class as a priority to be
+able to apply default and custom parameters
 """
 import logging
 from TrackerDash.constants import TIME_LINEAR_GRAPH_TYPES
