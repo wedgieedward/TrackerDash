@@ -6,7 +6,8 @@ import unittest
 from colander import Invalid
 from copy import deepcopy
 
-from TrackerDash.constants import SINGLE_DOCUMENT_GRAPH_TYPES, TIME_LINEAR_GRAPH_TYPES
+from TrackerDash.constants import SINGLE_DOCUMENT_GRAPH_TYPES
+from TrackerDash.constants import TIME_LINEAR_GRAPH_TYPES
 from TrackerDash.schemas import api
 
 
