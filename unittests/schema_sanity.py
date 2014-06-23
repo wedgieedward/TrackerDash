@@ -129,7 +129,7 @@ class DashboardSchemaSanity(unittest.TestCase):
         """
         # Bad Name
         dashboard_dict = {
-            "title": 1234,
+            "title": None,
             "row_data": [
                 [
                     self.generate_graph_dict_from_name("graph1"),
