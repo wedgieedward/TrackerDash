@@ -34,13 +34,12 @@ class APIRequest(object):
 class APIGETRequest(APIRequest):
 
     def __init__(self, request, request_type):
-        """
-        """
         self.response = None
         super(APIGETRequest, self).__init__(request, request_type)
 
     def render(self):
         """
+        return the request as readable json
         """
         return json.dumps(self.response)
 
@@ -119,6 +118,7 @@ class APIPOSTRequest(APIRequest):
 
     def process(self):
         """
+        Process the twisted request.
         """
         logging.debug("Processing API POST request: %s" % self.request_type)
         rt = self.request_type

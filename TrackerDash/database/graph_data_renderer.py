@@ -1,8 +1,5 @@
 """
 class for rendering individual graphs
-
-TODO: Re Structure this class as a priority to be
-able to apply default and custom parameters
 """
 import logging
 from TrackerDash.constants import TIME_LINEAR_GRAPH_TYPES
@@ -11,16 +8,17 @@ from TrackerDash.database.mongo_accessor import MongoAccessor
 
 
 class DataRenderer(object):
-    # If there is a lot of data, use every nth document instead
-    OPTIMISE_AMOUNT = 5
-    # Number of records where we should start optimising
-    OPTIMISE_BOUNDRY = 1000
+    def __init__(self, graph_document, optimise_factor=5, optimise_limit=1000):
+        # reduce the data size by 1/optimise_factor
+        self.optimise_factor = optimise_factor
+        # the point at which data should be optimised
+        self.optimise_limit = optimise_limit
 
-    def __init__(self, graph_document):
         self.graph_document = graph_document
         self.data_range = self.graph_document["data_range"]
         self.data_source = graph_document["data_source"]
         self.accessor = MongoAccessor()
+
         # This is an array of documents needed for this class to process later.
         self.relevent_data = self.get_relevent_data_for_graph_type()
         self.optimise_relevent_data()
@@ -43,8 +41,8 @@ class DataRenderer(object):
 
     def optimise_relevent_data(self):
         """
-
+        Will reduce the number of data points to render for speed-up
         """
-        if len(self.relevent_data) > self.OPTIMISE_BOUNDRY:
+        if len(self.relevent_data) > self.optimise_limit:
             logging.debug("Optimising graph data")
-            self.relevent_data = self.relevent_data[0::self.OPTIMISE_AMOUNT]
+            self.relevent_data = self.relevent_data[0::self.optimise_factor]

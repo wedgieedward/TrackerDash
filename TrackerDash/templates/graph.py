@@ -3,7 +3,7 @@ Graph object
 """
 import uuid
 
-from TrackerDash.graphing.graph_constructor import HighchartsConstructor
+from TrackerDash.graphing.highcharts_constructor import HighchartsConstructor
 
 
 class HighchartsGraph(object):

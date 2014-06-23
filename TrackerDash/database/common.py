@@ -14,7 +14,7 @@ from TrackerDash.database.mongo_accessor import MongoAccessor
 def is_mongo_running():
     """
     tries to connect to a running mongo instance.
-    if we can connect to one
+    if we can connect to one, return True
     """
     logging.info("Trying to make a connection to a mongodb instance")
     try:

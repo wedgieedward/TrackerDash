@@ -11,6 +11,7 @@ data_source_3 = str(uuid.uuid4())
 data_source_4 = str(uuid.uuid4())
 
 desc = "Created By TrackerDash for Demo Purposes"
+description = "This was created by the -d (demo) flag on startup"
 
 
 def get_num():
@@ -37,13 +38,14 @@ def get_demo_doc(offset):
 
 def generate_graph_dict_from_name(name):
         """
+        creates a correct dictionary to represent a graph dict object
         """
         return deepcopy(
             {"title": name, "dimensions": {"width": 12, "height": 1}})
 
-description = "This was created by the -d (demo) flag on startup"
 
-
+# Start of demo data constant to be iterated over and
+# inserted into the database
 DEMO_DATA = (
     # Single Named Data Source
     ('named_data_source', get_demo_doc(5)),

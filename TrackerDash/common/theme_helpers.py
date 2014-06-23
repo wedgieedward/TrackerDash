@@ -6,6 +6,9 @@ from TrackerDash.constants import DEFAULT_STYLE
 
 
 def get_configured_themes():
+    """
+    Return a list of all the configured themes
+    """
     configured_themes = []
     # go through the file system and work out what themes are configured
     for _dirname, dirnames, _filenames in os.walk(
@@ -20,14 +23,14 @@ def get_configured_themes():
 
 def get_default_theme():
     """
-    get the default theme
+    Return the default theme name
     """
     return DEFAULT_THEME
 
 
 def set_theme(accessor, theme):
     """
-    set a theme
+    Sets a theme in the config file
     """
     logging.info("Setting application theme: %s" % theme)
     accessor.remove_documents_by_query('config', {"config": "theme"})
@@ -66,10 +69,19 @@ def get_configured_style(accessor):
 
 
 def get_default_style():
+    """
+    return the default style
+    """
     return DEFAULT_STYLE
 
 
 def get_configured_styles():
+    """
+    returns a list of the possible styles.
+    TODO: make this dynamic, currently there are only two themes confifured
+          end users will eventually be able to set their own style for
+          graphs, so this needs to change.
+    """
     return ('light', 'dark')
 
 
