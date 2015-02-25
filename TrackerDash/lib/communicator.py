@@ -3,7 +3,12 @@ TrackerDash API Library
 """
 import json
 import requests
-import urllib2
+
+# Python 3 support
+try:
+    import urllib.request as urllib2
+except ImportError:
+    import urllib2
 
 
 class Communicator(object):
