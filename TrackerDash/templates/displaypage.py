@@ -16,7 +16,7 @@ class DisplayPage(BasePage):
     """
     DisplayPage object
     """
-    refresh_interval = 60
+    refresh_interval = 15
 
     def __init__(self, item_to_display, item_type):
         self.item_to_display = item_to_display
